@@ -3,11 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/bottom_item_background.xml" value="0.223" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/ic_calender.xml" value="0.223" />
         <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/ic_favorite.xml" value="0.131" />
         <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/ic_launcher_background.xml" value="0.131" />
         <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/ic_profile.xml" value="0.131" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/ic_rates.xml" value="0.223" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/ic_upcoming.xml" value="0.223" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/img_profile_pic.xml" value="0.106" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/drawable/navigation_item_background.xml" value="0.223" />
         <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/layout/activity_main.xml" value="0.2268" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/layout/activity_splash.xml" value="0.28858486532706284" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/layout/fragment_blank.xml" value="0.23514322359982898" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/layout/layout_navigation_header.xml" value="0.28858486532706284" />
         <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/menu/bottom_menu_bar.xml" value="0.1796875" />
+        <entry key="..\:/Users/Dorin/AndroidStudioProjects/smarTravel/app/src/main/res/menu/top_menu_bar.xml" value="0.28858486532706284" />
       </map>
     </option>
   </component>

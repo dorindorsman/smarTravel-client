@@ -5,25 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:id="@+id/drawer_layout"
-    tools:context=".MainActivity">
+    android:id="@+id/main_drawerlayout"
+    tools:context=".MainActivity"
+    >
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/fragmentview"
+
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/main_Toolbar_Top"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/mainGreen"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:navigationIcon="@drawable/ic_menu"
+                app:navigationIconTint="@color/white"
+                app:title= "@string/Upcoming"
+                app:titleTextColor="@color/white"
+
+                />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/main_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
 
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+            android:id="@+id/main_bottomNavigationView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:itemIconTint="@drawable/bottom_item_background"
+            app:itemTextColor="@drawable/bottom_item_background"
             android:background="@android:color/transparent"
             android:layout_gravity="bottom"
             app:labelVisibilityMode="labeled"
@@ -31,96 +58,43 @@
 
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar"
+            android:id="@+id/main_bottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:backgroundTint="@color/mainGreen"
             android:layout_gravity="bottom"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="15dp"
             app:fabCradleRoundedCornerRadius="50dp">
-
-
         </com.google.android.material.bottomappbar.BottomAppBar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/main_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
+            app:tint="@color/white"
+            android:backgroundTint="@color/mainGreen"
             app:borderWidth="0dp"
             android:layout_marginBottom="20dp"
-            app:layout_anchor="@id/bottom_app_bar"
+            app:layout_anchor="@id/main_bottomAppBar"
             app:maxImageSize="50dp" />
-
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-    <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--       >-->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/main_TopNavigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/menuGreen"
+        app:headerLayout="@layout/layout_navigation_header"
+        app:itemShapeFillColor="@color/menuGreen"
+        app:menu="@menu/top_menu_bar"
+        android:layout_gravity="start">
 
-<!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-<!--            android:id="@+id/bottomAppBar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:background="@android:color/white"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            app:backgroundTint="@android:color/white"-->
-<!--            app:fabCradleMargin="10dp"-->
-<!--            app:fabCradleRoundedCornerRadius="10dp"-->
-<!--            app:fabCradleVerticalOffset="10dp"-->
-<!--            app:menu="@menu/bottom_menu_bar" />-->
+    </com.google.android.material.navigation.NavigationView>
 
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/panel_BTN_Add"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            app:backgroundTint="@color/white"-->
-<!--            app:layout_anchor="@id/bottomAppBar"-->
-<!--            app:maxImageSize="50dp"-->
-<!--            app:srcCompat="@drawable/ic_add" />-->
-
-
-<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
-
-
-
-
-<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:animateLayoutChanges="true"-->
-<!--        android:fitsSystemWindows="true">-->
-<!--        -->
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/panel_BTN_Add"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            android:src="@drawable/ic_add"-->
-<!--            app:borderWidth="0dp"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            app:maxImageSize="50dp"-->
-<!--            />-->
-
-
-<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--            android:id="@+id/panel_BottomAppBar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            app:labelVisibilityMode="labeled"-->
-<!--            app:menu="@menu/bottom_menu_bar"-->
-<!--            />-->
-
-
-<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
