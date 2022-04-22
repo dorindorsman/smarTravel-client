@@ -11,7 +11,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Activity_Splash extends AppCompatActivity {
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
+public class ActivitySplash extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT=5000;
 
@@ -23,6 +28,11 @@ public class Activity_Splash extends AppCompatActivity {
     //Animations
     Animation topAnimation, bottomAnimation, middleAnimation;
 
+
+    GoogleSignInClient mGoogleSignInClient;
+    GoogleSignInOptions gso;
+    GoogleSignInAccount account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +43,23 @@ public class Activity_Splash extends AppCompatActivity {
         initAnimation();
 
 
+        // TODO: 4/22/2022  add check if work
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
         //Splash Screen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                    replaceActivity();
+                    replaceActivity(MainActivity.class);
             }
         },SPLASH_TIME_OUT);
 
@@ -79,11 +101,32 @@ public class Activity_Splash extends AppCompatActivity {
     }
 
 
-    private void replaceActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void replaceActivity(Class activity) {
+        Intent intent = new Intent(this, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
     }
+
+
+    // TODO: 4/22/2022 Add - check if work 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
+    }
+
+    private void updateUI(GoogleSignInAccount account) {
+        if(account!=null){
+            replaceActivity(MainActivity.class);
+        }else{
+            replaceActivity(LoginActivity.class);
+        }
+    }
+
+
 
 }

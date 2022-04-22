@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton main_fab;
     private NavigationView main_TopNavigationView;
 
-    public static final int UPCOMING = 0,HISTORY = 1, FAVORITES = 2, ITINERARY = 3, DAY_TRIP = 4,SETTINGS = 5;
-    private final int SIZE=6;
+    public static final int UPCOMING = 0,HISTORY = 1, FAVORITES = 2, ITINERARY = 3, DAY_TRIP = 4,SETTINGS = 5, PROFILE=6;
+    private final int SIZE=7;
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
+
 
 
 
@@ -52,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         initColorMenu();
         setFragments();
         initButtons();
-
-
     }
 
 
@@ -99,15 +98,14 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragments(main_fragments[FAVORITES]);
                         break;
                     case R.id.menu_profile:
-                        //main_Toolbar_Top.setTitle(R.string.Profile);
-                        //replaceFragments(main_fragments[ITINERARY]);
+                        main_Toolbar_Top.setTitle(R.string.Profile);
+                        replaceFragments(main_fragments[PROFILE]);
                         break;
                 }
                 return true;
             }
         });
 
-//        public static final int UPCOMING = 0,HISTORY = 1, FAVORITES = 2, ITINERARY = 3, DAY_TRIP = 4,SETTINGS = 5;
 
         main_TopNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -127,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragments(main_fragments[FAVORITES]);
                         break;
                     case R.id.menu_profile:
-                        //main_Toolbar_Top.setTitle(R.string.Profile);
-                        //replaceFragments(main_fragments[FAVORITES]);
+                        main_Toolbar_Top.setTitle(R.string.Profile);
+                        replaceFragments(main_fragments[PROFILE]);
                         break;
                     case R.id.menu_settings:
                         main_Toolbar_Top.setTitle(R.string.Settings);
@@ -210,12 +208,22 @@ public class MainActivity extends AppCompatActivity {
         main_fragments[ITINERARY] = new ItineraryFragment().setActivity(this);
         main_fragments[DAY_TRIP] = new DayTripFragment().setActivity(this);
         main_fragments[SETTINGS] = new SettingsFragment().setActivity(this);
+        main_fragments[PROFILE] = new ProfileFragment().setActivity(this);
 
     }
 
     private void replaceFragments(Fragment fragment){
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_fragment, fragment, null).commit();
+    }
+
+
+
+    private void replaceActivity(Class activity) {
+        Intent intent = new Intent(this, activity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
     }
 
 
