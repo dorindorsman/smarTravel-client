@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/mainGreen"
+                    android:background="@color/menuGreen"
                     android:hint="@string/firstName"
                     android:padding="5dp"
                     android:textColorHint="@color/white"
@@ -130,6 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="30"
+                        android:fontFamily="@font/roboto"
                         android:imeOptions="actionDone"
                         android:maxLength="20"
                         android:outlineAmbientShadowColor="@color/white"
@@ -168,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/mainGreen"
+                    android:background="@color/menuGreen"
                     android:hint="@string/lastName"
                     android:padding="5dp"
                     android:textColorHint="@color/white"
@@ -187,6 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="30"
+                        android:fontFamily="@font/roboto"
                         android:imeOptions="actionDone"
                         android:maxLength="20"
                         android:outlineAmbientShadowColor="@color/white"
@@ -223,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/mainGreen"
+                    android:background="@color/menuGreen"
                     android:hint="@string/email"
                     android:padding="5dp"
                     android:textColorHint="@color/white"
@@ -242,6 +244,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="30"
+                        android:fontFamily="@font/roboto"
                         android:imeOptions="actionDone"
                         android:maxLength="20"
                         android:outlineAmbientShadowColor="@color/white"
@@ -278,27 +281,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
+                    android:background="@color/menuGreen"
                     android:padding="5dp"
-                    android:background="@color/mainGreen"
+                    android:textColorHint="@color/white"
+                    app:hintTextColor="@color/white"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:textColorHint="@color/white"
-                    app:hintTextColor="@color/white"
                     app:startIconDrawable="@drawable/ic_calender"
                     app:startIconTint="@color/white">
 
 
                     <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView"
+                        android:id="@+id/EditProfile_AutoCompleteTextView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
                         android:inputType="none"
                         android:text="@string/yearBirth"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/roboto"
-                        />
+                        android:textColor="@color/white" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -319,10 +321,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp"
+                android:background="@color/menuGreen"
+                android:padding="5dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp">
+
+
+                <Switch
+                    android:id="@+id/EditProfile_simpleSwitch_Gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/menuGreen"
+                    android:checked="true"
+                    android:drawableStart="@drawable/ic_gender"
+                    android:drawablePadding="15dp"
+                    android:drawableTint="@color/white"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/gender"
+                    android:textColor="@color/white"
+                    android:textOff="Male"
+                    android:textOn="Woman"
+                    android:textSize="16sp"
+                    android:thumbTint="@color/white"
+                    android:trackTint="@color/white"/>
 
 
             </LinearLayout>
