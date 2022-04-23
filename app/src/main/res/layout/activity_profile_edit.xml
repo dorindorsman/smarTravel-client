@@ -71,24 +71,13 @@
                 </FrameLayout>
 
 
-                <!--            <com.google.android.material.textview.MaterialTextView-->
-                <!--                android:id="@+id/Profile_LBL_UserName"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginTop="8dp"-->
-                <!--                android:fontFamily="@font/roboto_bold"-->
-                <!--                android:text="@string/userName"-->
-                <!--                android:textColor="@color/mainGreen"-->
-                <!--                android:textSize="20sp"-->
-                <!--                android:textStyle="bold" />-->
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
-                    android:background="@color/mainGreen" />
+                    android:background="@color/menuGreen" />
 
             </LinearLayout>
 
@@ -111,19 +100,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/menuGreen"
                     android:hint="@string/firstName"
                     android:padding="5dp"
-                    android:textColorHint="@color/white"
-                    app:boxStrokeColor="#FFFFFF"
+                    android:textColorHint="@color/menuGreen"
+                    app:boxStrokeColor="@color/menuGreen"
                     app:boxStrokeWidth="2dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="20"
+                    app:counterTextColor="@color/menuGreen"
                     app:helperText="Required*"
-                    app:helperTextTextColor="#000000"
-                    app:hintTextColor="@color/white"
+                    app:helperTextTextColor="@color/menuGreen"
+                    app:hintTextColor="@color/menuGreen"
                     app:startIconDrawable="@drawable/ic_person"
-                    app:startIconTint="@color/white">
+                    app:startIconTint="@color/menuGreen">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/EditProfile_LBL_EditFirstName"
@@ -133,9 +122,9 @@
                         android:fontFamily="@font/roboto"
                         android:imeOptions="actionDone"
                         android:maxLength="20"
-                        android:outlineAmbientShadowColor="@color/white"
-                        android:shadowColor="@color/white"
-                        android:textColor="@color/white"
+                        android:outlineAmbientShadowColor="@color/menuGreen"
+                        android:shadowColor="@color/menuGreen"
+                        android:textColor="@color/menuGreen"
                         app:helperTextTextColor="#FF0000" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -149,7 +138,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:background="@color/mainGreen" />
+                android:background="@color/menuGreen" />
 
 
             <LinearLayout
@@ -169,19 +158,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/menuGreen"
                     android:hint="@string/lastName"
                     android:padding="5dp"
-                    android:textColorHint="@color/white"
-                    app:boxStrokeColor="#FFFFFF"
+                    android:textColorHint="@color/menuGreen"
+                    app:boxStrokeColor="@color/menuGreen"
                     app:boxStrokeWidth="2dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="20"
+                    app:counterTextColor="@color/menuGreen"
                     app:helperText="Required*"
-                    app:helperTextTextColor="#000000"
-                    app:hintTextColor="@color/white"
+                    app:helperTextTextColor="@color/menuGreen"
+                    app:hintTextColor="@color/menuGreen"
                     app:startIconDrawable="@drawable/ic_person"
-                    app:startIconTint="@color/white">
+                    app:startIconTint="@color/menuGreen">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/EditProfile_LBL_EditLastName"
@@ -191,9 +180,9 @@
                         android:fontFamily="@font/roboto"
                         android:imeOptions="actionDone"
                         android:maxLength="20"
-                        android:outlineAmbientShadowColor="@color/white"
-                        android:shadowColor="@color/white"
-                        android:textColor="@color/white"
+                        android:outlineAmbientShadowColor="@color/menuGreen"
+                        android:shadowColor="@color/menuGreen"
+                        android:textColor="@color/menuGreen"
                         app:helperTextTextColor="#FF0000" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -206,7 +195,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:background="@color/mainGreen" />
+                android:background="@color/menuGreen" />
 
             <LinearLayout
                 android:id="@+id/EditProfile_Email"
@@ -225,19 +214,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/menuGreen"
                     android:hint="@string/email"
                     android:padding="5dp"
-                    android:textColorHint="@color/white"
-                    app:boxStrokeColor="#FFFFFF"
+                    android:textColorHint="@color/menuGreen"
+                    app:boxStrokeColor="@color/menuGreen"
                     app:boxStrokeWidth="2dp"
                     app:counterEnabled="true"
                     app:counterMaxLength="20"
+                    app:counterTextColor="@color/menuGreen"
                     app:helperText="Required*"
-                    app:helperTextTextColor="#000000"
-                    app:hintTextColor="@color/white"
+                    app:helperTextTextColor="@color/menuGreen"
+                    app:hintTextColor="@color/menuGreen"
                     app:startIconDrawable="@drawable/ic_person"
-                    app:startIconTint="@color/white">
+                    app:startIconTint="@color/menuGreen">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/EditProfile_LBL_EditEmail"
@@ -247,9 +236,9 @@
                         android:fontFamily="@font/roboto"
                         android:imeOptions="actionDone"
                         android:maxLength="20"
-                        android:outlineAmbientShadowColor="@color/white"
-                        android:shadowColor="@color/white"
-                        android:textColor="@color/white"
+                        android:outlineAmbientShadowColor="@color/menuGreen"
+                        android:shadowColor="@color/menuGreen"
+                        android:textColor="@color/menuGreen"
                         app:helperTextTextColor="#FF0000" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -262,7 +251,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:background="@color/mainGreen" />
+                android:background="@color/menuGreen" />
 
 
             <LinearLayout
@@ -281,15 +270,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/menuGreen"
                     android:padding="5dp"
-                    android:textColorHint="@color/white"
-                    app:hintTextColor="@color/white"
+                    app:boxStrokeWidth="2dp"
+                    android:textColorHint="@color/menuGreen"
+                    app:boxStrokeColor="@color/menuGreen"
+                    app:hintTextColor="@color/menuGreen"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:startIconDrawable="@drawable/ic_calender"
-                    app:startIconTint="@color/white">
+                    app:startIconTint="@color/menuGreen">
 
 
                     <AutoCompleteTextView
@@ -300,7 +290,7 @@
                         android:fontFamily="@font/roboto"
                         android:inputType="none"
                         android:text="@string/yearBirth"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/menuGreen" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -313,7 +303,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:background="@color/mainGreen" />
+                android:background="@color/menuGreen" />
 
 
             <LinearLayout
@@ -324,7 +314,6 @@
                 android:orientation="horizontal"
                 android:layout_marginStart="48dp"
                 android:layout_marginEnd="48dp"
-                android:background="@color/menuGreen"
                 android:padding="5dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp">
@@ -335,29 +324,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:background="@color/menuGreen"
                     android:checked="true"
                     android:drawableStart="@drawable/ic_gender"
                     android:drawablePadding="15dp"
-                    android:drawableTint="@color/white"
+                    android:drawableTint="@color/menuGreen"
                     android:fontFamily="@font/roboto"
                     android:text="@string/gender"
-                    android:textColor="@color/white"
+                    android:textColor="@color/menuGreen"
                     android:textOff="Male"
-                    android:textOn="Woman"
+                    android:textIsSelectable="true"
+                    android:textColorHint="@color/menuGreen"
+                    android:textOn="Female"
                     android:textSize="16sp"
-                    android:thumbTint="@color/white"
-                    android:trackTint="@color/white"/>
+                    android:thumbTint="@color/menuGreen"
+                    android:trackTint="@color/selectedMenuGreen"/>
 
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:background="@color/menuGreen" />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/Profile_BTN_EditProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="@color/mainGreen"
                 android:fontFamily="@font/roboto_bold"
