@@ -7,13 +7,52 @@
     tools:context=".ProfileEditActivity"
     android:background="@color/white">
 
-    <ScrollView
+
+    <LinearLayout
+        android:id="@+id/EditProfile_TopAppBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?actionBarSize"
+        android:background="@color/mainGreen"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/EditProfile_IMG_Back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:backgroundTint="@color/mainGreen"
+            app:icon="@drawable/ic_arrow_back"
+            app:iconGravity="textStart"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/EditProfile_TextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/editProfile"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto"/>
+
+    </LinearLayout>
+
+
+
+
+    <ScrollView
+        android:id="@+id/EditProfile_Scroll_EditProfilePage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/EditProfile_TopAppBar">
 
 
         <LinearLayout
-            android:id="@+id/EditProfile_EditProfilePage"
+            android:id="@+id/EditProfile_Layout_EditProfilePage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -270,10 +309,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
+                    android:outlineAmbientShadowColor="@color/mainGreen"
+                    android:outlineSpotShadowColor="@color/mainGreen"
                     android:padding="5dp"
-                    app:boxStrokeWidth="2dp"
                     android:textColorHint="@color/menuGreen"
                     app:boxStrokeColor="@color/menuGreen"
+                    app:boxStrokeWidth="2dp"
                     app:hintTextColor="@color/menuGreen"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -310,34 +351,82 @@
                 android:id="@+id/EditProfile_Gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="46dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="46dp"
                 android:orientation="horizontal"
-                android:layout_marginStart="48dp"
-                android:layout_marginEnd="48dp"
                 android:padding="5dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp">
 
-
-                <Switch
-                    android:id="@+id/EditProfile_simpleSwitch_Gender"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/panel_TextTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:checked="true"
-                    android:drawableStart="@drawable/ic_gender"
-                    android:drawablePadding="15dp"
-                    android:drawableTint="@color/menuGreen"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/gender"
+                    android:text="Gender :"
                     android:textColor="@color/menuGreen"
-                    android:textOff="Male"
-                    android:textIsSelectable="true"
-                    android:textColorHint="@color/menuGreen"
-                    android:textOn="Female"
                     android:textSize="16sp"
-                    android:thumbTint="@color/menuGreen"
-                    android:trackTint="@color/selectedMenuGreen"/>
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"
+                    android:drawableLeft="@drawable/ic_gender"
+                    android:drawableTint="@color/menuGreen"
+                    android:drawablePadding="15dp"/>
+
+                <RadioGroup
+                    android:id="@+id/EditProfile_RG_Gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/radioMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/menuGreen"
+                        android:buttonTint="@color/menuGreen"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/radioFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="16sp"
+                        android:textColor="@color/menuGreen"
+                        android:layout_marginStart="8dp"
+                        android:buttonTint="@color/menuGreen"
+                        />
+
+                </RadioGroup>
+
+
+
+<!--                <Switch-->
+<!--                    android:id="@+id/EditProfile_simpleSwitch_Gender"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:checked="true"-->
+<!--                    android:drawableStart="@drawable/ic_gender"-->
+<!--                    android:drawablePadding="15dp"-->
+<!--                    android:drawableTint="@color/menuGreen"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/gender"-->
+<!--                    android:textColor="@color/menuGreen"-->
+<!--                    android:textColorHint="@color/menuGreen"-->
+<!--                    android:textIsSelectable="true"-->
+<!--                    android:textOff="Male"-->
+<!--                    android:textOn="Female"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:thumbTint="@color/menuGreen"-->
+<!--                    android:trackTint="@color/selectedMenuGreen" />-->
 
 
             </LinearLayout>
@@ -352,7 +441,7 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/Profile_BTN_EditProfile"
+                android:id="@+id/EditProfile_BTN_Update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
