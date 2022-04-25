@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViews();
         setSupportActionBar(main_bottomAppBar);
         setSupportActionBar(main_Toolbar_Top);
-        findViews();
         initColorMenu();
         setFragments();
         initButtons();
+
     }
 
 
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initButtons() {
+
 
         main_Toolbar_Top.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,6 +202,8 @@ public class MainActivity extends AppCompatActivity {
         main_TopNavigationView.setItemIconTintList(navMenuIconList);
 
     }
+
+
 
 
     private void setFragments() {

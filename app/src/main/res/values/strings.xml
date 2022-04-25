@@ -22,7 +22,8 @@
     <string name="userGender">userGender</string>
     <string name="editProfile">Edit Profile</string>
     <string name="updateProfile">Update Profile</string>
-
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 
     <string-array name="year_of_birth">

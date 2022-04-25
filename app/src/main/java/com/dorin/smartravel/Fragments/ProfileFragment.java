@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.dorin.smartravel.MainActivity;
 import com.dorin.smartravel.ProfileEditActivity;
 import com.dorin.smartravel.R;
 import com.google.android.material.button.MaterialButton;
@@ -59,7 +58,7 @@ public class ProfileFragment extends Fragment {
         loadUserDetails();
         initButtons();
 
-
+        // TODO: 4/25/2022 when scroll the view top bar dont scroll also (like in history)
 
         return view;
     }

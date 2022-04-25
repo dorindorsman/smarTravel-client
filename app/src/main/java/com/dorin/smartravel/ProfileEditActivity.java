@@ -37,8 +37,8 @@ public class ProfileEditActivity extends AppCompatActivity {
     private TextInputEditText EditProfile_LBL_EditEmail;
     //private Switch EditProfile_simpleSwitch_Gender;
     private RadioGroup EditProfile_RG_Gender;
-    private RadioButton radioMale;
-    private RadioButton radioFemale;
+   // private RadioButton radioMale;
+   // private RadioButton radioFemale;
     private MaterialButton EditProfile_BTN_Update;
 
 
