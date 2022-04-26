@@ -59,8 +59,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         Trip trip = tripList.get(position);
         holder.title.setText(trip.getName());
         holder.count.setText(trip.getNumOfDays() + " Days");
-        holder.startDate.setText(trip.getStartDate()+ " - ");
-        holder.endDate.setText(trip.getEndDate());
+        holder.startDate.setText(trip.getStartDate());
+        holder.endDate.setText( " - "+trip.getEndDate());
 
         // loading album cover using Glide library
         Glide.with(mContext).load(trip.getThumbnail()).into(holder.thumbnail);

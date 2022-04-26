@@ -9,8 +9,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:elevation="3dp"
-        card_view:cardCornerRadius="0dp">
+        card_view:cardElevation="5dp"
+        card_view:cardCornerRadius="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
