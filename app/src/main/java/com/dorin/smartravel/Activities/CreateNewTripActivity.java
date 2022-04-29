@@ -11,8 +11,6 @@ import android.widget.DatePicker;
 import com.dorin.smartravel.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
@@ -24,6 +22,9 @@ public class CreateNewTripActivity extends AppCompatActivity {
     private TextInputLayout createTrip_TIN_StartDate;
     private TextInputLayout createTrip_TIN_EndDate;
     private MaterialButton createTrip_BTN_Create;
+
+    private DatePickerDialog startDatePickerDialog;
+    private DatePickerDialog endDatePickerDialog;
 
 
     @Override
@@ -80,7 +81,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 // date picker dialog
-                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateNewTripActivity.this,
+                startDatePickerDialog = new DatePickerDialog(CreateNewTripActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -92,7 +93,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
                             }
                         }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                startDatePickerDialog.show();
 
             }
         });
@@ -104,8 +105,11 @@ public class CreateNewTripActivity extends AppCompatActivity {
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+//                int mYear = startDatePickerDialog.getDatePicker().getYear(); // current year
+//                int mMonth = startDatePickerDialog.getDatePicker().getMonth(); // current month
+//                int mDay = startDatePickerDialog.getDatePicker().getDayOfMonth(); // current day
                 // date picker dialog
-                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateNewTripActivity.this,
+                endDatePickerDialog = new DatePickerDialog(CreateNewTripActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -117,7 +121,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
                             }
                         }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                endDatePickerDialog.show();
 
             }
         });
