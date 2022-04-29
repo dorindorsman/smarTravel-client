@@ -1,4 +1,4 @@
-package com.dorin.smartravel;
+package com.dorin.smartravel.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.Toast;
 
+import com.dorin.smartravel.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,16 +26,14 @@ public class ProfileEditActivity extends AppCompatActivity {
     private String[] yearsItems;
     private String yearSelected;
 
-    private MaterialButton EditProfile_IMG_Back;
+    private MaterialToolbar EditProfile_toolBar;
     private FloatingActionButton EditProfile_FAB_edit_user_IMG;
     private CircleImageView EditProfile_IMG_User;
     private TextInputLayout EditProfile_LBL_FirstName;
     private TextInputEditText EditProfile_LBL_EditFirstName;
     private TextInputLayout EditProfile_LBL_LastName;
     private TextInputEditText EditProfile_LBL_EditLastName;
-    private TextInputLayout EditProfile_LBL_Email;
     private TextInputEditText EditProfile_LBL_EditEmail;
-    //private Switch EditProfile_simpleSwitch_Gender;
     private RadioGroup EditProfile_RG_Gender;
    // private RadioButton radioMale;
    // private RadioButton radioFemale;
@@ -58,19 +56,18 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     private void findViews() {
 
-        EditProfile_IMG_Back = findViewById(R.id.EditProfile_IMG_Back);
+        EditProfile_toolBar = findViewById(R.id.EditProfile_toolBar);
         EditProfile_FAB_edit_user_IMG = findViewById(R.id.EditProfile_FAB_edit_user_IMG);
         EditProfile_IMG_User = findViewById(R.id.EditProfile_IMG_User);
         EditProfile_LBL_FirstName = findViewById(R.id.EditProfile_LBL_FirstName);
         EditProfile_LBL_EditFirstName = findViewById(R.id.EditProfile_LBL_EditFirstName);
         EditProfile_LBL_LastName = findViewById(R.id.EditProfile_LBL_LastName);
         EditProfile_LBL_EditLastName = findViewById(R.id.EditProfile_LBL_EditLastName);
-        EditProfile_LBL_Email = findViewById(R.id.EditProfile_LBL_Email);
+        TextInputLayout editProfile_LBL_Email = findViewById(R.id.EditProfile_LBL_Email);
         EditProfile_LBL_EditEmail = findViewById(R.id.EditProfile_LBL_EditEmail);
         EditProfile_AutoCompleteTextView = findViewById(R.id.EditProfile_AutoCompleteTextView);
         adapterItems = new ArrayAdapter<String>(this,R.layout.dropdown_item,yearsItems);
         EditProfile_AutoCompleteTextView.setAdapter(adapterItems);
-        //EditProfile_simpleSwitch_Gender = findViewById(R.id.EditProfile_simpleSwitch_Gender);
         EditProfile_RG_Gender = findViewById(R.id.EditProfile_RG_Gender);
         EditProfile_BTN_Update = findViewById(R.id.EditProfile_BTN_Update);
 
@@ -80,7 +77,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     private void initEditFields() {
 
 
-        EditProfile_IMG_Back.setOnClickListener(new View.OnClickListener() {
+        EditProfile_toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -104,12 +101,6 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         });
 
-//        EditProfile_simpleSwitch_Gender.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
 
         EditProfile_RG_Gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

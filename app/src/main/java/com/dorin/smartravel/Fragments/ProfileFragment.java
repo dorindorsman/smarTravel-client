@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.dorin.smartravel.ProfileEditActivity;
+import com.dorin.smartravel.Activities.ProfileEditActivity;
 import com.dorin.smartravel.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;

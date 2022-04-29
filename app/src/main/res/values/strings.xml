@@ -24,19 +24,11 @@
     <string name="updateProfile">Update Profile</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="createNewTrip">Create New Trip</string>
+    <string name="destination">Destination</string>
+    <string name="startDate">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="create">Create</string>
 
 
-    <string-array name="year_of_birth">
-        <item>1995</item>
-        <item>1996</item>
-        <item>1997</item>
-        <item>1998</item>
-        <item>1999</item>
-        <item>2000</item>
-        <item>2001</item>
-        <item>2002</item>
-        <item>2003</item>
-        <item>2004</item>
-        <item>2005</item>
-    </string-array>
 </resources>

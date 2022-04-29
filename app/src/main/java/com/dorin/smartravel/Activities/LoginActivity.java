@@ -1,4 +1,4 @@
-package com.dorin.smartravel;
+package com.dorin.smartravel.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 
+import com.dorin.smartravel.R;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.SignInButton;
@@ -28,35 +29,37 @@ public class LoginActivity extends AppCompatActivity {
 
 
         findViews();
+        initButton();
 
 
     }
+
 
     private void findViews() {
-
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
-
-
     }
 
-    // TODO: 4/22/2022  add check if work
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
+
+    private void initButton() {
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 signIn();
-                break;
+            }
+        });
 
-        }
     }
+
 
     private void signIn() {
 
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        replaceActivity(MainActivity.class);
+        //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         //someActivityResultLauncher.launch();
     }
 
-
+//
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -69,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
 //            handleSignInResult(task);
 //        }
 //    }
-
-
+//
+//
 //    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
 //        try {
 //            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -85,4 +88,11 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
+
+    private void replaceActivity(Class activity) {
+        Intent intent = new Intent(this, activity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+    }
 }

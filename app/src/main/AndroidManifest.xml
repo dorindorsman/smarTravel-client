@@ -10,13 +10,16 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.SmarTravel">
         <activity
-            android:name=".ProfileEditActivity"
+            android:name=".Activities.CreateNewTripActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.ProfileEditActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivitySplash"
+            android:name=".Activities.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true" />
 
         <meta-data

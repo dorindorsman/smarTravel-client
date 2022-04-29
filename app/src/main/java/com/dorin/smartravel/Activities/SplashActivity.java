@@ -1,22 +1,26 @@
-package com.dorin.smartravel;
+package com.dorin.smartravel.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.AnticipateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dorin.smartravel.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-public class ActivitySplash extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT=5000;
 
@@ -53,15 +57,17 @@ public class ActivitySplash extends AppCompatActivity {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        Log.d("pttt","line 58");
 
 
-        //Splash Screen
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                    replaceActivity(MainActivity.class);
-            }
-        },SPLASH_TIME_OUT);
+
+//        //Splash Screen
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                    replaceActivity(MainActivity.class);
+//            }
+//        },SPLASH_TIME_OUT);
 
 //        //Splash Screen
 //        new Handler().postDelayed(new Runnable() {
@@ -96,8 +102,37 @@ public class ActivitySplash extends AppCompatActivity {
 
 
     private void initAnimation() {
-        splash_IMG_Icon.setAnimation(middleAnimation);
-        splash_LBL_Android.setAnimation(bottomAnimation);
+        //splash_IMG_Icon.setAnimation(middleAnimation);
+        //splash_LBL_Android.setAnimation(bottomAnimation);
+        splash_IMG_Icon.animate().translationY(0).setDuration(3000).setStartDelay(500);
+        splash_LBL_Android.animate().translationY(0).setDuration(3000).setStartDelay(500)
+                .setInterpolator(new AnticipateInterpolator()).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                Log.d("pttt","line 110");
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                Log.d("pttt","line 116");
+                // Check for existing Google Sign In account, if the user is already signed in
+                // the GoogleSignInAccount will be non-null.
+                account = GoogleSignIn.getLastSignedInAccount(SplashActivity.this);
+                //Log.d("pttt",account.toString());
+                updateUI(account);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
     }
 
 
@@ -108,16 +143,6 @@ public class ActivitySplash extends AppCompatActivity {
         finish();
     }
 
-
-    // TODO: 4/22/2022 Add - check if work 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
-    }
 
     private void updateUI(GoogleSignInAccount account) {
         if(account!=null){

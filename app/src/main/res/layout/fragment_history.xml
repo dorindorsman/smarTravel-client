@@ -20,17 +20,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/History_RecyclerView_Trips"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/History_IMG_Icon"
-        android:clipToPadding="true"
+        android:layout_marginBottom="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="75dp"
         android:scrollbars="vertical" />
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_below="@+id/History_RecyclerView_Trips">
-        </View>
 
 
 

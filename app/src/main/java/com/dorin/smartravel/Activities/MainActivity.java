@@ -1,4 +1,4 @@
-package com.dorin.smartravel;
+package com.dorin.smartravel.Activities;
 
 import com.dorin.smartravel.Fragments.*;
 
@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.dorin.smartravel.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         initColorMenu();
         setFragments();
         initButtons();
+        replaceFragments(main_fragments[UPCOMING]);
 
     }
 
@@ -75,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void initButtons() {
 
+        main_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceActivity(CreateNewTripActivity.class);
+            }
+        });
 
         main_Toolbar_Top.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-        finish();
     }
 
 
