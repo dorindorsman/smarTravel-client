@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.DatePicker;
 
 import com.dorin.smartravel.R;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 
 public class CreateNewTripActivity extends AppCompatActivity {
 
+    private MaterialToolbar CreateTrip_toolBar;
     private TextInputLayout createTrip_TIN_destination;
     private TextInputLayout createTrip_TIN_StartDate;
     private TextInputLayout createTrip_TIN_EndDate;
@@ -37,6 +39,14 @@ public class CreateNewTripActivity extends AppCompatActivity {
     }
 
     private void initFields() {
+
+        CreateTrip_toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
         createTrip_BTN_Create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +126,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+
+        CreateTrip_toolBar = findViewById(R.id.CreateTrip_toolBar);
         createTrip_TIN_destination = findViewById(R.id.createTrip_TIN_destination);
         createTrip_TIN_StartDate= findViewById(R.id.createTrip_TIN_StartDate);
         createTrip_TIN_EndDate= findViewById(R.id.createTrip_TIN_EndDate);

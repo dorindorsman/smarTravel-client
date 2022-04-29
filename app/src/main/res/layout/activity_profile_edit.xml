@@ -10,7 +10,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/mainGreen">
+        android:background="@color/mainGreen"
+        app:liftOnScroll="true"
+        >
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/EditProfile_toolBar"
@@ -22,7 +24,6 @@
             app:navigationIconTint="@color/white"
             app:title= "@string/editProfile"
             app:titleTextColor="@color/white"
-
             />
 
     </com.google.android.material.appbar.AppBarLayout>
