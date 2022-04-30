@@ -5,15 +5,23 @@ import androidx.core.util.Pair;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
+import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class CreateNewTripActivity extends AppCompatActivity {
 
@@ -25,12 +33,19 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
     private DatePickerDialog startDatePickerDialog;
     private DatePickerDialog endDatePickerDialog;
+    private Date start;
+    private Date end;
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
+    DataManger dataManger = DataManger.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_trip);
+
+        start = new Date();
+        end = new Date();
 
         findViews();
         initFields();
@@ -52,7 +67,17 @@ public class CreateNewTripActivity extends AppCompatActivity {
         createTrip_BTN_Create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    start=format.parse(createTrip_TIN_StartDate.getEditText().getText().toString());
+                    end=format.parse(createTrip_TIN_EndDate.getEditText().getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
+                long msDiff = end.getTime() - start.getTime();
+                long daysDiff = (msDiff/(1000*60*60*24)+1);
+                Trip trip=new Trip(createTrip_TIN_destination.getEditText().getText().toString(),(int)daysDiff,R.drawable.ic_logo,start.toString(),end.toString());
+                dataManger.setCurrentTrip(trip);
             }
         });
 
@@ -71,12 +96,13 @@ public class CreateNewTripActivity extends AppCompatActivity {
 //        });
 
 
+
+
         createTrip_TIN_StartDate.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 final Calendar c = Calendar.getInstance();
+                //start = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
@@ -90,9 +116,10 @@ public class CreateNewTripActivity extends AppCompatActivity {
                                 // set day of month , month and year value in the edit text
                                 createTrip_TIN_StartDate.getEditText().setText(dayOfMonth + "/"
                                         + (monthOfYear + 1) + "/" + year);
-
                             }
                         }, mYear, mMonth, mDay);
+                //start.setTime(c.getTimeInMillis());
+
                 startDatePickerDialog.show();
 
             }
@@ -102,12 +129,11 @@ public class CreateNewTripActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR); // current year
-                int mMonth = c.get(Calendar.MONTH); // current month
-                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-//                int mYear = startDatePickerDialog.getDatePicker().getYear(); // current year
-//                int mMonth = startDatePickerDialog.getDatePicker().getMonth(); // current month
-//                int mDay = startDatePickerDialog.getDatePicker().getDayOfMonth(); // current day
+                //end=Calendar.getInstance();
+                int mYear = startDatePickerDialog.getDatePicker().getYear(); // current year
+                int mMonth = startDatePickerDialog.getDatePicker().getMonth(); // current month
+                int mDay = startDatePickerDialog.getDatePicker().getDayOfMonth(); // current day
+                c.set(mYear,mMonth,mDay);
                 // date picker dialog
                 endDatePickerDialog = new DatePickerDialog(CreateNewTripActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
@@ -121,6 +147,9 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
                             }
                         }, mYear, mMonth, mDay);
+                //end.setTime(c.getTimeInMillis());
+
+                endDatePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
                 endDatePickerDialog.show();
 
             }

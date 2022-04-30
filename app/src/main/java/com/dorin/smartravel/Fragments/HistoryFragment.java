@@ -69,11 +69,11 @@ public class HistoryFragment extends Fragment {
 
         prepareTrips();
 
-        try {
-            Glide.with(this).load(R.drawable.ic_logo).into((ImageView)view.findViewById(R.id.thumbnail));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Glide.with(this).load(R.drawable.ic_logo).into((ImageView)view.findViewById(R.id.thumbnail));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 

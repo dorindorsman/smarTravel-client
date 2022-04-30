@@ -1,6 +1,7 @@
 package com.dorin.smartravel.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
 import androidx.appcompat.widget.PopupMenu;
@@ -26,7 +28,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     private List<Trip> tripList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,startDate,endDate;
+        public TextView title, count, startDate, endDate;
         public ImageView thumbnail, overflow;
 
         public MyViewHolder(View view) {
@@ -60,7 +62,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         holder.title.setText(trip.getName());
         holder.count.setText(trip.getNumOfDays() + " Days");
         holder.startDate.setText(trip.getStartDate());
-        holder.endDate.setText( " - "+trip.getEndDate());
+        holder.endDate.setText(" - " + trip.getEndDate());
 
         // loading album cover using Glide library
         Glide.with(mContext).load(trip.getThumbnail()).into(holder.thumbnail);
@@ -68,7 +70,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.overflow);
+                showPopupMenu(holder.overflow, trip);
             }
         });
     }
@@ -76,12 +78,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     /**
      * Showing popup menu when tapping on 3 dots
      */
-    private void showPopupMenu(View view) {
+    private void showPopupMenu(View view, Trip trip) {
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_trip, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(trip));
         popup.show();
     }
 
@@ -90,7 +92,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
      */
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
-        public MyMenuItemClickListener() {
+        Trip trip;
+
+        public MyMenuItemClickListener(Trip trip) {
+            this.trip = trip;
         }
 
         @Override
@@ -101,12 +106,45 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                     return true;
                 case R.id.action_delete_trip:
                     Toast.makeText(mContext, "delete", Toast.LENGTH_SHORT).show();
-                    return true;
-                default:
-            }
-            return false;
+
+                    new MaterialAlertDialogBuilder(mContext)
+                            .setTitle("Delete Message")
+                            .setMessage("Are you sure you wnat to delte the " + trip.getName() + " trip?")
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+//                                    if (myList.getCreatorUid().equals(currentUser.getUid())) {
+//                                        removeList(myList);
+//                                    } else {
+//                                        new MaterialAlertDialogBuilder(currentActivity)
+//                                                .setTitle("שגיאה!")
+//                                                .setMessage("רק יוצר הרשימה יכול למחוק את הרשימה, אם ברצונך להעלים את הרשימה עלייך לפנות ליוצר")
+//                                                .setNeutralButton("קיבלתי", new DialogInterface.OnClickListener() {
+//                                                    @Override
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//                                                        dialog.dismiss();
+//                                                    }
+//                                                }).show();
+//                                    }
+                                }
+                            })
+                            .show();
+
+
+
+            return true;
+            default:
         }
+            return false;
     }
+
+}
 
     @Override
     public int getItemCount() {
