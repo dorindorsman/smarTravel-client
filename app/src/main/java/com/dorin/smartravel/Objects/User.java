@@ -3,13 +3,13 @@ package com.dorin.smartravel.Objects;
 public class User {
 
     private String avatar;
+    private String email;
+    private String role;
+    private String username;
     private String firstName;
     private String lastName;
-    private String username;
-    private String email;
     private String yearBirth;
     private String gender;
-    private String role;
     private enum ROLE {MANAGER,PLAYER,ADMIN};
 
     public User(String avatar, String firstName, String lastName, String userName, String email, String yearBirth, String gender) {

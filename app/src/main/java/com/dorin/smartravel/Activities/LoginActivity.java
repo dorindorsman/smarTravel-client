@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         //someActivityResultLauncher.launch();
     }
 
+    // TODO: 5/4/2022 move to data manager
     private void CreateUser() {
 
         User user= new User("IMG","dorin","dorsman","dorinDorsman","dorsmandorin@gmail.com","1995","Female");
@@ -77,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
               //  Toast.makeText(LoginActivity.this, "Save Successful", Toast.LENGTH_SHORT).show();
                 Log.d("ptt","Save Successful");
+                Log.d("ptt",""+response.body().toString());
+
             }
 
             @Override
@@ -86,6 +89,30 @@ public class LoginActivity extends AppCompatActivity {
                 Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE , "Error occurred",t);
             }
         });
+        
+        createInstanceUser();
+
+    }
+
+    // TODO: 5/4/2022 move to data manager
+    private void createInstanceUser() {
+//         user= new User("IMG","dorin","dorsman","dorinDorsman","dorsmandorin@gmail.com","1995","Female");
+//        UserApi userApi= DataManger.getInstance().getRetrofitService().getRetrofit().create(UserApi.class);
+//        userApi.createUser(user).enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                //  Toast.makeText(LoginActivity.this, "Save Successful", Toast.LENGTH_SHORT).show();
+//                Log.d("ptt","Save Successful");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                Log.d("ptt","Save Failed");
+//                //  Log.dLoginActivity.this,"Save Failed",Toast.LENGTH_SHORT).show();
+//                Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE , "Error occurred",t);
+//            }
+//        });
+
 
     }
 
