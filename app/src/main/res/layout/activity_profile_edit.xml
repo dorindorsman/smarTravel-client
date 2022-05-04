@@ -227,115 +227,115 @@
                 android:layout_marginEnd="15dp"
                 android:background="@color/menuGreen" />
 
-            <LinearLayout
-                android:id="@+id/EditProfile_Email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/EditProfile_Email"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingStart="15dp"-->
+<!--                android:paddingEnd="15dp">-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/EditProfile_LBL_Email"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:hint="@string/email"
-                    android:padding="5dp"
-                    android:textColorHint="@color/menuGreen"
-                    app:boxStrokeColor="@color/menuGreen"
-                    app:boxStrokeWidth="2dp"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="20"
-                    app:counterTextColor="@color/menuGreen"
-                    app:helperText="Required*"
-                    app:helperTextTextColor="@color/menuGreen"
-                    app:hintTextColor="@color/menuGreen"
-                    app:startIconDrawable="@drawable/ic_person"
-                    app:startIconTint="@color/menuGreen">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/EditProfile_LBL_Email"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="32dp"-->
+<!--                    android:layout_marginEnd="32dp"-->
+<!--                    android:hint="@string/email"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:textColorHint="@color/menuGreen"-->
+<!--                    app:boxStrokeColor="@color/menuGreen"-->
+<!--                    app:boxStrokeWidth="2dp"-->
+<!--                    app:counterEnabled="true"-->
+<!--                    app:counterMaxLength="20"-->
+<!--                    app:counterTextColor="@color/menuGreen"-->
+<!--                    app:helperText="Required*"-->
+<!--                    app:helperTextTextColor="@color/menuGreen"-->
+<!--                    app:hintTextColor="@color/menuGreen"-->
+<!--                    app:startIconDrawable="@drawable/ic_person"-->
+<!--                    app:startIconTint="@color/menuGreen">-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/EditProfile_LBL_EditEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="30"
-                        android:fontFamily="@font/roboto"
-                        android:imeOptions="actionDone"
-                        android:maxLength="20"
-                        android:outlineAmbientShadowColor="@color/menuGreen"
-                        android:shadowColor="@color/menuGreen"
-                        android:textColor="@color/menuGreen"
-                        app:helperTextTextColor="#FF0000" />
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/EditProfile_LBL_EditEmail"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:ems="30"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:imeOptions="actionDone"-->
+<!--                        android:maxLength="20"-->
+<!--                        android:outlineAmbientShadowColor="@color/menuGreen"-->
+<!--                        android:shadowColor="@color/menuGreen"-->
+<!--                        android:textColor="@color/menuGreen"-->
+<!--                        app:helperTextTextColor="#FF0000" />-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:background="@color/menuGreen" />
-
-
-            <LinearLayout
-                android:id="@+id/EditProfile_YearBirth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:outlineAmbientShadowColor="@color/mainGreen"
-                    android:outlineSpotShadowColor="@color/mainGreen"
-                    android:padding="5dp"
-                    android:textColorHint="@color/menuGreen"
-                    app:boxStrokeColor="@color/menuGreen"
-                    app:boxStrokeWidth="2dp"
-                    app:hintTextColor="@color/menuGreen"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:startIconDrawable="@drawable/ic_calender"
-                    app:startIconTint="@color/menuGreen">
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:background="@color/menuGreen" />-->
 
 
-                    <AutoCompleteTextView
-                        android:id="@+id/EditProfile_AutoCompleteTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/roboto"
-                        android:inputType="none"
-                        android:text="@string/yearBirth"
-                        android:textColor="@color/menuGreen" />
+<!--            <LinearLayout-->
+<!--                android:id="@+id/EditProfile_YearBirth"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingStart="15dp"-->
+<!--                android:paddingEnd="15dp">-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="32dp"-->
+<!--                    android:layout_marginEnd="32dp"-->
+<!--                    android:outlineAmbientShadowColor="@color/mainGreen"-->
+<!--                    android:outlineSpotShadowColor="@color/mainGreen"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:textColorHint="@color/menuGreen"-->
+<!--                    app:boxStrokeColor="@color/menuGreen"-->
+<!--                    app:boxStrokeWidth="2dp"-->
+<!--                    app:hintTextColor="@color/menuGreen"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:startIconDrawable="@drawable/ic_calender"-->
+<!--                    app:startIconTint="@color/menuGreen">-->
 
-            </LinearLayout>
+
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/EditProfile_AutoCompleteTextView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:inputType="none"-->
+<!--                        android:text="@string/yearBirth"-->
+<!--                        android:textColor="@color/menuGreen" />-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--            </LinearLayout>-->
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:background="@color/menuGreen" />
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:background="@color/menuGreen" />-->
 
 
             <LinearLayout

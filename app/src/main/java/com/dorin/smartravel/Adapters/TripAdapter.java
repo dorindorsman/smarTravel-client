@@ -109,7 +109,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
                     new MaterialAlertDialogBuilder(mContext)
                             .setTitle("Delete Message")
-                            .setMessage("Are you sure you wnat to delte the " + trip.getName() + " trip?")
+                            .setMessage("Are you sure you want to delete the " + trip.getName() + " trip?")
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
