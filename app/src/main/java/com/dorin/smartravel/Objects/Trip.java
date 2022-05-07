@@ -1,5 +1,7 @@
 package com.dorin.smartravel.Objects;
 
+import java.util.List;
+
 public class Trip {
 
         private String name;
@@ -7,23 +9,20 @@ public class Trip {
         private int thumbnail;
         private String startDate;
         private String endDate;
+        private List<DayTrip> dayTripList;
 
         public Trip() {
         }
 
-    public Trip(String name, int numOfDays, int thumbnail, String startDate, String endDate) {
-        this.name = name;
-        this.numOfDays = numOfDays;
-        this.thumbnail = thumbnail;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+        public Trip(String name, int numOfDays, int thumbnail, String startDate, String endDate) {
+            this.name = name;
+            this.numOfDays = numOfDays;
+            this.thumbnail = thumbnail;
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
 
-//    public Trip(String name, int numOfSongs, int thumbnail) {
-//            this.name = name;
-//            this.numOfDays = numOfDays;
-//            this.thumbnail = thumbnail;
-//        }
+
 
         public String getName() {
             return name;
@@ -68,5 +67,13 @@ public class Trip {
             return this;
         }
 
-    }
+        public List<DayTrip> getDayTripList() {
+            return dayTripList;
+        }
+
+        public Trip setDayTripList(List<DayTrip> dayTripList) {
+            this.dayTripList = dayTripList;
+            return this;
+        }
+}
 

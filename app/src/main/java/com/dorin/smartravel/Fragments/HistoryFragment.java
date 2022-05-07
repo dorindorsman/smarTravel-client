@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dorin.smartravel.CallBackItemClick;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.Adapters.TripAdapter;
 import com.dorin.smartravel.R;
@@ -32,6 +33,15 @@ public class HistoryFragment extends Fragment {
     private RecyclerView History_RecyclerView_Trips;
     private TripAdapter tripAdapter;
     private List<Trip> tripsList;
+
+    CallBackItemClick callBackItemClick = new CallBackItemClick() {
+        @Override
+        public void itemClick() {
+            getParentFragmentManager().beginTransaction().replace(R.id.main_fragment,DaysPathTripFragment.class,null).commit();
+
+        }
+    };
+
 
     public Fragment setActivity(AppCompatActivity activity){
         this.activity=activity;
@@ -59,7 +69,7 @@ public class HistoryFragment extends Fragment {
     private void findViews(View view) {
         History_RecyclerView_Trips = view.findViewById(R.id.History_RecyclerView_Trips);
         tripsList = new ArrayList<>();
-        tripAdapter = new TripAdapter(this.activity, tripsList);
+        tripAdapter = new TripAdapter(this.activity, tripsList,callBackItemClick);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.activity, 2);
         History_RecyclerView_Trips.setLayoutManager(mLayoutManager);

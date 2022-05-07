@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.ContentLengthInputStream;
+import com.dorin.smartravel.CallBackItemClick;
+import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -26,6 +29,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
     private Context mContext;
     private List<Trip> tripList;
+    private CallBackItemClick callBackItemClick;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count, startDate, endDate;
@@ -43,9 +48,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     }
 
 
-    public TripAdapter(Context mContext, List<Trip> tripList) {
+    public TripAdapter(Context mContext, List<Trip> tripList,CallBackItemClick callBackItemClick) {
         this.mContext = mContext;
         this.tripList = tripList;
+        this.callBackItemClick = callBackItemClick;
     }
 
     @Override
@@ -66,6 +72,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
         // loading album cover using Glide library
         Glide.with(mContext).load(trip.getThumbnail()).into(holder.thumbnail);
+
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataManger.getInstance().setCurrentTrip(trip);
+                callBackItemClick.itemClick();
+
+            }
+        });
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +160,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     }
 
 }
+
+
 
     @Override
     public int getItemCount() {

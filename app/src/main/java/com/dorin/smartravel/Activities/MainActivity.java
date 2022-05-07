@@ -9,18 +9,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dorin.smartravel.R;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton main_fab;
     private NavigationView main_TopNavigationView;
 
-    public static final int UPCOMING = 0,HISTORY = 1, FAVORITES = 2, ITINERARY = 3, DAY_TRIP = 4,SETTINGS = 5, PROFILE=6;
+    public static final int UPCOMING = 0,HISTORY = 1, FAVORITES = 2, DAYS_PATH_TRIP = 3, DAY_TRIP = 4,SETTINGS = 5, PROFILE=6;
     private final int SIZE=7;
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
@@ -219,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         main_fragments[UPCOMING] = new UpcomingFragment().setActivity(this);
         main_fragments[HISTORY] = new HistoryFragment().setActivity(this);
         main_fragments[FAVORITES] = new FavoritesFragment().setActivity(this);
-        main_fragments[ITINERARY] = new ItineraryFragment().setActivity(this);
+        main_fragments[DAYS_PATH_TRIP] = new DaysPathTripFragment().setActivity(this);
         main_fragments[DAY_TRIP] = new DayTripFragment().setActivity(this);
         main_fragments[SETTINGS] = new SettingsFragment().setActivity(this);
         main_fragments[PROFILE] = new ProfileFragment().setActivity(this);
