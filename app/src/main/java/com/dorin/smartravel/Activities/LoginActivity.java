@@ -14,7 +14,12 @@ import com.dorin.smartravel.R;
 import com.dorin.smartravel.retrofit.UserApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.SignInButton;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,24 +77,37 @@ public class LoginActivity extends AppCompatActivity {
     private void CreateUser() {
 
         User user= new User("IMG","dorin","dorsman","dorinDorsman","dorsmandorin@gmail.com","1995","Female");
+//        JSONObject userJson= user.convertToJson();
+//        Log.d("ptt",userJson+" ");
         UserApi userApi= DataManger.getInstance().getRetrofitService().getRetrofit().create(UserApi.class);
-        userApi.createUser(user).enqueue(new Callback<User>() {
+        userApi.createUser(user).
+                enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-              //  Toast.makeText(LoginActivity.this, "Save Successful", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<Object> call, Response<Object> response) {
+
                 Log.d("ptt","Save Successful");
-                Log.d("ptt",""+response.body().toString());
+                Log.d("ptt",response.body().getClass().getName()+"");
+                String domain = ((LinkedTreeMap)((LinkedTreeMap) response.body()).get("userId")).get("domain").toString();
+                //String a = ((LinkedTreeMap) domain).get("domain").toString();
+
+                String b =((LinkedTreeMap<String, LinkedTreeMap>) response.body()).get("userId").get("domain").toString();
+                Log.d("ptt",domain);
+                Log.d("ptt",b);
+                try {
+                    Log.d("ptt",""+response.body());
+                }catch (Exception e){
+                    Log.d("ptt",e.toString());
+                }
 
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 Log.d("ptt","Save Failed");
-              //  Log.dLoginActivity.this,"Save Failed",Toast.LENGTH_SHORT).show();
                 Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE , "Error occurred",t);
             }
         });
-        
+
         createInstanceUser();
 
     }

@@ -1,5 +1,6 @@
 package com.dorin.smartravel;
 
+import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.retrofit.RetrofitService;
 
@@ -9,6 +10,7 @@ public class DataManger {
 
     private static DataManger single_Instance_dataManger=null;
     private Trip currentTrip;
+    private DayTrip currentDayTrip;
     private RetrofitService retrofitService;
 
     public RetrofitService getRetrofitService() {
@@ -16,7 +18,8 @@ public class DataManger {
     }
 
     private DataManger() {
-        retrofitService=new RetrofitService();
+        if(retrofitService==null)
+            retrofitService=new RetrofitService();
     }
 
     public static DataManger getInstance(){
@@ -40,4 +43,12 @@ public class DataManger {
     }
 
 
+    public DayTrip getCurrentDayTrip() {
+        return currentDayTrip;
+    }
+
+    public DataManger setCurrentDayTrip(DayTrip currentDayTrip) {
+        this.currentDayTrip = currentDayTrip;
+        return this;
+    }
 }
