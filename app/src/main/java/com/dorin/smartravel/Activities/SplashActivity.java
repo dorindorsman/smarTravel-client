@@ -33,9 +33,7 @@ public class SplashActivity extends AppCompatActivity {
     Animation topAnimation, bottomAnimation, middleAnimation;
 
 
-    GoogleSignInClient mGoogleSignInClient;
-    GoogleSignInOptions gso;
-    GoogleSignInAccount account;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +45,7 @@ public class SplashActivity extends AppCompatActivity {
         initAnimation();
 
 
-        // TODO: 4/22/2022  add check if work
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        Log.d("pttt","line 58");
 
 
 
@@ -109,18 +97,12 @@ public class SplashActivity extends AppCompatActivity {
                 .setInterpolator(new AnticipateInterpolator()).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-                Log.d("pttt","line 110");
 
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                Log.d("pttt","line 116");
-                // Check for existing Google Sign In account, if the user is already signed in
-                // the GoogleSignInAccount will be non-null.
-                account = GoogleSignIn.getLastSignedInAccount(SplashActivity.this);
-                //Log.d("pttt",account.toString());
-                updateUI(account);
+                replaceActivity(LoginActivity.class);
             }
 
             @Override
@@ -144,13 +126,13 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    private void updateUI(GoogleSignInAccount account) {
-        if(account!=null){
-            replaceActivity(MainActivity.class);
-        }else{
-            replaceActivity(LoginActivity.class);
-        }
-    }
+//    private void updateUI(GoogleSignInAccount account) {
+//        if(account!=null){
+//            replaceActivity(MainActivity.class);
+//        }else{
+//            replaceActivity(LoginActivity.class);
+//        }
+//    }
 
 
 

@@ -1,5 +1,6 @@
 package com.dorin.smartravel.Activities;
 
+import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Fragments.*;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dorin.smartravel.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -141,17 +147,13 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragments(main_fragments[SETTINGS]);
                         break;
                     case R.id.menu_logout:
-//                        AuthUI.getInstance()
-//                                .signOut(MainUserActivity.this)
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @SuppressLint("RestrictedApi")
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        // user is now signed out
-//                                        startActivity(new Intent(MainUserActivity.this, LoginActivity.class));
-//                                        Toast.makeText(MainUserActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
-                                        finish();
-//                                    }
-//                                });
+                        DataManger.getInstance().getmGoogleSignInClient().signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                replaceActivity(LoginActivity.class);
+                                finish();
+                            }
+                        });
                         break;
                 }
                 return true;

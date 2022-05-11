@@ -1,7 +1,12 @@
 package com.dorin.smartravel.Activities;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +17,13 @@ import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.User;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.retrofit.UserApi;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -29,9 +39,13 @@ import retrofit2.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 1;
-    SignInButton signInButton;
-    GoogleSignInClient mGoogleSignInClient;
+
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInAccount account;
+
+
+    private SignInButton signInButton;
 
 
 
@@ -39,6 +53,21 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        // TODO: 4/22/2022  add check if work
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        DataManger.getInstance().setGso(gso);
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        DataManger.getInstance().setmGoogleSignInClient(mGoogleSignInClient);
+
 
 
         findViews();
@@ -58,10 +87,44 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                someActivityResultLauncher.launch(signInIntent);
             }
         });
 
+    }
+
+
+
+    // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        // The Task returned from this call is always completed, no need to attach
+                        // a listener.
+                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                        handleSignInResult(task);
+                    }
+                }
+            });
+
+    private void handleSignInResult(Task<GoogleSignInAccount> task) {
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+            //updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.d("TAG", "signInResult:failed code=" + e.getStatusCode());
+            //updateUI(null);
+        }
     }
 
 
@@ -163,6 +226,21 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
+
+        if(account!=null){
+            DataManger.getInstance().setAccount(account);
+            replaceActivity(MainActivity.class);
+        }
+
+    }
 
     private void replaceActivity(Class activity) {
         Intent intent = new Intent(this, activity);
