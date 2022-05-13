@@ -18,8 +18,11 @@ import com.dorin.smartravel.CallBackItemClick;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Util;
+import com.dorin.smartravel.ViewDialogRating;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UpcomingFragment extends Fragment {
@@ -61,8 +64,23 @@ public class UpcomingFragment extends Fragment {
 
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_upcomings, container, false);
         findViews(view);
+        checkTripForRate();
 
         return view;
+    }
+
+    private void checkTripForRate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
+        Date date = new Date();
+        if(!tripsList.isEmpty()){
+            for (Trip trip:tripsList) {
+                if(!trip.getIsRate() && trip.getEndDate().equals(formatter.format(date))){
+                    ViewDialogRating dialogRating=new ViewDialogRating();
+                    dialogRating.showDialog(activity,trip,trip.getRates(),callback_viewDialog);
+
+                }
+            }
+        }
     }
 
     private void findViews(View view) {
@@ -101,41 +119,46 @@ public class UpcomingFragment extends Fragment {
                 R.drawable.ic_logo,
                 R.drawable.ic_logo};
 
-        Trip a = new Trip("New York", 13, coversTrips[0],"10/5","23/5");
+        Trip a = new Trip("New York", 13, coversTrips[0],"01/05","13/05");
         tripsList.add(a);
 
-        a = new Trip("Los Angeles", 8, coversTrips[1],"10/3","18/3");
+        a = new Trip("Los Angeles", 8, coversTrips[1],"10/03","18/03");
         tripsList.add(a);
 
-        a = new Trip("Chicago", 11, coversTrips[2],"1/4","12/4");
+        a = new Trip("Chicago", 11, coversTrips[2],"01/04","12/04");
         tripsList.add(a);
 
         a = new Trip("Miami", 12, coversTrips[3],"12/12","24/12");
         tripsList.add(a);
 
-        a = new Trip("Tokyo", 14, coversTrips[4],"2/10","16/10");
+        a = new Trip("Tokyo", 14, coversTrips[4],"02/10","16/10");
         tripsList.add(a);
 
-        a = new Trip("Beijing", 1, coversTrips[5],"6/6","");
+        a = new Trip("Beijing", 1, coversTrips[5],"","06/06");
         tripsList.add(a);
 
-        a = new Trip("Manila", 11, coversTrips[6],"1/4","12/4");
+        a = new Trip("Manila", 11, coversTrips[6],"01/04","12/04");
         tripsList.add(a);
 
-        a = new Trip("Bangkok", 14, coversTrips[7],"2/10","16/10");
+        a = new Trip("Bangkok", 14, coversTrips[7],"02/10","16/10");
         tripsList.add(a);
 
-        a = new Trip("Mexico City", 11, coversTrips[8],"1/4","12/4");
+        a = new Trip("Mexico City", 11, coversTrips[8],"01/04","12/04");
         tripsList.add(a);
 
-        a = new Trip("Istanbul", 17, coversTrips[9],"7/7","24/7");
+        a = new Trip("Istanbul", 17, coversTrips[9],"07/07","24/07");
         tripsList.add(a);
 
         tripAdapter.notifyDataSetChanged();
     }
 
+        ViewDialogRating.Callback_ViewDialog callback_viewDialog = new ViewDialogRating.Callback_ViewDialog() {
 
+            @Override
+            public void timeToRate(Trip trip) {
 
+            }
+        };
 
 
 }

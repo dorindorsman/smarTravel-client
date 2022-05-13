@@ -1,5 +1,6 @@
 package com.dorin.smartravel.Objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Trip {
@@ -10,6 +11,8 @@ public class Trip {
         private String startDate;
         private String endDate;
         private List<DayTrip> dayTripList;
+        private ArrayList<Question> rates;
+        private boolean isRate;
 
         public Trip() {
         }
@@ -20,8 +23,27 @@ public class Trip {
             this.thumbnail = thumbnail;
             this.startDate = startDate;
             this.endDate = endDate;
+            this.isRate = false;
+            prepareQA();
         }
 
+        private void prepareQA() {
+            rates= new ArrayList<Question>();
+            Question a = new Question(1,"How satisfied are you with your trip?");
+            rates.add(a);
+
+            a = new Question(2,"How satisfied are you with the amount of time given everywhere?");
+            rates.add(a);
+
+            a = new Question(3,"How satisfied are you with the length of the trip?");
+            rates.add(a);
+
+            a = new Question(4,"How much personalized was the trip for you?");
+            rates.add(a);
+
+            a = new Question(5,"Will you come back to this destination?");
+            rates.add(a);
+        }
 
 
         public String getName() {
@@ -75,5 +97,25 @@ public class Trip {
             this.dayTripList = dayTripList;
             return this;
         }
+
+        public ArrayList<Question> getRates() {
+            return rates;
+        }
+
+        public Trip setRates(ArrayList<Question> rates) {
+            this.rates = rates;
+            return this;
+        }
+
+        public Trip setIsRate(boolean rate) {
+            isRate = rate;
+            return this;
+        }
+
+        public boolean getIsRate() {
+           return isRate;
+        }
+
+
 }
 

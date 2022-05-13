@@ -67,6 +67,8 @@ public class DaysPathTripFragment extends Fragment {
         return view;
     }
 
+
+
     private void findViews(View view) {
 
         materialToolbar = getActivity().findViewById(R.id.main_Toolbar_Top);

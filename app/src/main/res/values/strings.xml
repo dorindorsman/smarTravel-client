@@ -29,6 +29,9 @@
     <string name="startDate">Start Date</string>
     <string name="endDate">End Date</string>
     <string name="create">Create</string>
+    <string name="RatingTrip">Rating Trip</string>
+    <string name="question">Question</string>
+    <string name="UpdateRate">Rate</string>
 
 
 </resources>
