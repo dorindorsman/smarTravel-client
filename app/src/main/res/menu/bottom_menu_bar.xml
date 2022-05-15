@@ -25,9 +25,9 @@
         />
 
     <item
-        android:id="@+id/menu_favorites"
+        android:id="@+id/menu_myPlaces"
         android:icon="@drawable/ic_favorite"
-        android:title="@string/Favorites"
+        android:title="@string/MyPlaces"
         app:showAsAction="always" />
 
     <item

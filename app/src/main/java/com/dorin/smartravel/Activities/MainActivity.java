@@ -4,6 +4,8 @@ import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Fragments.*;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -13,14 +15,12 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.dorin.smartravel.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton main_fab;
     private NavigationView main_TopNavigationView;
 
-    public static final int UPCOMING = 0,HISTORY = 1, FAVORITES = 2, DAYS_PATH_TRIP = 3, DAY_TRIP = 4,SETTINGS = 5, PROFILE=6;
+    public static final int UPCOMING = 0,HISTORY = 1, MY_PLACES = 2, DAYS_PATH_TRIP = 3, DAY_TRIP = 4,SETTINGS = 5, PROFILE=6;
     private final int SIZE=7;
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         main_Toolbar_Top.setNavigationOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 main_drawerLayout.openDrawer(main_drawerLayout.getForegroundGravity());
@@ -107,9 +108,10 @@ public class MainActivity extends AppCompatActivity {
                         main_Toolbar_Top.setTitle(R.string.History);
                         replaceFragments(main_fragments[HISTORY]);
                         break;
-                    case R.id.menu_favorites:
-                        main_Toolbar_Top.setTitle(R.string.Favorites);
-                        replaceFragments(main_fragments[FAVORITES]);
+                    case R.id.menu_myPlaces:
+                        main_Toolbar_Top.setTitle(R.string.MyPlaces);
+                        //replaceFragments(main_fragments[MY_PLACES]);
+                        replaceActivity(MyPlacesActivity.class);
                         break;
                     case R.id.menu_profile:
                         main_Toolbar_Top.setTitle(R.string.Profile);
@@ -134,9 +136,10 @@ public class MainActivity extends AppCompatActivity {
                         main_Toolbar_Top.setTitle(R.string.History);
                         replaceFragments(main_fragments[HISTORY]);
                         break;
-                    case R.id.menu_favorites:
-                        main_Toolbar_Top.setTitle(R.string.Favorites);
-                        replaceFragments(main_fragments[FAVORITES]);
+                    case R.id.menu_myPlaces:
+                        main_Toolbar_Top.setTitle(R.string.MyPlaces);
+                        //replaceFragments(main_fragments[MY_PLACES]);
+                        replaceActivity(MyPlacesActivity.class);
                         break;
                     case R.id.menu_profile:
                         main_Toolbar_Top.setTitle(R.string.Profile);
@@ -216,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         main_fragments = new Fragment[SIZE];
         main_fragments[UPCOMING] = new UpcomingFragment().setActivity(this);
         main_fragments[HISTORY] = new HistoryFragment().setActivity(this);
-        main_fragments[FAVORITES] = new FavoritesFragment().setActivity(this);
+        main_fragments[MY_PLACES] = new MyPlacesFragment().setActivity(this);
         main_fragments[DAYS_PATH_TRIP] = new DaysPathTripFragment().setActivity(this);
         main_fragments[DAY_TRIP] = new DayTripFragment().setActivity(this);
         main_fragments[SETTINGS] = new SettingsFragment().setActivity(this);
@@ -236,7 +239,6 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
-
 
 
 

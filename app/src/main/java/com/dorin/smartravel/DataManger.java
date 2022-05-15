@@ -6,7 +6,6 @@ import com.dorin.smartravel.retrofit.RetrofitService;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-
 import retrofit2.Retrofit;
 
 public class DataManger {
@@ -25,6 +24,10 @@ public class DataManger {
     }
 
     private DataManger() {
+
+
+
+
         if(retrofitService==null)
             retrofitService=new RetrofitService();
     }
