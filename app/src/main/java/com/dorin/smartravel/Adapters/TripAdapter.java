@@ -2,7 +2,6 @@ package com.dorin.smartravel.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.ContentLengthInputStream;
-import com.dorin.smartravel.Activities.CreateNewTripActivity;
-import com.dorin.smartravel.CallBackItemClick;
+import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;

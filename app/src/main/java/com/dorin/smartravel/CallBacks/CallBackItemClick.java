@@ -1,4 +1,4 @@
-package com.dorin.smartravel;
+package com.dorin.smartravel.CallBacks;
 
 public interface CallBackItemClick {
 

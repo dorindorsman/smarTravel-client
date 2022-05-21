@@ -1,5 +1,6 @@
 package com.dorin.smartravel.Activities;
 
+import com.bumptech.glide.Glide;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Fragments.*;
 
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dorin.smartravel.R;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -29,6 +31,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.textview.MaterialTextView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,12 +46,18 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton main_fab;
     private NavigationView main_TopNavigationView;
 
+    private View header;
+    private CircleImageView header_IMG_user;
+    private CircularProgressIndicator header_BAR_progress;
+    private FloatingActionButton navigation_header_container_FAB_profile_pic;
+    private MaterialTextView header_TXT_username;
+
     public static final int UPCOMING = 0,HISTORY = 1, MY_PLACES = 2, DAYS_PATH_TRIP = 3, DAY_TRIP = 4,SETTINGS = 5, PROFILE=6;
     private final int SIZE=7;
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
 
-
+    private DataManger dataManger = DataManger.getInstance();
 
 
     @Override
@@ -57,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(main_Toolbar_Top);
         initColorMenu();
         setFragments();
+        loadUserDetails();
         initButtons();
         replaceFragments(main_fragments[UPCOMING]);
 
@@ -74,6 +87,21 @@ public class MainActivity extends AppCompatActivity {
         main_fab=findViewById(R.id.main_fab);
         main_TopNavigationView=findViewById(R.id.main_TopNavigationView);
 
+        header = main_TopNavigationView.getHeaderView(0);
+        header_IMG_user=header.findViewById(R.id.header_IMG_user);
+        header_BAR_progress=header.findViewById(R.id.header_BAR_progress);
+        navigation_header_container_FAB_profile_pic=header.findViewById(R.id.navigation_header_container_FAB_profile_pic);
+        header_TXT_username=header.findViewById(R.id.header_TXT_username);
+
+
+
+    }
+
+    private void loadUserDetails() {
+        if(!dataManger.getCurrentUser().getAvatar().equals("empty")){
+            Glide.with(this).load(dataManger.getCurrentUser().getAvatar()).into(header_IMG_user);
+        }
+        header_TXT_username.setText(dataManger.getCurrentUser().getFirstName()+dataManger.getCurrentUser().getLastName());
     }
 
 
@@ -93,6 +121,22 @@ public class MainActivity extends AppCompatActivity {
                 main_drawerLayout.openDrawer(main_drawerLayout.getForegroundGravity());
             }
         });
+
+        navigation_header_container_FAB_profile_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choseCover();
+
+            }
+        });
+
+        header_IMG_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choseCover();
+            }
+        });
+
 
 
 
@@ -163,6 +207,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void choseCover() {
+        ImagePicker.with(MainActivity.this)
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .crop(1f, 1f)
+                .maxResultSize(1080, 1080)
+                //Final image resolution will be less than 1080 x 1080(Optional)
+                .start();
+    }
+
+    /**
+     *Results From ImagePicker will be catch here
+     * will place the image in the relevant Image View
+     * Right after that, will catch the image bytes back from the view and store them in the Firebase Storage.
+     * After successful upload will update the Object Url Field
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        dataManger.setResultUri(data.getData());
+        header_IMG_user.setImageURI(dataManger.getResultUri());
+        // TODO: 5/21/2022  add callback
     }
 
     private void initColorMenu() {

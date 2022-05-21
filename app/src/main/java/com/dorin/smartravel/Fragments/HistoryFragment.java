@@ -1,13 +1,9 @@
 package com.dorin.smartravel.Fragments;
 
-import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -15,8 +11,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.dorin.smartravel.CallBackItemClick;
+import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.Adapters.TripAdapter;
 import com.dorin.smartravel.R;

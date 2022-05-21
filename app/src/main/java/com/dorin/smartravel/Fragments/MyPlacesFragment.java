@@ -1,6 +1,5 @@
 package com.dorin.smartravel.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -16,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.Adapters.PlacesAdapter;
-import com.dorin.smartravel.CallBackListPlaces;
+import com.dorin.smartravel.CallBacks.CallBackListPlaces;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Util;
 import com.google.android.gms.common.api.Status;

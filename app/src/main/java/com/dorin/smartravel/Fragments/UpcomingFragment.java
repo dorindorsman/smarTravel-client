@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,9 +11,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.dorin.smartravel.Adapters.TripAdapter;
-import com.dorin.smartravel.CallBackItemClick;
+import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Util;
@@ -134,7 +132,7 @@ public class UpcomingFragment extends Fragment {
         a = new Trip("Tokyo", 14, coversTrips[4],"02/10","16/10");
         tripsList.add(a);
 
-        a = new Trip("Beijing", 1, coversTrips[5],"","06/06");
+        a = new Trip("Beijing", 1, coversTrips[5],"","22/05");
         tripsList.add(a);
 
         a = new Trip("Manila", 11, coversTrips[6],"01/04","12/04");

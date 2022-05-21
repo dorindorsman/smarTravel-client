@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dorin.smartravel.Adapters.PlacesAdapter;
-import com.dorin.smartravel.CallBackListPlaces;
+import com.dorin.smartravel.CallBacks.CallBackListPlaces;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Util;
 import com.google.android.gms.maps.model.LatLng;

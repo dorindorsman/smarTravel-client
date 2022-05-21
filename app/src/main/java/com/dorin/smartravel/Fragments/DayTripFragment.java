@@ -9,10 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dorin.smartravel.CallBackListPlaces;
+import com.dorin.smartravel.CallBacks.CallBackListPlaces;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.DayTrip;
-import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,10 +20,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class DayTripFragment extends Fragment implements OnMapReadyCallback {
 

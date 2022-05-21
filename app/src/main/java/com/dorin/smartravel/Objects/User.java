@@ -14,8 +14,7 @@ public class User {
     private String lastName;
     private String domain;
     private enum ROLE {MANAGER,PLAYER,ADMIN};
-    //    private String yearBirth;
-    //    private String gender;
+
 
     public User(){
         this.role= "PLAYER";
@@ -27,8 +26,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-//        this.yearBirth = yearBirth;
-//        this.gender = gender;
         this.role= "PLAYER";
         this.domain="";
     }
@@ -43,11 +40,6 @@ public class User {
         return this;
     }
 
-//    public User setGender(String gender) {
-//        this.gender = gender;
-//        return this;
-//    }
-//
     public User setAvatar(String avatar) {
         this.avatar = avatar;
         return this;
@@ -57,12 +49,6 @@ public class User {
         this.email = email;
         return this;
     }
-
-
-//    public User setYearBirth(String yearBirth) {
-//        this.yearBirth = yearBirth;
-//        return this;
-//    }
 
     public String getAvatar() {
         return avatar;
@@ -79,14 +65,6 @@ public class User {
     public String getEmail() {
         return email;
     }
-
-//    public String getYearBirth() {
-//        return yearBirth;
-//    }
-//
-//    public String getGender() {
-//        return gender;
-//    }
 
     public String getRole() {
         return role;

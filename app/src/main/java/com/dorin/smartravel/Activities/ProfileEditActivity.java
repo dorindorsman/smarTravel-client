@@ -4,11 +4,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.RadioGroup;
+
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.R;
+import com.dorin.smartravel.Validator;
+import com.dorin.smartravel.retrofit.Convertor;
+import com.dorin.smartravel.retrofit.UserApi;
+import com.dorin.smartravel.serverObjects.ActivityBoundary;
+import com.dorin.smartravel.serverObjects.InstanceBoundary;
+import com.dorin.smartravel.serverObjects.UserBoundary;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -16,17 +24,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileEditActivity extends AppCompatActivity {
-
-//  private AutoCompleteTextView EditProfile_AutoCompleteTextView;
-//  private ArrayAdapter<String> adapterItems;
-//  private String yearSelected;
-//  private String[] yearsItems;
-//  private TextInputEditText EditProfile_LBL_EditEmail;
-//  private RadioButton radioMale;
-//  private RadioButton radioFemale;
-
 
 
     private MaterialButton EditProfile_BTN_Update;
@@ -37,7 +39,11 @@ public class ProfileEditActivity extends AppCompatActivity {
     private TextInputEditText EditProfile_LBL_EditFirstName;
     private TextInputLayout EditProfile_LBL_LastName;
     private TextInputEditText EditProfile_LBL_EditLastName;
-    private RadioGroup EditProfile_RG_Gender;
+
+    private Validator validatorFirstName;
+    private Validator validatorLastName;
+
+
 
     private DataManger dataManger = DataManger.getInstance();
 
@@ -48,6 +54,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_edit);
         findViews();
         initEditFields();
+        initValidator();
     }
 
     private void findViews() {
@@ -63,12 +70,21 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         EditProfile_LBL_EditFirstName.setText(dataManger.getCurrentUser().getFirstName());
         EditProfile_LBL_EditLastName.setText(dataManger.getCurrentUser().getLastName());
-//        EditProfile_RG_Gender = findViewById(R.id.EditProfile_RG_Gender);
-//        adapterItems = new ArrayAdapter<String>(this,R.layout.dropdown_item,yearsItems);
-//        EditProfile_AutoCompleteTextView.setAdapter(adapterItems);
-//        EditProfile_AutoCompleteTextView = findViewById(R.id.EditProfile_AutoCompleteTextView);
-//        TextInputLayout editProfile_LBL_Email = findViewById(R.id.EditProfile_LBL_Email);
-//        EditProfile_LBL_EditEmail = findViewById(R.id.EditProfile_LBL_EditEmail);
+
+    }
+
+    private void initValidator() {
+        validatorFirstName=Validator.Builder.make(EditProfile_LBL_FirstName)
+                .addWatcher(new Validator.Watcher_StringEmpty("Name Cannot Be Empty"))
+                .addWatcher(new Validator.Watcher_String("Name Contains Only Characters"))
+                .build();
+
+        validatorLastName=Validator.Builder.make(EditProfile_LBL_LastName)
+                .addWatcher(new Validator.Watcher_StringEmpty("Name Cannot Be Empty"))
+                .addWatcher(new Validator.Watcher_String("Name Contains Only Characters"))
+                .build();
+
+
     }
 
     private void initEditFields() {
@@ -81,45 +97,41 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         });
 
-        EditProfile_FAB_edit_user_IMG.setOnClickListener(new View.OnClickListener() {
+
+
+        EditProfile_IMG_User.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // TODO: 4/24/2022 add on click edit image view and update user
+            public void onClick(View v) {
                 choseCover();
             }
         });
 
-
-//        EditProfile_AutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                // TODO: 4/24/2022 add on click update year birth
-//                yearSelected = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(getApplicationContext(),"Year: "+yearSelected, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
-//        EditProfile_RG_Gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                // TODO: 4/24/2022 Add update gender user
-//                RadioButton button = (RadioButton)radioGroup.findViewById(i);
-//                if(button != null && i != -1)
-//                {
-//                    Toast.makeText(ProfileEditActivity.this, button.getText()+"\t is selected", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        EditProfile_FAB_edit_user_IMG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choseCover();
+            }
+        });
 
 
         EditProfile_BTN_Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: 4/24/2022 Add update profile
+                updateUserDetails();
+                updateUserBoundaryDetails();
                 finish();
             }
         });
+    }
+
+    private void updateUserDetails() {
+        if(dataManger.getResultUri()!=null)
+            dataManger.getCurrentUser().setAvatar(dataManger.getResultUri().toString());
+
+        dataManger.getCurrentUser().setFirstName(EditProfile_LBL_FirstName.getEditText().getText().toString());
+        dataManger.getCurrentUser().setLastName(EditProfile_LBL_LastName.getEditText().getText().toString());
+
     }
 
 
@@ -141,9 +153,52 @@ public class ProfileEditActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        dataManger.setResultUri(data.getData());
+        EditProfile_IMG_User.setImageURI(dataManger.getResultUri());
+        // TODO: 5/21/2022  add callback
+
+    }
 
 
+    private void updateUserBoundaryDetails(){
 
+        UserBoundary userboundary = Convertor.convertUserToUserBoundary(dataManger.getCurrentUser());
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.updateUserDetails(userboundary,dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail())
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
+        updateUserInstance();
+        createActivityBoundary();
+    }
+
+    private void createActivityBoundary() {
+//        ActivityBoundary activityBoundary =
+    }
+
+
+    private void updateUserInstance(){
+        InstanceBoundary instanceBoundary = Convertor.convertUserToInstanceBoundary(dataManger.getCurrentUser());
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.updateInstanceById(instanceBoundary,dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("user"),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail())
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
     }
 
 

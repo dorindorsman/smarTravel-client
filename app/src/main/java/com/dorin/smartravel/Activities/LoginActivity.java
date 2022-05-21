@@ -44,7 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class LoginActivity extends AppCompatActivity implements LocationListener {
+public class LoginActivity extends AppCompatActivity {
 
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
@@ -124,8 +124,8 @@ public class LoginActivity extends AppCompatActivity implements LocationListener
 
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
-            GoogleSignInAccount account = task.getResult(ApiException.class);
-            signIn(account);
+            account = task.getResult(ApiException.class);
+            signIn();
 
             // Signed in successfully, show authenticated UI.
             //updateUI(account);
@@ -138,16 +138,29 @@ public class LoginActivity extends AppCompatActivity implements LocationListener
     }
 
 
-    private void signIn(GoogleSignInAccount account) {
-        dataManger.getCurrentUser()
-                .setFirstName(account.getGivenName())
-                .setLastName(account.getFamilyName())
-                .setAvatar(account.getPhotoUrl().toString())
-                .setEmail(account.getEmail());
+    private void signIn() {
+
+        putAccountIntoUser();
         CreateUser();
         replaceActivity(MainActivity.class);
         //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         //someActivityResultLauncher.launch();
+    }
+
+    private void putAccountIntoUser() {
+        if(account.getPhotoUrl()==null){
+            dataManger.getCurrentUser()
+                    .setFirstName(account.getGivenName())
+                    .setLastName(account.getFamilyName())
+                    .setAvatar("empty")
+                    .setEmail(account.getEmail());
+        }else{
+            dataManger.getCurrentUser()
+                    .setFirstName(account.getGivenName())
+                    .setLastName(account.getFamilyName())
+                    .setAvatar(account.getPhotoUrl().toString())
+                    .setEmail(account.getEmail());
+        }
     }
 
     // TODO: 5/4/2022 move to data manager
@@ -209,7 +222,8 @@ public class LoginActivity extends AppCompatActivity implements LocationListener
         // the GoogleSignInAccount will be non-null.
         account = GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null){
-            DataManger.getInstance().setAccount(account);
+            dataManger.setAccount(account);
+            putAccountIntoUser();
             replaceActivity(MainActivity.class);
         }
 
@@ -222,8 +236,5 @@ public class LoginActivity extends AppCompatActivity implements LocationListener
         finish();
     }
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
 
-    }
 }

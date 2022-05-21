@@ -1,5 +1,7 @@
 package com.dorin.smartravel;
 
+import android.net.Uri;
+
 import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.Objects.User;
@@ -19,6 +21,8 @@ public class DataManger {
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
     private GoogleSignInAccount account;
+
+    private Uri resultUri;
 
     private Map<String,String> myInstances;
     private User currentUser;
@@ -97,5 +101,14 @@ public class DataManger {
 
     public Map<String, String> getMyInstances() {
         return myInstances;
+    }
+
+    public Uri getResultUri() {
+        return resultUri;
+    }
+
+    public DataManger setResultUri(Uri resultUri) {
+        this.resultUri = resultUri;
+        return this;
     }
 }

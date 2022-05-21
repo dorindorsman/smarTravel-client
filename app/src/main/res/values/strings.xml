@@ -32,6 +32,7 @@
     <string name="RatingTrip">Rating Trip</string>
     <string name="question">Question</string>
     <string name="UpdateRate">Rate</string>
+    <string name="UserName">User Name</string>
 
 
 </resources>

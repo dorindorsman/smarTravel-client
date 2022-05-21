@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.dorin.smartravel.Activities.ProfileEditActivity;
+import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
@@ -25,10 +27,9 @@ public class ProfileFragment extends Fragment {
     private MaterialTextView Profile_LBL_UserFirstName;
     private MaterialTextView Profile_LBL_UserLastName;
     private MaterialTextView Profile_LBL_UserEmail;
-    private MaterialTextView Profile_LBL_UserYearBirth;
-    private MaterialTextView Profile_LBL_UserGender;
     private MaterialButton Profile_BTN_EditProfile;
 
+    private DataManger dataManger = DataManger.getInstance();
     private Bundle bundle;
 
 
@@ -54,11 +55,8 @@ public class ProfileFragment extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_profile, container, false);
         findViews(view);
         // TODO: 4/22/2022 add user
-        //userDataManager = UserDataManager.getInstance();
-        loadUserDetails();
         initButtons();
-
-        // TODO: 4/25/2022 when scroll the view top bar dont scroll also (like in history)
+        loadUserDetails();
 
         return view;
     }
@@ -71,22 +69,21 @@ public class ProfileFragment extends Fragment {
         Profile_LBL_UserFirstName=view.findViewById(R.id.Profile_LBL_UserFirstName);
         Profile_LBL_UserLastName=view.findViewById(R.id.Profile_LBL_UserLastName);
         Profile_LBL_UserEmail=view.findViewById(R.id.Profile_LBL_UserEmail);
-        Profile_LBL_UserYearBirth=view.findViewById(R.id.Profile_LBL_UserYearBirth);
-        Profile_LBL_UserGender=view.findViewById(R.id.Profile_LBL_UserGender);
         Profile_BTN_EditProfile=view.findViewById(R.id.Profile_BTN_EditProfile);
 
     }
 
     // TODO: 4/22/2022 add user
     private void loadUserDetails() {
-        //User user = userDataManager.getMyUser();
-        //Glide.with(this).load(user.getUserPic()).into(Profile_IMG_User);
-        //Profile_LBL_UserName.setText(user.getUserFirstName()+" "+user.getUserLastName());
-        //Profile_LBL_UserFirstName.setText(user.getUserFirstName());
-        //Profile_LBL_UserLastName.setText(user.getUserLastName());
-        //Profile_LBL_UserEmail.setText(user.getUserPhoneNumber());
-        //Profile_LBL_UserYearBirth.setText(user.getUserYearBirth());
-        //Profile_LBL_UserGender.setText(user.getUserGender());
+        if(!dataManger.getCurrentUser().getAvatar().equals("empty")){
+            Glide.with(this).load(dataManger.getCurrentUser().getAvatar()).into(Profile_IMG_User);
+        }
+        Profile_LBL_UserName.setText(dataManger.getCurrentUser().getFirstName()+dataManger.getCurrentUser().getLastName());
+        Profile_LBL_UserFirstName.setText(dataManger.getCurrentUser().getFirstName());
+        Profile_LBL_UserLastName.setText(dataManger.getCurrentUser().getLastName());
+        Profile_LBL_UserEmail.setText(dataManger.getCurrentUser().getEmail());
+
+
     }
 
 
@@ -119,5 +116,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 }

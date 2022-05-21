@@ -1,28 +1,17 @@
 package com.dorin.smartravel.Adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.dorin.smartravel.CallBackItemClick;
-import com.dorin.smartravel.CallBackListPlaces;
+import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.DayTrip;
-import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 

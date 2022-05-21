@@ -57,7 +57,7 @@ public interface UserApi {
             @Path("userEmail") String userEmail);
 
     @PUT("iob/instances/{instanceDomain}/{instanceId}")
-    Call<InstanceBoundary> updateInstanceById(@Body InstanceBoundary instanceBoundary,
+    Call<Void> updateInstanceById(@Body InstanceBoundary instanceBoundary,
             @Path("instanceDomain") String instanceDomain,
             @Path("instanceId") String instanceId,
             @Query("userDomain") String userDomain,

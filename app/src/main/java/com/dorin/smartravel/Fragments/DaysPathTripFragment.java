@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.Adapters.DaysAdapter;
-import com.dorin.smartravel.CallBackItemClick;
+import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
