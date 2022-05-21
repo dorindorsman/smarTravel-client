@@ -37,7 +37,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
     private Date end;
     private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-    DataManger dataManger = DataManger.getInstance();
+    private DataManger dataManger = DataManger.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +76,13 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
                 long msDiff = end.getTime() - start.getTime();
                 long daysDiff = (msDiff/(1000*60*60*24)+1);
-                Trip trip=new Trip(createTrip_TIN_destination.getEditText().getText().toString(),(int)daysDiff,R.drawable.ic_logo,start.toString(),end.toString());
-                dataManger.setCurrentTrip(trip);
+
+                dataManger.getCurrentTrip().setName(createTrip_TIN_destination.getEditText().getText().toString());
+                dataManger.getCurrentTrip().setNumOfDays((int)daysDiff);
+                dataManger.getCurrentTrip().setThumbnail(R.drawable.ic_logo);
+                dataManger.getCurrentTrip().setStartDate(start.toString());
+                dataManger.getCurrentTrip().setEndDate(end.toString());
+
             }
         });
 

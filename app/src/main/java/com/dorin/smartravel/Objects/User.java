@@ -10,22 +10,25 @@ public class User {
     private String avatar;
     private String email;
     private String role;
-    private String username;
     private String firstName;
     private String lastName;
-    private String yearBirth;
-    private String gender;
     private String domain;
     private enum ROLE {MANAGER,PLAYER,ADMIN};
+    //    private String yearBirth;
+    //    private String gender;
 
-    public User(String avatar, String firstName, String lastName, String userName, String email, String yearBirth, String gender) {
+    public User(){
+        this.role= "PLAYER";
+        this.domain="";
+    }
+
+    public User(String avatar, String firstName, String lastName, String email, String yearBirth, String gender) {
         this.avatar = avatar;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = userName;
         this.email = email;
-        this.yearBirth = yearBirth;
-        this.gender = gender;
+//        this.yearBirth = yearBirth;
+//        this.gender = gender;
         this.role= "PLAYER";
         this.domain="";
     }
@@ -40,10 +43,26 @@ public class User {
         return this;
     }
 
-    public User setGender(String gender) {
-        this.gender = gender;
+//    public User setGender(String gender) {
+//        this.gender = gender;
+//        return this;
+//    }
+//
+    public User setAvatar(String avatar) {
+        this.avatar = avatar;
         return this;
     }
+
+    public User setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+
+//    public User setYearBirth(String yearBirth) {
+//        this.yearBirth = yearBirth;
+//        return this;
+//    }
 
     public String getAvatar() {
         return avatar;
@@ -57,21 +76,17 @@ public class User {
         return lastName;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public String getYearBirth() {
-        return yearBirth;
-    }
-
-    public String getGender() {
-        return gender;
-    }
+//    public String getYearBirth() {
+//        return yearBirth;
+//    }
+//
+//    public String getGender() {
+//        return gender;
+//    }
 
     public String getRole() {
         return role;
@@ -92,28 +107,9 @@ public class User {
                 "avatar='" + avatar + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
-                ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", yearBirth='" + yearBirth + '\'' +
-                ", gender='" + gender + '\'' +
                 ", domain='" + domain + '\'' +
                 '}';
     }
-
-    public JSONObject convertToJson(){
-        JSONObject userJson=new JSONObject();
-        try {
-            userJson.put("email",this.getEmail());
-            userJson.put("role",this.getRole());
-            userJson.put("username",this.getUsername());
-            userJson.put("avatar",this.getAvatar());
-        }catch (JSONException e){
-            Log.d("ptt",e.getMessage());
-        }
-
-        return userJson;
-    }
-
-
 }

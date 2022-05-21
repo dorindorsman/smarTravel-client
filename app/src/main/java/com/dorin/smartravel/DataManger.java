@@ -2,10 +2,15 @@ package com.dorin.smartravel;
 
 import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
+import com.dorin.smartravel.Objects.User;
 import com.dorin.smartravel.retrofit.RetrofitService;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.Map;
+
 import retrofit2.Retrofit;
 
 public class DataManger {
@@ -15,6 +20,8 @@ public class DataManger {
     private GoogleSignInOptions gso;
     private GoogleSignInAccount account;
 
+    private Map<String,String> myInstances;
+    private User currentUser;
     private Trip currentTrip;
     private DayTrip currentDayTrip;
     private RetrofitService retrofitService;
@@ -24,12 +31,11 @@ public class DataManger {
     }
 
     private DataManger() {
+        retrofitService=new RetrofitService();
+        currentUser = new User();
+        currentTrip = new Trip();
+        myInstances =  new LinkedTreeMap<>();
 
-
-
-
-        if(retrofitService==null)
-            retrofitService=new RetrofitService();
     }
 
     public static DataManger getInstance(){
@@ -47,10 +53,6 @@ public class DataManger {
         return currentTrip;
     }
 
-    public DataManger setCurrentTrip(Trip currentTrip) {
-        this.currentTrip = currentTrip;
-        return this;
-    }
 
 
     public DayTrip getCurrentDayTrip() {
@@ -87,5 +89,13 @@ public class DataManger {
     public DataManger setAccount(GoogleSignInAccount account) {
         this.account = account;
         return this;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public Map<String, String> getMyInstances() {
+        return myInstances;
     }
 }

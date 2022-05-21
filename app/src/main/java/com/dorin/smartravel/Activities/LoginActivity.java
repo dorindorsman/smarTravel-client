@@ -4,19 +4,28 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.User;
 import com.dorin.smartravel.R;
+import com.dorin.smartravel.retrofit.Convertor;
 import com.dorin.smartravel.retrofit.UserApi;
+import com.dorin.smartravel.serverObjects.CreatedBy;
+import com.dorin.smartravel.serverObjects.DomainWithEmail;
+import com.dorin.smartravel.serverObjects.InstanceBoundary;
+import com.dorin.smartravel.serverObjects.UserBoundary;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,28 +33,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.gson.JsonObject;
 import com.google.gson.internal.LinkedTreeMap;
 
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LocationListener {
 
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInAccount account;
-
-
+    private DataManger dataManger;
     private SignInButton signInButton;
+
+
+
 
 
 
@@ -62,13 +70,14 @@ public class LoginActivity extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        DataManger.getInstance().setGso(gso);
+
+        dataManger = DataManger.getInstance();
+
+        dataManger.setGso(gso);
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        DataManger.getInstance().setmGoogleSignInClient(mGoogleSignInClient);
-
-
+        dataManger.setmGoogleSignInClient(mGoogleSignInClient);
 
         findViews();
         initButton();
@@ -116,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
+            signIn(account);
 
             // Signed in successfully, show authenticated UI.
             //updateUI(account);
@@ -128,8 +138,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void signIn() {
-
+    private void signIn(GoogleSignInAccount account) {
+        dataManger.getCurrentUser()
+                .setFirstName(account.getGivenName())
+                .setLastName(account.getFamilyName())
+                .setAvatar(account.getPhotoUrl().toString())
+                .setEmail(account.getEmail());
         CreateUser();
         replaceActivity(MainActivity.class);
         //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -138,93 +152,54 @@ public class LoginActivity extends AppCompatActivity {
 
     // TODO: 5/4/2022 move to data manager
     private void CreateUser() {
-
-        User user= new User("IMG","dorin","dorsman","dorinDorsman","dorsmandorin@gmail.com","1995","Female");
-//        JSONObject userJson= user.convertToJson();
-//        Log.d("ptt",userJson+" ");
-        UserApi userApi= DataManger.getInstance().getRetrofitService().getRetrofit().create(UserApi.class);
-        userApi.createUser(user).
-                enqueue(new Callback<Object>() {
+        UserBoundary userboundary = Convertor.convertUserToUserBoundary(dataManger.getCurrentUser());
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        Log.d("userBoundary",userboundary.toString());
+        userApi.createUser(userboundary)
+                .enqueue(new Callback<UserBoundary>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-
-                Log.d("ptt","Save Successful");
-                Log.d("ptt",response.body().getClass().getName()+"");
-                String domain = ((LinkedTreeMap)((LinkedTreeMap) response.body()).get("userId")).get("domain").toString();
-                //String a = ((LinkedTreeMap) domain).get("domain").toString();
-
-                String b =((LinkedTreeMap<String, LinkedTreeMap>) response.body()).get("userId").get("domain").toString();
-                Log.d("ptt",domain);
-                Log.d("ptt",b);
+            public void onResponse(Call<UserBoundary> call, Response<UserBoundary> response) {
                 try {
-                    Log.d("ptt",""+response.body());
+                    dataManger.getCurrentUser().setDomain(response.body().getUserId().getDomain());
+                    Log.d("userBoundary",dataManger.getCurrentUser().toString());
                 }catch (Exception e){
-                    Log.d("ptt",e.toString());
+                    Log.d("error",e.getMessage());
                 }
-
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                Log.d("ptt","Save Failed");
-                Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE , "Error occurred",t);
+            public void onFailure(Call<UserBoundary> call, Throwable t) {
+
             }
         });
-
         createInstanceUser();
-
     }
 
-    // TODO: 5/4/2022 move to data manager
+
+
     private void createInstanceUser() {
-//         user= new User("IMG","dorin","dorsman","dorinDorsman","dorsmandorin@gmail.com","1995","Female");
-//        UserApi userApi= DataManger.getInstance().getRetrofitService().getRetrofit().create(UserApi.class);
-//        userApi.createUser(user).enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(Call<User> call, Response<User> response) {
-//                //  Toast.makeText(LoginActivity.this, "Save Successful", Toast.LENGTH_SHORT).show();
-//                Log.d("ptt","Save Successful");
-//            }
-//
-//            @Override
-//            public void onFailure(Call<User> call, Throwable t) {
-//                Log.d("ptt","Save Failed");
-//                //  Log.dLoginActivity.this,"Save Failed",Toast.LENGTH_SHORT).show();
-//                Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE , "Error occurred",t);
-//            }
-//        });
 
+        InstanceBoundary instanceBoundary = Convertor.convertUserToInstanceBoundary(dataManger.getCurrentUser());
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.createInstance(instanceBoundary)
+                .enqueue(new Callback<InstanceBoundary>() {
+            @Override
+            public void onResponse(Call<InstanceBoundary> call, Response<InstanceBoundary> response) {
 
+                try {
+                    dataManger.getMyInstances().put("user",response.body().getInstanceId().getId());
+                    Log.d("InstanceId",dataManger.getMyInstances().get("user"));
+                }catch (Exception e){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<InstanceBoundary> call, Throwable t) {
+
+            }
+        });
     }
-
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-//        if (requestCode == RC_SIGN_IN) {
-//            // The Task returned from this call is always completed, no need to attach
-//            // a listener.
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//            handleSignInResult(task);
-//        }
-//    }
-//
-//
-//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-//        try {
-//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-//
-//            // Signed in successfully, show authenticated UI.
-//            updateUI(account);
-//        } catch (ApiException e) {
-//            // The ApiException status code indicates the detailed failure reason.
-//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-//            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-//            updateUI(null);
-//        }
-//    }
 
 
     @Override
@@ -233,8 +208,6 @@ public class LoginActivity extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         account = GoogleSignIn.getLastSignedInAccount(this);
-
-
         if(account!=null){
             DataManger.getInstance().setAccount(account);
             replaceActivity(MainActivity.class);
@@ -247,5 +220,10 @@ public class LoginActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+
     }
 }

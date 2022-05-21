@@ -32,6 +32,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     private Context mContext;
     private List<Trip> tripList;
     private CallBackItemClick callBackItemClick;
+    private DataManger dataManger = DataManger.getInstance();
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -78,7 +79,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DataManger.getInstance().setCurrentTrip(trip);
+                dataManger.getCurrentTrip().setName(trip.getName());
+                dataManger.getCurrentTrip().setNumOfDays(trip.getNumOfDays());
+                dataManger.getCurrentTrip().setThumbnail(trip.getThumbnail());
+                dataManger.getCurrentTrip().setStartDate(trip.getStartDate());
+                dataManger.getCurrentTrip().setEndDate(trip.getEndDate());
                 callBackItemClick.itemClick();
 
             }

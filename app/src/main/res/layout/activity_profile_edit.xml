@@ -219,13 +219,13 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:background="@color/menuGreen" />
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:background="@color/menuGreen" />-->
 
 <!--            <LinearLayout-->
 <!--                android:id="@+id/EditProfile_Email"-->
@@ -338,85 +338,64 @@
 <!--                android:background="@color/menuGreen" />-->
 
 
-            <LinearLayout
-                android:id="@+id/EditProfile_Gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="46dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="46dp"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/EditProfile_Gender"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="46dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginEnd="46dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="5dp"-->
+<!--                android:paddingStart="15dp"-->
+<!--                android:paddingEnd="15dp">-->
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/panel_TextTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:drawableLeft="@drawable/ic_gender"
-                    android:drawablePadding="15dp"
-                    android:drawableTint="@color/menuGreen"
-                    android:fontFamily="@font/roboto"
-                    android:text="Gender :"
-                    android:textColor="@color/menuGreen"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+<!--                <com.google.android.material.textview.MaterialTextView-->
+<!--                    android:id="@+id/panel_TextTitle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:drawableLeft="@drawable/ic_gender"-->
+<!--                    android:drawablePadding="15dp"-->
+<!--                    android:drawableTint="@color/menuGreen"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="Gender :"-->
+<!--                    android:textColor="@color/menuGreen"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <RadioGroup
-                    android:id="@+id/EditProfile_RG_Gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+<!--                <RadioGroup-->
+<!--                    android:id="@+id/EditProfile_RG_Gender"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <RadioButton
-                        android:id="@+id/radioMale"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:buttonTint="@color/menuGreen"
-                        android:fontFamily="@font/roboto"
-                        android:text="Male"
-                        android:textColor="@color/menuGreen"
-                        android:textSize="16sp" />
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/radioMale"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:buttonTint="@color/menuGreen"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:text="Male"-->
+<!--                        android:textColor="@color/menuGreen"-->
+<!--                        android:textSize="16sp" />-->
 
-                    <RadioButton
-                        android:id="@+id/radioFemale"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:buttonTint="@color/menuGreen"
-                        android:fontFamily="@font/roboto"
-                        android:text="Female"
-                        android:textColor="@color/menuGreen"
-                        android:textSize="16sp" />
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/radioFemale"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="8dp"-->
+<!--                        android:buttonTint="@color/menuGreen"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:text="Female"-->
+<!--                        android:textColor="@color/menuGreen"-->
+<!--                        android:textSize="16sp" />-->
 
-                </RadioGroup>
+<!--                </RadioGroup>-->
+<!--                -->
 
-
-                <!--                <Switch-->
-                <!--                    android:id="@+id/EditProfile_simpleSwitch_Gender"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginStart="15dp"-->
-                <!--                    android:checked="true"-->
-                <!--                    android:drawableStart="@drawable/ic_gender"-->
-                <!--                    android:drawablePadding="15dp"-->
-                <!--                    android:drawableTint="@color/menuGreen"-->
-                <!--                    android:fontFamily="@font/roboto"-->
-                <!--                    android:text="@string/gender"-->
-                <!--                    android:textColor="@color/menuGreen"-->
-                <!--                    android:textColorHint="@color/menuGreen"-->
-                <!--                    android:textIsSelectable="true"-->
-                <!--                    android:textOff="Male"-->
-                <!--                    android:textOn="Female"-->
-                <!--                    android:textSize="16sp"-->
-                <!--                    android:thumbTint="@color/menuGreen"-->
-                <!--                    android:trackTint="@color/selectedMenuGreen" />-->
-
-
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
             <View
                 android:layout_width="match_parent"
