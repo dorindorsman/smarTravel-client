@@ -38,7 +38,7 @@ public class Convertor{
         instanceBoundary.setActive(true);
         instanceBoundary.setCreatedBy(new CreatedBy(new DomainWithEmail(DataManger.CLIENT_MANAGER_DOMAIN, DataManger.CLIENT_MANAGER_EMAIL)));
         Log.d("roman",instanceBoundary.getCreatedBy().getUserId()+"");
-        instanceBoundary.setLocation(new Location(0.0,0.0)); // FIXME: 5/20/2022 location track don't work!!!
+        instanceBoundary.setLocation(DataManger.getInstance().getCurrentLocation());
         Map<String, Object> map = new LinkedTreeMap<>();
         map.put("firstName",currentUser.getFirstName());
         map.put("lastName",currentUser.getLastName());

@@ -14,14 +14,21 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.dorin.smartravel.LocationManager;
 import com.dorin.smartravel.R;
+import com.dorin.smartravel.retrofit.Convertor;
+import com.dorin.smartravel.retrofit.UserApi;
+import com.dorin.smartravel.serverObjects.ActivityBoundary;
+import com.dorin.smartravel.serverObjects.UserBoundary;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +42,9 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,13 +67,16 @@ public class MainActivity extends AppCompatActivity {
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
 
-    private DataManger dataManger = DataManger.getInstance();
+    private DataManger dataManger;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dataManger = DataManger.getInstance();
         findViews();
         setSupportActionBar(main_bottomAppBar);
         setSupportActionBar(main_Toolbar_Top);
@@ -71,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         setFragments();
         initButtons();
         replaceFragments(main_fragments[UPCOMING]);
+
+
 
     }
 
@@ -230,7 +245,44 @@ public class MainActivity extends AppCompatActivity {
         dataManger.setResultUri(data.getData());
         dataManger.getCurrentUser().setAvatar(dataManger.getResultUri().toString());
         header_IMG_user.setImageURI(dataManger.getResultUri());
+        updateUserBoundaryDetails();
         // TODO: 5/21/2022  add callback
+    }
+
+
+    private void updateUserBoundaryDetails(){
+        UserBoundary userboundary = Convertor.convertUserToUserBoundary(dataManger.getCurrentUser());
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.updateUserDetails(userboundary,dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail())
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        createActivityBoundary();
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
+
+    }
+
+
+    private void createActivityBoundary() {
+        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("user"),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"editProfile");
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.createActivity(activityBoundary)
+                .enqueue(new Callback<ActivityBoundary>() {
+                    @Override
+                    public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ActivityBoundary> call, Throwable t) {
+
+                    }
+                });
     }
 
     private void initColorMenu() {

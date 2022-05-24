@@ -1,9 +1,11 @@
 package com.dorin.smartravel.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.LocationManager;
 import com.dorin.smartravel.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,12 +32,11 @@ public class SplashActivity extends AppCompatActivity {
     private ImageView splash_IMG_Icon;
     private TextView  splash_LBL_Android;
 
-
     //Animations
     Animation topAnimation, bottomAnimation, middleAnimation;
 
-
-
+    private DataManger dataManger;
+    private LocationManager locationManager ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,38 +49,30 @@ public class SplashActivity extends AppCompatActivity {
         findViews();
         initAnimation();
 
-
-
-
-
-
-//        //Splash Screen
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                    replaceActivity(MainActivity.class);
-//            }
-//        },SPLASH_TIME_OUT);
-
-//        //Splash Screen
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-//                FirebaseDB firebaseDB=FirebaseDB.getInstance();
-//                if(firebaseAuth.getCurrentUser() != null){
-//                    firebaseDB.hasProfile(firebaseAuth.getCurrentUser().getUid());
-//                    splash_progressBar.setVisibility(View.VISIBLE);
-//                }else{
-//                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                    startActivity(intent);
-//                    finish();
-//                }
-//            }
-//        },SPLASH_TIME_OUT);
+        dataManger = DataManger.getInstance();
+        locationManager = new LocationManager(this);
+        locationManager.setCallBackLocation(callBackLocation);
 
     }
+
+    LocationManager.CallBackLocation callBackLocation = new LocationManager.CallBackLocation() {
+        @Override
+        public void locationReady(double longitude, double latitude) {
+            Log.d("roman",""+longitude+"  "+latitude);
+            dataManger.setCurrentLocation(longitude, latitude);
+            replaceActivity(LoginActivity.class);
+        }
+    };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            }
+        }
+    }
+
 
     private void findViews() {
 
@@ -92,8 +87,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void initAnimation() {
-        //splash_IMG_Icon.setAnimation(middleAnimation);
-        //splash_LBL_Android.setAnimation(bottomAnimation);
+
         splash_IMG_Icon.animate().translationY(0).setDuration(3000).setStartDelay(500);
         splash_LBL_Android.animate().translationY(0).setDuration(3000).setStartDelay(500)
                 .setInterpolator(new AnticipateInterpolator()).setListener(new Animator.AnimatorListener() {
@@ -104,7 +98,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                replaceActivity(LoginActivity.class);
+                locationManager.getLocation();
             }
 
             @Override
@@ -126,15 +120,6 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
-//    private void updateUI(GoogleSignInAccount account) {
-//        if(account!=null){
-//            replaceActivity(MainActivity.class);
-//        }else{
-//            replaceActivity(LoginActivity.class);
-//        }
-//    }
 
 
 

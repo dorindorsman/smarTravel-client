@@ -6,6 +6,7 @@ import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.Objects.User;
 import com.dorin.smartravel.retrofit.RetrofitService;
+import com.dorin.smartravel.serverObjects.Location;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -28,6 +29,7 @@ public class DataManger {
     private Uri resultUri;
 
     private Map<String,String> myInstances;
+    private Location currentLocation;
     private User currentUser;
     private Trip currentTrip;
     private DayTrip currentDayTrip;
@@ -39,6 +41,7 @@ public class DataManger {
 
     private DataManger() {
         retrofitService=new RetrofitService();
+        currentLocation = new Location(0.0,0.0);
         currentUser = new User();
         currentTrip = new Trip();
         myInstances =  new LinkedTreeMap<>();
@@ -112,6 +115,16 @@ public class DataManger {
 
     public DataManger setResultUri(Uri resultUri) {
         this.resultUri = resultUri;
+        return this;
+    }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public DataManger setCurrentLocation(double longitude, double latitude) {
+        this.currentLocation.setLat(latitude);
+        this.currentLocation.setLng(longitude);
         return this;
     }
 }
