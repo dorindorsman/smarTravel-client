@@ -78,9 +78,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             public void onClick(View view) {
                 dataManger.getCurrentTrip().setName(trip.getName());
                 dataManger.getCurrentTrip().setNumOfDays(trip.getNumOfDays());
+                dataManger.getCurrentTrip().setDayTripList(trip.getDayTripList());
                 dataManger.getCurrentTrip().setThumbnail(trip.getThumbnail());
                 dataManger.getCurrentTrip().setStartDate(trip.getStartDate());
                 dataManger.getCurrentTrip().setEndDate(trip.getEndDate());
+                dataManger.getCurrentTrip().setIsRate(trip.getIsRate());
                 callBackItemClick.itemClick();
 
             }
@@ -124,6 +126,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                     Toast.makeText(mContext, "Edit", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_delete_trip:
+
                     Toast.makeText(mContext, "delete", Toast.LENGTH_SHORT).show();
 
                     new MaterialAlertDialogBuilder(mContext)
@@ -138,19 +141,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                             .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-//                                    if (myList.getCreatorUid().equals(currentUser.getUid())) {
-//                                        removeList(myList);
-//                                    } else {
-//                                        new MaterialAlertDialogBuilder(currentActivity)
-//                                                .setTitle("שגיאה!")
-//                                                .setMessage("רק יוצר הרשימה יכול למחוק את הרשימה, אם ברצונך להעלים את הרשימה עלייך לפנות ליוצר")
-//                                                .setNeutralButton("קיבלתי", new DialogInterface.OnClickListener() {
-//                                                    @Override
-//                                                    public void onClick(DialogInterface dialog, int which) {
-//                                                        dialog.dismiss();
-//                                                    }
-//                                                }).show();
-//                                    }
+
+                                    for (Trip t:dataManger.getTripList()) {
+                                        if (trip.getName().equals(t.getName()) && trip.getStartDate().equals(t.getStartDate()) && trip.getEndDate().equals(t.getEndDate()) ) {
+                                            dataManger.getTripList().remove(t);
+                                            callBackItemClick.itemDelete();
+                                            
+                                        }
+                                    }
+
                                 }
                             })
                             .show();

@@ -14,8 +14,13 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
+import com.dorin.smartravel.retrofit.Convertor;
+import com.dorin.smartravel.retrofit.UserApi;
+import com.dorin.smartravel.serverObjects.ActivityBoundary;
+import com.dorin.smartravel.serverObjects.InstanceBoundary;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -23,9 +28,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreateNewTripActivity extends AppCompatActivity {
 
@@ -149,7 +159,6 @@ public class CreateNewTripActivity extends AppCompatActivity {
                                 // set day of month , month and year value in the edit text
                                 createTrip_TIN_EndDate.getEditText().setText(dayOfMonth + "/"
                                         + (monthOfYear + 1) + "/" + year);
-
                             }
                         }, mYear, mMonth, mDay);
                 //end.setTime(c.getTimeInMillis());
@@ -175,12 +184,66 @@ public class CreateNewTripActivity extends AppCompatActivity {
                 while(trip.getDayTripList().size()>trip.getNumOfDays()){
                     trip.getDayTripList().remove(trip.getDayTripList().size()-1);
                 }
+                for (DayTrip day:trip.getDayTripList()) {
+                    // DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
+                   // String formattedDate = formatter.format(start);
+                    // FIXME: 5/24/2022 fix date 
+                    day.setDate(start.toString());
+                    day.setTitle();
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(start);
+                    c.add(Calendar.DATE, 1);
+                    start = c.getTime();
+                }
                 dataManger.getTripList().add(trip);
                 dataManger.getCallBackCreateTrip().createTrip();
                 Toast.makeText(CreateNewTripActivity.this,"Trip Added Successfully",Toast.LENGTH_LONG).show();
+                createInstanceTrip(trip);
+
             }
         }
 
+    }
+
+    private void createInstanceTrip(Trip trip) {
+        InstanceBoundary instanceBoundary = Convertor.convertTripToInstanceBoundary(trip);
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.createInstance(instanceBoundary)
+                .enqueue(new Callback<InstanceBoundary>() {
+                    @Override
+                    public void onResponse(Call<InstanceBoundary> call, Response<InstanceBoundary> response) {
+                        try {
+                            dataManger.getMyInstances().put("trip"+dataManger.getInstanceTripCounter(),response.body().getInstanceId().getId());
+                            createActivityBoundary();
+                            dataManger.setInstanceTripCounter(dataManger.getInstanceTripCounter()+1);
+                        }catch (Exception e){
+                            Log.d("error",e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<InstanceBoundary> call, Throwable t) {
+
+                    }
+                });
+    }
+
+
+    private void createActivityBoundary() {
+        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+dataManger.getInstanceTripCounter()),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"newTrip");
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.createActivity(activityBoundary)
+                .enqueue(new Callback<ActivityBoundary>() {
+                    @Override
+                    public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ActivityBoundary> call, Throwable t) {
+
+                    }
+                });
     }
 
     private void findViews() {

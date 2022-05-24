@@ -30,16 +30,20 @@ public class DaysPathTripFragment extends Fragment {
 
     private RecyclerView daysPathTrip_RecyclerView;
     private DaysAdapter daysAdapter;
-    private List<DayTrip> daysList;
-    private Trip currentTrip;
+    private DataManger dataManger;
     private String dayTitle =  " ";
 
     CallBackItemClick callBackItemClick = new CallBackItemClick() {
         @Override
         public void itemClick() {
             dayTitle = "Day " + DataManger.getInstance().getCurrentDayTrip().getDayNumber();
-            materialToolbar.setTitle(currentTrip.getName()+" - "+dayTitle);
+            materialToolbar.setTitle(dataManger.getCurrentTrip().getName()+" - "+dayTitle);
             getParentFragmentManager().beginTransaction().replace(R.id.main_fragment,DayTripFragment.class,null).commit();
+
+        }
+
+        @Override
+        public void itemDelete() {
 
         }
     };
@@ -54,7 +58,7 @@ public class DaysPathTripFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentTrip = DataManger.getInstance().getCurrentTrip();
+        dataManger = DataManger.getInstance();
 
     }
 
@@ -72,40 +76,21 @@ public class DaysPathTripFragment extends Fragment {
     private void findViews(View view) {
 
         materialToolbar = getActivity().findViewById(R.id.main_Toolbar_Top);
-        materialToolbar.setTitle(currentTrip.getName()+" - "+dayTitle);
+        materialToolbar.setTitle(dataManger.getCurrentTrip().getName()+" - "+dayTitle);
 
         daysPathTrip_RecyclerView = view.findViewById(R.id.daysPathTrip_RecyclerView);
-        daysList = new ArrayList<>();
-        daysAdapter = new DaysAdapter(this.activity, daysList , callBackItemClick);
+        daysAdapter = new DaysAdapter(this.activity, dataManger.getCurrentTrip().getDayTripList() , callBackItemClick);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.activity, 1);
         daysPathTrip_RecyclerView.setLayoutManager(mLayoutManager);
         daysPathTrip_RecyclerView.addItemDecoration(new Util(1, Util.dpToPx(10,getResources()), true));
         daysPathTrip_RecyclerView.setItemAnimator(new DefaultItemAnimator());
         daysPathTrip_RecyclerView.setAdapter(daysAdapter);
-
-
-        prepareDaysTrip();
-    }
-
-    private void prepareDaysTrip() {
-        DayTrip a = new DayTrip(1,"23/4");
-        daysList.add(a);
-
-        a = new DayTrip(2,"24/4");
-        daysList.add(a);
-
-        a = new DayTrip(3,"25/4");
-        daysList.add(a);
-
-        a = new DayTrip(4,"26/4");
-        daysList.add(a);
-
-        a = new DayTrip(5,"27/4");
-        daysList.add(a);
-
         daysAdapter.notifyDataSetChanged();
+
     }
+
+
 
 
 }

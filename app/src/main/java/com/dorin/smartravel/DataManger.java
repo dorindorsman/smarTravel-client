@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.Retrofit;
-
 public class DataManger {
 
     private static DataManger single_Instance_dataManger=null;
@@ -33,6 +31,7 @@ public class DataManger {
 
     public FetchDataFromUrl fetchDataFromUrl;
 
+    private int instanceTripCounter=0;
     private Uri resultUri;
     private Map<String,String> myInstances;
     private Location currentLocation;
@@ -153,6 +152,15 @@ public class DataManger {
 
     public DataManger setTripList(List<Trip> tripList) {
         this.tripList = tripList;
+        return this;
+    }
+
+    public int getInstanceTripCounter() {
+        return instanceTripCounter;
+    }
+
+    public DataManger setInstanceTripCounter(int instanceTripCounter) {
+        this.instanceTripCounter = instanceTripCounter;
         return this;
     }
 }

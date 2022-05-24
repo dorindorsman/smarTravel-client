@@ -21,8 +21,8 @@ public class DayTrip {
         return title;
     }
 
-    public DayTrip setTitle(String title) {
-        this.title = title;
+    public DayTrip setTitle() {
+        this.title = "DAY "+this.dayNumber+"  "+date;
         return this;
     }
 

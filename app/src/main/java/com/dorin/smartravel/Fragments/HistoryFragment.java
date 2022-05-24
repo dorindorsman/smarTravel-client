@@ -35,6 +35,11 @@ public class HistoryFragment extends Fragment {
             getParentFragmentManager().beginTransaction().replace(R.id.main_fragment,DaysPathTripFragment.class,null).commit();
 
         }
+
+        @Override
+        public void itemDelete() {
+
+        }
     };
 
 

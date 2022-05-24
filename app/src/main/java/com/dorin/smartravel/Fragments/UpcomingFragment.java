@@ -43,6 +43,11 @@ public class UpcomingFragment extends Fragment {
         public void itemClick() {
             getParentFragmentManager().beginTransaction().replace(R.id.main_fragment,DaysPathTripFragment.class,null).commit();
         }
+
+        @Override
+        public void itemDelete() {
+            tripAdapter.notifyDataSetChanged();
+        }
     };
 
 
@@ -72,7 +77,6 @@ public class UpcomingFragment extends Fragment {
         dataManger.setCallBackCreateTrip(callBackCreateTrip);
         findViews(view);
         checkTripForRate();
-
         return view;
     }
 
