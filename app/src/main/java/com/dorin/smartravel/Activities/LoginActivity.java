@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         dataManger.setmGoogleSignInClient(mGoogleSignInClient);
-
         findViews();
         initButton();
 
