@@ -184,7 +184,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     private void updateUserInstance(){
         InstanceBoundary instanceBoundary = Convertor.convertUserToInstanceBoundary(dataManger.getCurrentUser());
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
-        userApi.updateInstanceById(instanceBoundary,dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("user"),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail())
+        userApi.updateInstanceById(instanceBoundary,dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("user"),DataManger.CLIENT_MANAGER_DOMAIN,DataManger.CLIENT_MANAGER_EMAIL)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {

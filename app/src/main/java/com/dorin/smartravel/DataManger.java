@@ -22,6 +22,9 @@ public class DataManger {
     private GoogleSignInOptions gso;
     private GoogleSignInAccount account;
 
+    public static final String CLIENT_MANAGER_EMAIL = "androidClient@email.com";
+    public static final String CLIENT_MANAGER_DOMAIN = "2022b.maya.gembom";
+
     private Uri resultUri;
 
     private Map<String,String> myInstances;

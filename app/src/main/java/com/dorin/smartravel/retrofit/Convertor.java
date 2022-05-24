@@ -2,6 +2,7 @@ package com.dorin.smartravel.retrofit;
 
 import android.util.Log;
 
+import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.User;
 import com.dorin.smartravel.serverObjects.ActivityBoundary;
 import com.dorin.smartravel.serverObjects.CreatedBy;
@@ -35,7 +36,7 @@ public class Convertor{
         instanceBoundary.setType("user");
         instanceBoundary.setName(currentUser.getEmail());
         instanceBoundary.setActive(true);
-        instanceBoundary.setCreatedBy(new CreatedBy(new DomainWithEmail("2022b.maya.gembom","manager@email")));
+        instanceBoundary.setCreatedBy(new CreatedBy(new DomainWithEmail(DataManger.CLIENT_MANAGER_DOMAIN, DataManger.CLIENT_MANAGER_EMAIL)));
         Log.d("roman",instanceBoundary.getCreatedBy().getUserId()+"");
         instanceBoundary.setLocation(new Location(0.0,0.0)); // FIXME: 5/20/2022 location track don't work!!!
         Map<String, Object> map = new LinkedTreeMap<>();
