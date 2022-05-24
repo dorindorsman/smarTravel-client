@@ -1,6 +1,7 @@
 package com.dorin.smartravel.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.Adapters.TripAdapter;
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
+import com.dorin.smartravel.Objects.DayTrip;
+import com.dorin.smartravel.Objects.Place;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Util;
 import com.dorin.smartravel.ViewDialogRating;
+import com.dorin.smartravel.serverObjects.Location;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -102,7 +108,8 @@ public class UpcomingFragment extends Fragment {
 
     }
 
-
+    private List<DayTrip> daysList=new ArrayList<>();
+    private List<Place> placesList=new ArrayList<>();
     private void prepareTrips() {
         int[] coversTrips = new int[]{
                 R.drawable.ic_logo,
@@ -117,8 +124,45 @@ public class UpcomingFragment extends Fragment {
                 R.drawable.ic_logo,
                 R.drawable.ic_logo};
 
+        Place c = new Place("aaa","Resturant",new Location(15.5,15.5));
+        placesList.add(c);
+
+        c = new Place("aaa","Resturant",new Location(16.5,16.5));
+        placesList.add(c);
+
+        c = new Place("aaa","Resturant",new Location(16.5,16.5));
+        placesList.add(c);
+
+        c = new Place("aaa","Resturant",new Location(17.5,17.5));
+        placesList.add(c);
+
+        c = new Place("aaa","Resturant",new Location(18.5,18.5));
+        placesList.add(c);
+
+        DayTrip b = new DayTrip(1,"23/4");
+        b.setPlacesList(placesList);
+        daysList.add(b);
+
+        b = new DayTrip(2,"24/4");
+        daysList.add(b);
+
+        b = new DayTrip(3,"25/4");
+        daysList.add(b);
+
+        b = new DayTrip(4,"26/4");
+        daysList.add(b);
+
+        b = new DayTrip(5,"27/4");
+        daysList.add(b);
+
         Trip a = new Trip("New York", 13, coversTrips[0],"01/05","13/05");
+        a.setDayTripList(daysList);
         tripsList.add(a);
+
+        Gson gson = new Gson();
+        String mytrip = gson.toJson(a);
+
+        Log.d("pttt", "prepareTrips: " + mytrip);
 
         a = new Trip("Los Angeles", 8, coversTrips[1],"10/03","18/03");
         tripsList.add(a);

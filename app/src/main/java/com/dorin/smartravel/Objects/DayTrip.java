@@ -1,10 +1,15 @@
 package com.dorin.smartravel.Objects;
 
+
+import java.util.List;
+
 public class DayTrip {
 
     private String title;
     private int dayNumber;
     private String date;
+    private List<Place> placesList;
+
 
     public DayTrip(int dayNumber, String date) {
         this.dayNumber = dayNumber;
@@ -36,6 +41,16 @@ public class DayTrip {
 
     public DayTrip setDate(String date) {
         this.date = date;
+        return this;
+    }
+
+
+    public List<Place> getPlacesList() {
+        return placesList;
+    }
+
+    public DayTrip setPlacesList(List<Place> placesList) {
+        this.placesList = placesList;
         return this;
     }
 }
