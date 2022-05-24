@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(main_Toolbar_Top);
         initColorMenu();
         setFragments();
-        loadUserDetails();
         initButtons();
         replaceFragments(main_fragments[UPCOMING]);
 
@@ -229,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         dataManger.setResultUri(data.getData());
+        dataManger.getCurrentUser().setAvatar(dataManger.getResultUri().toString());
         header_IMG_user.setImageURI(dataManger.getResultUri());
         // TODO: 5/21/2022  add callback
     }
@@ -308,6 +308,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadUserDetails();
+    }
 }

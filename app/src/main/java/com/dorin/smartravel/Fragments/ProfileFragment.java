@@ -54,10 +54,7 @@ public class ProfileFragment extends Fragment {
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_profile, container, false);
         findViews(view);
-        // TODO: 4/22/2022 add user
         initButtons();
-        loadUserDetails();
-
         return view;
     }
 
@@ -73,7 +70,6 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    // TODO: 4/22/2022 add user
     private void loadUserDetails() {
         if(!dataManger.getCurrentUser().getAvatar().equals("empty")){
             Glide.with(this).load(dataManger.getCurrentUser().getAvatar()).into(Profile_IMG_User);
@@ -119,5 +115,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        loadUserDetails();
+
     }
 }

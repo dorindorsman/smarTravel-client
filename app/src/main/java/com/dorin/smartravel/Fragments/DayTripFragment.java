@@ -28,7 +28,6 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
     private AppCompatActivity activity;
     private PlacesListFragment placesListFragment;
     private GoogleMap mMap;
-
     private DayTrip currentDayTrip;
 
 

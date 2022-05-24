@@ -26,20 +26,32 @@ public interface UserApi {
     @POST("iob/activities")
     Call<ActivityBoundary> createActivity(@Body ActivityBoundary activityBoundary);
 
+    @GET("iob/users/login/{userDomain}/{userEmail}")
+    Call<UserBoundary> getUserById(
+            @Path("userDomain") String userDomain,
+            @Path("userEmail") String userEmail);
+
     @GET("iob/instances/{instanceDomain}/{instanceId}")
     Call<InstanceBoundary> getInstanceById(
-    @Path("instanceDomain") String instanceDomain,
-    @Path("instanceId") String instanceId,
-    @Query("userDomain") String userDomain,
-    @Query("userEmail") String userEmail);
+        @Path("instanceDomain") String instanceDomain,
+        @Path("instanceId") String instanceId,
+        @Query("userDomain") String userDomain,
+        @Query("userEmail") String userEmail);
 
     @GET("iob/instances/search/byName/{name}")
-    Call<InstanceBoundary> getAllInstancesByName(
+    Call<InstanceBoundary[]> getAllInstancesByName(
             @Path("name") String name,
-            @Query("userDomain") String userDomain,
-            @Query("userEmail") String userEmail,
-            @Query("size") String size,
-            @Query("page") String page);
+            @Query("userDomain") String domain,
+            @Query("userEmail") String email,
+            @Query("size") int size,
+            @Query("page") int page);
+
+    @GET("iob/instances")
+    Call<InstanceBoundary[]> getAllInstances(
+            @Query("userDomain") String domain,
+            @Query("userEmail") String email,
+            @Query("size") int size,
+            @Query("page") int page);
 
 
     @GET("iob/instances/search/byType/{type}")

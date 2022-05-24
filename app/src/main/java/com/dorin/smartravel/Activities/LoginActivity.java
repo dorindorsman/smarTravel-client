@@ -139,7 +139,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void signIn() {
-
         putAccountIntoUser();
         CreateUser();
         replaceActivity(MainActivity.class);
@@ -167,14 +166,15 @@ public class LoginActivity extends AppCompatActivity {
     private void CreateUser() {
         UserBoundary userboundary = Convertor.convertUserToUserBoundary(dataManger.getCurrentUser());
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
-        Log.d("userBoundary",userboundary.toString());
+        Log.d("roman",userboundary.toString());
         userApi.createUser(userboundary)
                 .enqueue(new Callback<UserBoundary>() {
             @Override
             public void onResponse(Call<UserBoundary> call, Response<UserBoundary> response) {
                 try {
                     dataManger.getCurrentUser().setDomain(response.body().getUserId().getDomain());
-                    Log.d("userBoundary",dataManger.getCurrentUser().toString());
+                    Log.d("roman",dataManger.getCurrentUser().toString());
+                    createInstanceUser();
                 }catch (Exception e){
                     Log.d("error",e.getMessage());
                 }
@@ -185,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        createInstanceUser();
+
     }
 
 
@@ -198,12 +198,12 @@ public class LoginActivity extends AppCompatActivity {
                 .enqueue(new Callback<InstanceBoundary>() {
             @Override
             public void onResponse(Call<InstanceBoundary> call, Response<InstanceBoundary> response) {
-
+                Log.d("roman",response.body()+"");
                 try {
                     dataManger.getMyInstances().put("user",response.body().getInstanceId().getId());
-                    Log.d("InstanceId",dataManger.getMyInstances().get("user"));
+                    Log.d("roman",dataManger.getMyInstances().get("user"));
                 }catch (Exception e){
-
+                    Log.d("error",e.getMessage());
                 }
             }
 
@@ -224,9 +224,58 @@ public class LoginActivity extends AppCompatActivity {
         if(account!=null){
             dataManger.setAccount(account);
             putAccountIntoUser();
+            getUser();
             replaceActivity(MainActivity.class);
         }
 
+    }
+
+    private void getUser() {
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.getUserById("2022b.maya.gembom", dataManger.getCurrentUser().getEmail())
+                .enqueue(new Callback<UserBoundary>() {
+                    @Override
+                    public void onResponse(Call<UserBoundary> call, Response<UserBoundary> response) {
+                        try {
+                            dataManger.getCurrentUser().setDomain(response.body().getUserId().getDomain());
+                            dataManger.getCurrentUser().setEmail(response.body().getUserId().getEmail());
+                            dataManger.getCurrentUser().setAvatar(response.body().getAvatar());
+                            getInstanceByUser();
+                        }catch (Exception e){
+                            Log.d("error",e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserBoundary> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void getInstanceByUser(){
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.getAllInstancesByName(dataManger.getCurrentUser().getEmail(),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),100,0)
+                .enqueue(new Callback<InstanceBoundary[]>() {
+                    @Override
+                    public void onResponse(Call<InstanceBoundary[]> call, Response<InstanceBoundary[]> response) {
+                        InstanceBoundary[] instanceBoundaries =  response.body();
+
+                        for (InstanceBoundary instanceBoundary:instanceBoundaries) {
+                            if(instanceBoundary.getType().equals("user")){
+                                Log.d("roman",(String)instanceBoundary.getInstanceAttributes().get("firstName")+" ddddd");
+                                dataManger.getMyInstances().put("user",instanceBoundary.getInstanceId().getId());
+                                dataManger.getCurrentUser().setFirstName((String)instanceBoundary.getInstanceAttributes().get("firstName"));
+                                dataManger.getCurrentUser().setLastName((String)instanceBoundary.getInstanceAttributes().get("lastName"));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<InstanceBoundary[]> call, Throwable t) {
+
+                    }
+                });
     }
 
     private void replaceActivity(Class activity) {

@@ -104,10 +104,6 @@ public class MyPlacesFragment extends Fragment {
     }
 
     private void preparePlaces() {
-
-
-
-
         placesAdapter.notifyDataSetChanged();
 
     }

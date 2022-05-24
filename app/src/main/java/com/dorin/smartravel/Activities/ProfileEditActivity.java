@@ -4,11 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Validator;
@@ -57,6 +56,14 @@ public class ProfileEditActivity extends AppCompatActivity {
         initValidator();
     }
 
+    private void loadUserDetails() {
+        if(!dataManger.getCurrentUser().getAvatar().equals("empty")){
+            Glide.with(this).load(dataManger.getCurrentUser().getAvatar()).into(EditProfile_IMG_User);
+        }
+        EditProfile_LBL_EditFirstName.setText(dataManger.getCurrentUser().getFirstName());
+        EditProfile_LBL_EditLastName.setText(dataManger.getCurrentUser().getLastName());
+    }
+
     private void findViews() {
 
         EditProfile_toolBar = findViewById(R.id.EditProfile_toolBar);
@@ -68,8 +75,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         EditProfile_LBL_EditLastName = findViewById(R.id.EditProfile_LBL_EditLastName);
         EditProfile_BTN_Update = findViewById(R.id.EditProfile_BTN_Update);
 
-        EditProfile_LBL_EditFirstName.setText(dataManger.getCurrentUser().getFirstName());
-        EditProfile_LBL_EditLastName.setText(dataManger.getCurrentUser().getLastName());
 
     }
 
@@ -126,12 +131,11 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
 
     private void updateUserDetails() {
-        if(dataManger.getResultUri()!=null)
+        if(dataManger.getResultUri()!=null){
             dataManger.getCurrentUser().setAvatar(dataManger.getResultUri().toString());
-
+        }
         dataManger.getCurrentUser().setFirstName(EditProfile_LBL_FirstName.getEditText().getText().toString());
         dataManger.getCurrentUser().setLastName(EditProfile_LBL_LastName.getEditText().getText().toString());
-
     }
 
 
@@ -154,35 +158,28 @@ public class ProfileEditActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         dataManger.setResultUri(data.getData());
+        dataManger.getCurrentUser().setAvatar(dataManger.getResultUri().toString());
         EditProfile_IMG_User.setImageURI(dataManger.getResultUri());
-        // TODO: 5/21/2022  add callback
-
     }
 
 
     private void updateUserBoundaryDetails(){
-
         UserBoundary userboundary = Convertor.convertUserToUserBoundary(dataManger.getCurrentUser());
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
         userApi.updateUserDetails(userboundary,dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail())
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-
+                        updateUserInstance();
+                        createActivityBoundary();
                     }
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
 
                     }
                 });
-        updateUserInstance();
-        createActivityBoundary();
-    }
 
-    private void createActivityBoundary() {
-//        ActivityBoundary activityBoundary =
     }
-
 
     private void updateUserInstance(){
         InstanceBoundary instanceBoundary = Convertor.convertUserToInstanceBoundary(dataManger.getCurrentUser());
@@ -201,8 +198,29 @@ public class ProfileEditActivity extends AppCompatActivity {
                 });
     }
 
+    private void createActivityBoundary() {
+        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("user"),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"editProfile");
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.createActivity(activityBoundary)
+                .enqueue(new Callback<ActivityBoundary>() {
+                    @Override
+                    public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ActivityBoundary> call, Throwable t) {
+
+                    }
+                });
+    }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadUserDetails();
+    }
 }
 
 
