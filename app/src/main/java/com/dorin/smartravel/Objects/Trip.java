@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Trip {
 
+        private int id;
         private String name;
         private int numOfDays;
         private int thumbnail;
@@ -125,6 +126,15 @@ public class Trip {
 
         public boolean getIsRate() {
            return isRate;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public Trip setId(int id) {
+            this.id = id;
+            return this;
         }
 
     @Override

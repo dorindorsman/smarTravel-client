@@ -37,7 +37,7 @@ public class HistoryFragment extends Fragment {
         }
 
         @Override
-        public void itemDelete() {
+        public void itemDelete(int position) {
 
         }
     };
@@ -78,13 +78,6 @@ public class HistoryFragment extends Fragment {
         History_RecyclerView_Trips.setAdapter(tripAdapter);
 
         prepareTrips();
-
-//        try {
-//            Glide.with(this).load(R.drawable.ic_logo).into((ImageView)view.findViewById(R.id.thumbnail));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
     }
 
 

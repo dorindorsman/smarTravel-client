@@ -43,7 +43,7 @@ public class DaysPathTripFragment extends Fragment {
         }
 
         @Override
-        public void itemDelete() {
+        public void itemDelete(int position) {
 
         }
     };

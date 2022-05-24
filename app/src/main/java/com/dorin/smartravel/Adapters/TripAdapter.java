@@ -15,6 +15,10 @@ import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
+import com.dorin.smartravel.retrofit.Convertor;
+import com.dorin.smartravel.retrofit.UserApi;
+import com.dorin.smartravel.serverObjects.ActivityBoundary;
+import com.dorin.smartravel.serverObjects.InstanceBoundary;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
@@ -22,6 +26,10 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> {
@@ -142,11 +150,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                    for (Trip t:dataManger.getTripList()) {
+                                    for (int i=0;i<dataManger.getTripList().size();i++)
+                                    {
+                                        Trip t=dataManger.getTripList().get(i);
                                         if (trip.getName().equals(t.getName()) && trip.getStartDate().equals(t.getStartDate()) && trip.getEndDate().equals(t.getEndDate()) ) {
-                                            dataManger.getTripList().remove(t);
-                                            callBackItemClick.itemDelete();
-                                            
+                                            updateTripInstance(i);
+                                            dataManger.getTripList().remove(i);
+                                            callBackItemClick.itemDelete(i);
                                         }
                                     }
 
@@ -161,9 +171,45 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         }
             return false;
     }
-
 }
 
+
+    private void updateTripInstance(int position){
+        InstanceBoundary instanceBoundary = Convertor.convertTripToInstanceBoundary(dataManger.getTripList().get(position));
+        instanceBoundary.setActive(false);
+
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.updateInstanceById(instanceBoundary,dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+dataManger.getTripList().get(position).getId()),DataManger.CLIENT_MANAGER_DOMAIN,DataManger.CLIENT_MANAGER_EMAIL)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        dataManger.setInstanceTripCounter(dataManger.getInstanceTripCounter()-1);
+                        createActivityBoundary(dataManger.getTripList().get(position).getId());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void createActivityBoundary(int id) {
+        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+id),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"deleteTrip");
+        UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
+        userApi.createActivity(activityBoundary)
+                .enqueue(new Callback<ActivityBoundary>() {
+                    @Override
+                    public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ActivityBoundary> call, Throwable t) {
+
+                    }
+                });
+    }
 
 
     @Override

@@ -42,6 +42,7 @@ public class FetchDataFromUrl extends Thread {
             if (!data.isEmpty()){
                 Gson g = new Gson();
                 trips = g.fromJson(data,Trip[].class);
+                Log.d("roman",trips.length+"");
 
             }
         } catch (MalformedURLException e) {

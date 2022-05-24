@@ -181,6 +181,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
                 long daysDiff = (msDiff/(1000*60*60*24)+1);
                 trip.setNumOfDays((int)daysDiff);
                 trip.setIsRate(false);
+                trip.setId(dataManger.getInstanceTripCounter());
+                dataManger.setInstanceTripCounter(dataManger.getInstanceTripCounter()+1);
                 while(trip.getDayTripList().size()>trip.getNumOfDays()){
                     trip.getDayTripList().remove(trip.getDayTripList().size()-1);
                 }
@@ -213,9 +215,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<InstanceBoundary> call, Response<InstanceBoundary> response) {
                         try {
-                            dataManger.getMyInstances().put("trip"+dataManger.getInstanceTripCounter(),response.body().getInstanceId().getId());
+                            dataManger.getMyInstances().put("trip"+trip.getId(),response.body().getInstanceId().getId());
                             createActivityBoundary();
-                            dataManger.setInstanceTripCounter(dataManger.getInstanceTripCounter()+1);
                         }catch (Exception e){
                             Log.d("error",e.getMessage());
                         }
@@ -230,7 +231,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
 
     private void createActivityBoundary() {
-        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+dataManger.getInstanceTripCounter()),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"newTrip");
+        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+dataManger.getInstanceTripCounter()),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"createTrip");
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
         userApi.createActivity(activityBoundary)
                 .enqueue(new Callback<ActivityBoundary>() {
