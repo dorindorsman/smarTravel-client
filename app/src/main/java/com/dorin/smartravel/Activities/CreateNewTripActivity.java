@@ -7,7 +7,11 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.Trip;
@@ -27,6 +31,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
     private MaterialToolbar CreateTrip_toolBar;
     private TextInputLayout createTrip_TIN_destination;
+    private AutoCompleteTextView createTrip_AutoCompleteTextViewDestination;
     private TextInputLayout createTrip_TIN_StartDate;
     private TextInputLayout createTrip_TIN_EndDate;
     private MaterialButton createTrip_BTN_Create;
@@ -37,20 +42,25 @@ public class CreateNewTripActivity extends AppCompatActivity {
     private Date end;
     private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-    private DataManger dataManger = DataManger.getInstance();
+    private DataManger dataManger;
+
+    private static final String[] destinations = new String[] {
+            "Paris", "Barcelona", "New York", "Melbourne", "Los Angels"};
+    private String destinationSelected;
+
+    private ArrayAdapter<String> destinationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_trip);
 
+        dataManger = DataManger.getInstance();
         start = new Date();
         end = new Date();
 
         findViews();
         initFields();
-
-
 
     }
 
@@ -63,6 +73,13 @@ public class CreateNewTripActivity extends AppCompatActivity {
             }
         });
 
+        createTrip_AutoCompleteTextViewDestination.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO: 4/24/2022 add on click update year birth
+                destinationSelected = parent.getItemAtPosition(position).toString();
+            }
+        });
 
         createTrip_BTN_Create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,33 +91,16 @@ public class CreateNewTripActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                long msDiff = end.getTime() - start.getTime();
-                long daysDiff = (msDiff/(1000*60*60*24)+1);
-
-                dataManger.getCurrentTrip().setName(createTrip_TIN_destination.getEditText().getText().toString());
-                dataManger.getCurrentTrip().setNumOfDays((int)daysDiff);
-                dataManger.getCurrentTrip().setThumbnail(R.drawable.ic_logo);
-                dataManger.getCurrentTrip().setStartDate(start.toString());
-                dataManger.getCurrentTrip().setEndDate(end.toString());
+                findTripFromDataManager();
+                finish();
+//                dataManger.getCurrentTrip().setName(createTrip_TIN_destination.getEditText().getText().toString());
+//                dataManger.getCurrentTrip().setNumOfDays((int)daysDiff);
+//                dataManger.getCurrentTrip().setThumbnail(R.drawable.ic_logo);
+//                dataManger.getCurrentTrip().setStartDate(start.toString());
+//                dataManger.getCurrentTrip().setEndDate(end.toString());
 
             }
         });
-
-//        createTrip_TIN_StartDate.getEditText().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MaterialDatePicker<Pair<Long, Long>> startDatePicker =  MaterialDatePicker.Builder.dateRangePicker().build();
-//                startDatePicker.show(getSupportFragmentManager(),"DATE_RANGE_PICKER");
-//                startDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-//                    @Override
-//                    public void onPositiveButtonClick(Object selection) {
-//                        createTrip_TIN_StartDate.getEditText().setText(selection.toString());
-//                    }
-//                });
-//            }
-//        });
-
-
 
 
         createTrip_TIN_StartDate.getEditText().setOnClickListener(new View.OnClickListener() {
@@ -159,7 +159,27 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void findTripFromDataManager() {
+
+        for (int i=0; i<dataManger.fetchDataFromUrl.trips.length;i++){
+            if(dataManger.fetchDataFromUrl.trips[i].getName().equals(destinationSelected)){
+                Trip trip=new Trip(dataManger.fetchDataFromUrl.trips[i]);
+                trip.setStartDate(createTrip_TIN_StartDate.getEditText().getText().toString());
+                trip.setEndDate(createTrip_TIN_EndDate.getEditText().getText().toString());
+                long msDiff = end.getTime() - start.getTime();
+                long daysDiff = (msDiff/(1000*60*60*24)+1);
+                trip.setNumOfDays((int)daysDiff);
+                trip.setIsRate(false);
+                while(trip.getDayTripList().size()>trip.getNumOfDays()){
+                    trip.getDayTripList().remove(trip.getDayTripList().size()-1);
+                }
+                dataManger.getTripList().add(trip);
+                dataManger.getCallBackCreateTrip().createTrip();
+                Toast.makeText(CreateNewTripActivity.this,"Trip Added Successfully",Toast.LENGTH_LONG).show();
+            }
+        }
 
     }
 
@@ -167,6 +187,9 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
         CreateTrip_toolBar = findViewById(R.id.CreateTrip_toolBar);
         createTrip_TIN_destination = findViewById(R.id.createTrip_TIN_destination);
+        createTrip_AutoCompleteTextViewDestination = findViewById(R.id.createTrip_AutoCompleteTextViewDestination);
+        destinationAdapter = new ArrayAdapter<String>(this, R.layout.dropdown_item, destinations);
+        createTrip_AutoCompleteTextViewDestination.setAdapter(destinationAdapter);
         createTrip_TIN_StartDate= findViewById(R.id.createTrip_TIN_StartDate);
         createTrip_TIN_EndDate= findViewById(R.id.createTrip_TIN_EndDate);
         createTrip_BTN_Create= findViewById(R.id.createTrip_BTN_Create);

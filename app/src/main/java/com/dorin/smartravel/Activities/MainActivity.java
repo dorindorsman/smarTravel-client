@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         replaceFragments(main_fragments[UPCOMING]);
 
 
-
     }
 
 

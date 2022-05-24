@@ -2,6 +2,7 @@ package com.dorin.smartravel;
 
 import android.net.Uri;
 
+import com.dorin.smartravel.CallBacks.CallBackCreateTrip;
 import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.Objects.User;
@@ -12,6 +13,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Retrofit;
@@ -23,11 +26,14 @@ public class DataManger {
     private GoogleSignInOptions gso;
     private GoogleSignInAccount account;
 
+    private CallBackCreateTrip callBackCreateTrip;
+
     public static final String CLIENT_MANAGER_EMAIL = "androidClient@email.com";
     public static final String CLIENT_MANAGER_DOMAIN = "2022b.maya.gembom";
 
-    private Uri resultUri;
+    public FetchDataFromUrl fetchDataFromUrl;
 
+    private Uri resultUri;
     private Map<String,String> myInstances;
     private Location currentLocation;
     private User currentUser;
@@ -35,16 +41,29 @@ public class DataManger {
     private DayTrip currentDayTrip;
     private RetrofitService retrofitService;
 
+    private List<Trip> tripList;
+
+    public CallBackCreateTrip getCallBackCreateTrip() {
+        return callBackCreateTrip;
+    }
+
+    public DataManger setCallBackCreateTrip(CallBackCreateTrip callBackCreateTrip) {
+        this.callBackCreateTrip = callBackCreateTrip;
+        return this;
+    }
+
     public RetrofitService getRetrofitService() {
         return retrofitService;
     }
 
     private DataManger() {
+        fetchDataFromUrl = new FetchDataFromUrl();
         retrofitService=new RetrofitService();
         currentLocation = new Location(0.0,0.0);
         currentUser = new User();
         currentTrip = new Trip();
         myInstances =  new LinkedTreeMap<>();
+        tripList=new ArrayList<Trip>();
 
     }
 
@@ -125,6 +144,15 @@ public class DataManger {
     public DataManger setCurrentLocation(double longitude, double latitude) {
         this.currentLocation.setLat(latitude);
         this.currentLocation.setLng(longitude);
+        return this;
+    }
+
+    public List<Trip> getTripList() {
+        return tripList;
+    }
+
+    public DataManger setTripList(List<Trip> tripList) {
+        this.tripList = tripList;
         return this;
     }
 }

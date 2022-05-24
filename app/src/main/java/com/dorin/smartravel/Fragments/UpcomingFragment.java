@@ -1,7 +1,6 @@
 package com.dorin.smartravel.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,29 +12,31 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.Adapters.TripAdapter;
+import com.dorin.smartravel.CallBacks.CallBackCreateTrip;
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
-import com.dorin.smartravel.Objects.DayTrip;
-import com.dorin.smartravel.Objects.Place;
+import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Util;
 import com.dorin.smartravel.ViewDialogRating;
-import com.dorin.smartravel.serverObjects.Location;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class UpcomingFragment extends Fragment {
 
     private AppCompatActivity activity;
-
     private RecyclerView Upcoming_RecyclerView_Trips;
     private TripAdapter tripAdapter;
-    private List<Trip> tripsList;
+    private DataManger dataManger;
+
+
+    CallBackCreateTrip callBackCreateTrip = new CallBackCreateTrip() {
+        @Override
+        public void createTrip() {
+            tripAdapter.notifyDataSetChanged();
+        }
+    };
 
     CallBackItemClick callBackItemClick = new CallBackItemClick() {
         @Override
@@ -67,6 +68,8 @@ public class UpcomingFragment extends Fragment {
 
 
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_upcomings, container, false);
+        dataManger = DataManger.getInstance();
+        dataManger.setCallBackCreateTrip(callBackCreateTrip);
         findViews(view);
         checkTripForRate();
 
@@ -76,8 +79,8 @@ public class UpcomingFragment extends Fragment {
     private void checkTripForRate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
         Date date = new Date();
-        if(!tripsList.isEmpty()){
-            for (Trip trip:tripsList) {
+        if(!dataManger.getTripList().isEmpty()){
+            for (Trip trip:dataManger.getTripList()) {
                 if(!trip.getIsRate() && trip.getEndDate().equals(formatter.format(date))){
                     ViewDialogRating dialogRating=new ViewDialogRating();
                     dialogRating.showDialog(activity,trip,trip.getRates(),callback_viewDialog);
@@ -89,109 +92,103 @@ public class UpcomingFragment extends Fragment {
 
     private void findViews(View view) {
         Upcoming_RecyclerView_Trips = view.findViewById(R.id.Upcoming_RecyclerView_Trips);
-        tripsList = new ArrayList<>();
-        tripAdapter = new TripAdapter(this.activity, tripsList,callBackItemClick);
+        tripAdapter = new TripAdapter(this.activity, dataManger.getTripList(),callBackItemClick);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.activity, 2);
         Upcoming_RecyclerView_Trips.setLayoutManager(mLayoutManager);
         Upcoming_RecyclerView_Trips.addItemDecoration(new Util(2, Util.dpToPx(10,getResources()), true));
         Upcoming_RecyclerView_Trips.setItemAnimator(new DefaultItemAnimator());
         Upcoming_RecyclerView_Trips.setAdapter(tripAdapter);
+        tripAdapter.notifyDataSetChanged();
 
-        prepareTrips();
-
-//        try {
-//            Glide.with(this).load(R.drawable.ic_logo).into((ImageView)view.findViewById(R.id.thumbnail));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
     }
 
-    private List<DayTrip> daysList=new ArrayList<>();
-    private List<Place> placesList=new ArrayList<>();
+
     private void prepareTrips() {
-        int[] coversTrips = new int[]{
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo,
-                R.drawable.ic_logo};
 
-        Place c = new Place("aaa","Resturant",new Location(15.5,15.5));
-        placesList.add(c);
 
-        c = new Place("aaa","Resturant",new Location(16.5,16.5));
-        placesList.add(c);
+//        int[] coversTrips = new int[]{
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo,
+//                R.drawable.ic_logo};
+//
+//        Place c = new Place("aaa","Resturant",new Location(15.5,15.5));
+//        placesList.add(c);
+//
+//        c = new Place("aaa","Resturant",new Location(16.5,16.5));
+//        placesList.add(c);
+//
+//        c = new Place("aaa","Resturant",new Location(16.5,16.5));
+//        placesList.add(c);
+//
+//        c = new Place("aaa","Resturant",new Location(17.5,17.5));
+//        placesList.add(c);
+//
+//        c = new Place("aaa","Resturant",new Location(18.5,18.5));
+//        placesList.add(c);
+//
+//        DayTrip b = new DayTrip(1,"23/4");
+//        b.setPlacesList(placesList);
+//        daysList.add(b);
+//
+//        b = new DayTrip(2,"24/4");
+//        daysList.add(b);
+//
+//        b = new DayTrip(3,"25/4");
+//        daysList.add(b);
+//
+//        b = new DayTrip(4,"26/4");
+//        daysList.add(b);
+//
+//        b = new DayTrip(5,"27/4");
+//        daysList.add(b);
+//
+//        Trip a = new Trip("New York", 13, coversTrips[0],"01/05","13/05");
+//        a.setDayTripList(daysList);
+//        tripsList.add(a);
+//
+//        Gson gson = new Gson();
+//        String mytrip = gson.toJson(a);
+//
+//        Log.d("pttt", "prepareTrips: " + mytrip);
+//
+//        a = new Trip("Los Angeles", 8, coversTrips[1],"10/03","18/03");
+//        tripsList.add(a);
+//
+//        a = new Trip("Chicago", 11, coversTrips[2],"01/04","12/04");
+//        tripsList.add(a);
+//
+//        a = new Trip("Miami", 12, coversTrips[3],"12/12","24/12");
+//        tripsList.add(a);
+//
+//        a = new Trip("Tokyo", 14, coversTrips[4],"02/10","16/10");
+//        tripsList.add(a);
+//
+//        a = new Trip("Beijing", 1, coversTrips[5],"","22/05");
+//        tripsList.add(a);
+//
+//        a = new Trip("Manila", 11, coversTrips[6],"01/04","12/04");
+//        tripsList.add(a);
+//
+//        a = new Trip("Bangkok", 14, coversTrips[7],"02/10","16/10");
+//        tripsList.add(a);
+//
+//        a = new Trip("Mexico City", 11, coversTrips[8],"01/04","12/04");
+//        tripsList.add(a);
+//
+//        a = new Trip("Istanbul", 17, coversTrips[9],"07/07","24/07");
+//        tripsList.add(a);
 
-        c = new Place("aaa","Resturant",new Location(16.5,16.5));
-        placesList.add(c);
-
-        c = new Place("aaa","Resturant",new Location(17.5,17.5));
-        placesList.add(c);
-
-        c = new Place("aaa","Resturant",new Location(18.5,18.5));
-        placesList.add(c);
-
-        DayTrip b = new DayTrip(1,"23/4");
-        b.setPlacesList(placesList);
-        daysList.add(b);
-
-        b = new DayTrip(2,"24/4");
-        daysList.add(b);
-
-        b = new DayTrip(3,"25/4");
-        daysList.add(b);
-
-        b = new DayTrip(4,"26/4");
-        daysList.add(b);
-
-        b = new DayTrip(5,"27/4");
-        daysList.add(b);
-
-        Trip a = new Trip("New York", 13, coversTrips[0],"01/05","13/05");
-        a.setDayTripList(daysList);
-        tripsList.add(a);
-
-        Gson gson = new Gson();
-        String mytrip = gson.toJson(a);
-
-        Log.d("pttt", "prepareTrips: " + mytrip);
-
-        a = new Trip("Los Angeles", 8, coversTrips[1],"10/03","18/03");
-        tripsList.add(a);
-
-        a = new Trip("Chicago", 11, coversTrips[2],"01/04","12/04");
-        tripsList.add(a);
-
-        a = new Trip("Miami", 12, coversTrips[3],"12/12","24/12");
-        tripsList.add(a);
-
-        a = new Trip("Tokyo", 14, coversTrips[4],"02/10","16/10");
-        tripsList.add(a);
-
-        a = new Trip("Beijing", 1, coversTrips[5],"","22/05");
-        tripsList.add(a);
-
-        a = new Trip("Manila", 11, coversTrips[6],"01/04","12/04");
-        tripsList.add(a);
-
-        a = new Trip("Bangkok", 14, coversTrips[7],"02/10","16/10");
-        tripsList.add(a);
-
-        a = new Trip("Mexico City", 11, coversTrips[8],"01/04","12/04");
-        tripsList.add(a);
-
-        a = new Trip("Istanbul", 17, coversTrips[9],"07/07","24/07");
-        tripsList.add(a);
-
-        tripAdapter.notifyDataSetChanged();
+        //tripAdapter.notifyDataSetChanged();
     }
 
         ViewDialogRating.Callback_ViewDialog callback_viewDialog = new ViewDialogRating.Callback_ViewDialog() {

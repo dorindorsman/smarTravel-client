@@ -17,6 +17,17 @@ public class Trip {
         public Trip() {
         }
 
+        public Trip(Trip t) {
+            this.name=t.name;
+            this.numOfDays=t.numOfDays;
+            this.thumbnail=t.thumbnail;
+            this.startDate=t.startDate;
+            this.endDate=t.endDate;
+            this.dayTripList=new ArrayList<DayTrip>(t.dayTripList);
+            this.rates=new ArrayList<Question>(t.rates);
+            this.isRate=t.isRate;
+        }
+
         public Trip(String name, int numOfDays, int thumbnail, String startDate, String endDate) {
             this.name = name;
             this.numOfDays = numOfDays;
@@ -116,6 +127,18 @@ public class Trip {
            return isRate;
         }
 
-
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "name='" + name + '\'' +
+                ", numOfDays=" + numOfDays +
+                ", thumbnail=" + thumbnail +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", dayTripList=" + dayTripList +
+                ", rates=" + rates +
+                ", isRate=" + isRate +
+                '}';
+    }
 }
 

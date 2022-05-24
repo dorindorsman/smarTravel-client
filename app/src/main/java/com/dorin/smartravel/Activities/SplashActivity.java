@@ -43,16 +43,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
-
-
         findViews();
         initAnimation();
 
         dataManger = DataManger.getInstance();
         locationManager = new LocationManager(this);
         locationManager.setCallBackLocation(callBackLocation);
-
+        dataManger.fetchDataFromUrl.start();
     }
 
     LocationManager.CallBackLocation callBackLocation = new LocationManager.CallBackLocation() {
