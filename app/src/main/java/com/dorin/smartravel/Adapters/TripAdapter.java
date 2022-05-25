@@ -2,6 +2,7 @@ package com.dorin.smartravel.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -150,13 +151,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                    for (int i=0;i<dataManger.getTripList().size();i++)
-                                    {
-                                        Trip t=dataManger.getTripList().get(i);
-                                        if (trip.getName().equals(t.getName()) && trip.getStartDate().equals(t.getStartDate()) && trip.getEndDate().equals(t.getEndDate()) ) {
-                                            updateTripInstance(i);
-                                            callBackItemClick.itemDelete(i);
-                                            dataManger.getTripList().remove(i);
+                                    for (Trip t:dataManger.getTripList()) {
+                                        if (trip.getId()==t.getId()){
+                                            Log.d("roman","delete trip "+t.getName()+dataManger.getTripList().indexOf(t));
+                                            createActivityBoundary(t);
+                                            callBackItemClick.itemDelete(dataManger.getTripList().indexOf(t));
+                                            dataManger.getTripList().remove(t);
+                                            break;
                                         }
                                     }
 
@@ -174,15 +175,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 }
 
 
-    private void updateTripInstance(int position){
-        InstanceBoundary instanceBoundary = Convertor.convertTripToInstanceBoundary(dataManger.getTripList().get(position));
+    private void updateTripInstance(Trip trip){
+        InstanceBoundary instanceBoundary = Convertor.convertTripToInstanceBoundary(trip);
         instanceBoundary.setActive(false);
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
-        userApi.updateInstanceById(instanceBoundary,dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+dataManger.getTripList().get(position).getId()),DataManger.CLIENT_MANAGER_DOMAIN,DataManger.CLIENT_MANAGER_EMAIL)
+        userApi.updateInstanceById(instanceBoundary,dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+trip.getId()),DataManger.CLIENT_MANAGER_DOMAIN,DataManger.CLIENT_MANAGER_EMAIL)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        createActivityBoundary(dataManger.getTripList().get(position).getId());
+                        Log.d("roman","delete trip "+trip.getId());
                     }
 
                     @Override
@@ -192,14 +193,16 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                 });
     }
 
-    private void createActivityBoundary(int id) {
-        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+id),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"deleteTrip");
+    private void createActivityBoundary(Trip t) {
+        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+t.getId()),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"deleteTrip");
+        Log.d("roman","activityB:"+activityBoundary.toString());
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
         userApi.createActivity(activityBoundary)
                 .enqueue(new Callback<ActivityBoundary>() {
                     @Override
                     public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
-
+                        updateTripInstance(t);
+                        Log.d("roman","delete trip ");
                     }
 
                     @Override

@@ -55,7 +55,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
     private DataManger dataManger;
 
     private static final String[] destinations = new String[] {
-            "Paris", "Barcelona", "New York", "Melbourne", "Los Angels"};
+            "Paris", "Barcelona", "New York", "Melbourne", "Los Angeles"};
     private String destinationSelected;
 
     private ArrayAdapter<String> destinationAdapter;
