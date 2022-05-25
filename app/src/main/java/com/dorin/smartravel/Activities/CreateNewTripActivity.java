@@ -216,7 +216,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
                     public void onResponse(Call<InstanceBoundary> call, Response<InstanceBoundary> response) {
                         try {
                             dataManger.getMyInstances().put("trip"+trip.getId(),response.body().getInstanceId().getId());
-                            createActivityBoundary();
+                            createActivityBoundary(trip.getId());
                         }catch (Exception e){
                             Log.d("error",e.getMessage());
                         }
@@ -230,8 +230,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
     }
 
 
-    private void createActivityBoundary() {
-        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+dataManger.getInstanceTripCounter()),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"createTrip");
+    private void createActivityBoundary(int id) {
+        ActivityBoundary activityBoundary = Convertor.convertToActivityBoundary(dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+id),dataManger.getCurrentUser().getDomain(),dataManger.getCurrentUser().getEmail(),"createTrip");
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
         userApi.createActivity(activityBoundary)
                 .enqueue(new Callback<ActivityBoundary>() {

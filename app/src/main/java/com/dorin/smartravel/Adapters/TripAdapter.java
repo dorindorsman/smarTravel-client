@@ -155,8 +155,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                                         Trip t=dataManger.getTripList().get(i);
                                         if (trip.getName().equals(t.getName()) && trip.getStartDate().equals(t.getStartDate()) && trip.getEndDate().equals(t.getEndDate()) ) {
                                             updateTripInstance(i);
-                                            dataManger.getTripList().remove(i);
                                             callBackItemClick.itemDelete(i);
+                                            dataManger.getTripList().remove(i);
                                         }
                                     }
 
@@ -177,13 +177,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     private void updateTripInstance(int position){
         InstanceBoundary instanceBoundary = Convertor.convertTripToInstanceBoundary(dataManger.getTripList().get(position));
         instanceBoundary.setActive(false);
-
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
         userApi.updateInstanceById(instanceBoundary,dataManger.getCurrentUser().getDomain(),dataManger.getMyInstances().get("trip"+dataManger.getTripList().get(position).getId()),DataManger.CLIENT_MANAGER_DOMAIN,DataManger.CLIENT_MANAGER_EMAIL)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        dataManger.setInstanceTripCounter(dataManger.getInstanceTripCounter()-1);
                         createActivityBoundary(dataManger.getTripList().get(position).getId());
                     }
 
