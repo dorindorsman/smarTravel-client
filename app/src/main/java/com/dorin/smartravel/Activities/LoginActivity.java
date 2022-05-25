@@ -29,6 +29,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -257,6 +262,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        initTrips();
                         dataManger.getCallBackCreateTrip().createTrip();
                     }
 
@@ -267,6 +273,27 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+
+    private void initTrips() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, -1);
+        date = c.getTime();
+        for(int i=dataManger.getUpcomingTripList().size()-1;i>=0;i--){
+            try {
+                Date tripEndDate = formatter.parse(dataManger.getUpcomingTripList().get(i).getEndDate());
+                if(date.after(tripEndDate)){
+                    dataManger.getHistoryTripList().add(dataManger.getUpcomingTripList().get(i));
+                    dataManger.getUpcomingTripList().remove(dataManger.getUpcomingTripList().get(i));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 
 
 

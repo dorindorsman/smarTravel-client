@@ -21,6 +21,7 @@ import com.dorin.smartravel.Helpers.Util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,6 @@ public class HistoryFragment extends Fragment {
 
     private RecyclerView History_RecyclerView_Trips;
     private TripAdapter tripAdapter;
-    private List<Trip> tripsList;
     private DataManger dataManger;
 
     CallBackItemClick callBackItemClick = new CallBackItemClick() {
@@ -73,9 +73,7 @@ public class HistoryFragment extends Fragment {
 
     private void findViews(View view) {
         History_RecyclerView_Trips = view.findViewById(R.id.History_RecyclerView_Trips);
-        tripsList = new ArrayList<>();
-        initTrips();
-        tripAdapter = new TripAdapter(this.activity, tripsList,callBackItemClick);
+        tripAdapter = new TripAdapter(this.activity, dataManger.getHistoryTripList(),callBackItemClick);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.activity, 2);
         History_RecyclerView_Trips.setLayoutManager(mLayoutManager);
         History_RecyclerView_Trips.addItemDecoration(new Util(2, Util.dpToPx(10,getResources()), true));
@@ -86,22 +84,7 @@ public class HistoryFragment extends Fragment {
 
     }
 
-    private void initTrips() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        for (Trip t:dataManger.getUpcomingTripList()) {
-            try {
-                Date tripEndDate = formatter.parse(t.getEndDate());
-                if(tripEndDate.before(date)){
-                    dataManger.getHistoryTripList().add(t);
-                    dataManger.getUpcomingTripList().remove(t);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
 
-            }
-    }
 
 
 }

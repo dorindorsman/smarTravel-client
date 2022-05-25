@@ -38,6 +38,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
     private final int SIZE=7;
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
-
-    private int currentState;
     private DataManger dataManger;
 
 
@@ -85,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 
     private void findViews() {

@@ -20,7 +20,9 @@ import com.dorin.smartravel.R;
 import com.dorin.smartravel.Helpers.Util;
 import com.dorin.smartravel.Activities.ViewDialogRating;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class UpcomingFragment extends Fragment {
@@ -75,6 +77,7 @@ public class UpcomingFragment extends Fragment {
         dataManger = DataManger.getInstance();
         dataManger.setCallBackCreateTrip(callBackCreateTrip);
         findViews(view);
+        checkTripForRate();
         return view;
     }
 
@@ -93,10 +96,10 @@ public class UpcomingFragment extends Fragment {
         }
     }
 
+
     private void findViews(View view) {
         Upcoming_RecyclerView_Trips = view.findViewById(R.id.Upcoming_RecyclerView_Trips);
         tripAdapter = new TripAdapter(this.activity, dataManger.getUpcomingTripList(),callBackItemClick);
-
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.activity, 2);
         Upcoming_RecyclerView_Trips.setLayoutManager(mLayoutManager);
         Upcoming_RecyclerView_Trips.addItemDecoration(new Util(2, Util.dpToPx(10,getResources()), true));
@@ -106,6 +109,8 @@ public class UpcomingFragment extends Fragment {
 
 
     }
+
+
 
         ViewDialogRating.Callback_ViewDialog callback_viewDialog = new ViewDialogRating.Callback_ViewDialog() {
 

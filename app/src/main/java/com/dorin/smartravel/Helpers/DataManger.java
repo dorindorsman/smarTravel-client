@@ -64,6 +64,7 @@ public class DataManger {
         currentTrip = new Trip();
         myInstances =  new LinkedTreeMap<>();
         upcomingTripList =new ArrayList<Trip>();
+        historyTripList =new ArrayList<Trip>();
 
     }
 
