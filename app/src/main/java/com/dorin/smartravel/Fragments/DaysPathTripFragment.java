@@ -34,12 +34,10 @@ public class DaysPathTripFragment extends Fragment {
             dayTitle = "Day " + DataManger.getInstance().getCurrentDayTrip().getDayNumber();
             materialToolbar.setTitle(dataManger.getCurrentTrip().getName()+" - "+dayTitle);
             getParentFragmentManager().beginTransaction().replace(R.id.main_fragment,DayTripFragment.class,null).commit();
-
         }
 
         @Override
         public void itemDelete(int position) {
-
         }
     };
 
@@ -54,7 +52,6 @@ public class DaysPathTripFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dataManger = DataManger.getInstance();
-
     }
 
     @Override
@@ -62,14 +59,11 @@ public class DaysPathTripFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_days_path_trip, container, false);
         findViews(view);
-
         return view;
     }
 
 
-
     private void findViews(View view) {
-
         materialToolbar = getActivity().findViewById(R.id.main_Toolbar_Top);
         materialToolbar.setTitle(dataManger.getCurrentTrip().getName()+" - "+dayTitle);
 
@@ -82,10 +76,6 @@ public class DaysPathTripFragment extends Fragment {
         daysPathTrip_RecyclerView.setItemAnimator(new DefaultItemAnimator());
         daysPathTrip_RecyclerView.setAdapter(daysAdapter);
         daysAdapter.notifyDataSetChanged();
-
     }
-
-
-
 
 }

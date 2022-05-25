@@ -21,7 +21,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     private AppCompatActivity activity;
-
     private CircleImageView Profile_IMG_User;
     private MaterialTextView Profile_LBL_UserName;
     private MaterialTextView Profile_LBL_UserFirstName;
@@ -30,8 +29,6 @@ public class ProfileFragment extends Fragment {
     private MaterialButton Profile_BTN_EditProfile;
 
     private DataManger dataManger = DataManger.getInstance();
-    private Bundle bundle;
-
 
     public Fragment setActivity(AppCompatActivity activity){
         this.activity=activity;
@@ -39,7 +36,6 @@ public class ProfileFragment extends Fragment {
     }
 
     public ProfileFragment(){
-
     }
 
     @Override
@@ -51,14 +47,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_profile, container, false);
         findViews(view);
         initButtons();
         return view;
     }
-
-
 
     private void findViews(View view) {
         Profile_IMG_User=view.findViewById(R.id.Profile_IMG_User);
@@ -67,7 +60,6 @@ public class ProfileFragment extends Fragment {
         Profile_LBL_UserLastName=view.findViewById(R.id.Profile_LBL_UserLastName);
         Profile_LBL_UserEmail=view.findViewById(R.id.Profile_LBL_UserEmail);
         Profile_BTN_EditProfile=view.findViewById(R.id.Profile_BTN_EditProfile);
-
     }
 
     private void loadUserDetails() {
@@ -78,13 +70,10 @@ public class ProfileFragment extends Fragment {
         Profile_LBL_UserFirstName.setText(dataManger.getCurrentUser().getFirstName());
         Profile_LBL_UserLastName.setText(dataManger.getCurrentUser().getLastName());
         Profile_LBL_UserEmail.setText(dataManger.getCurrentUser().getEmail());
-
-
     }
 
 
     private void initButtons() {
-
         Profile_BTN_EditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,25 +86,12 @@ public class ProfileFragment extends Fragment {
     private void replaceActivity(Class activity) {
         Intent intent = new Intent(getActivity(), activity);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        // TODO: 4/22/2022 bundle : move user detailes
-        loadBundle();
-        intent.putExtra("bundle",bundle);
         startActivity(intent);
-    }
-
-    private void loadBundle() {
-        if(bundle !=null){
-            bundle=new Bundle();
-            //bundle.put
-        }else{
-           // bundle.put
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
         loadUserDetails();
-
     }
 }

@@ -29,7 +29,6 @@ import retrofit2.Response;
 
 public class ProfileEditActivity extends AppCompatActivity {
 
-
     private MaterialButton EditProfile_BTN_Update;
     private MaterialToolbar EditProfile_toolBar;
     private FloatingActionButton EditProfile_FAB_edit_user_IMG;
@@ -42,10 +41,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     private Validator validatorFirstName;
     private Validator validatorLastName;
 
-
-
     private DataManger dataManger = DataManger.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +61,6 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-
         EditProfile_toolBar = findViewById(R.id.EditProfile_toolBar);
         EditProfile_FAB_edit_user_IMG = findViewById(R.id.EditProfile_FAB_edit_user_IMG);
         EditProfile_IMG_User = findViewById(R.id.EditProfile_IMG_User);
@@ -74,8 +69,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         EditProfile_LBL_LastName = findViewById(R.id.EditProfile_LBL_LastName);
         EditProfile_LBL_EditLastName = findViewById(R.id.EditProfile_LBL_EditLastName);
         EditProfile_BTN_Update = findViewById(R.id.EditProfile_BTN_Update);
-
-
     }
 
     private void initValidator() {
@@ -88,21 +81,15 @@ public class ProfileEditActivity extends AppCompatActivity {
                 .addWatcher(new Validator.Watcher_StringEmpty("Name Cannot Be Empty"))
                 .addWatcher(new Validator.Watcher_String("Name Contains Only Characters"))
                 .build();
-
-
     }
 
     private void initEditFields() {
-
-
         EditProfile_toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
-
 
         EditProfile_IMG_User.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +109,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         EditProfile_BTN_Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 4/24/2022 Add update profile
                 updateUserDetails();
                 updateUserBoundaryDetails();
                 finish();
@@ -175,10 +161,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-
                     }
                 });
-
     }
 
     private void updateUserInstance(){
@@ -188,12 +172,10 @@ public class ProfileEditActivity extends AppCompatActivity {
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-
                     }
                 });
     }
@@ -205,16 +187,13 @@ public class ProfileEditActivity extends AppCompatActivity {
                 .enqueue(new Callback<ActivityBoundary>() {
                     @Override
                     public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
-
                     }
 
                     @Override
                     public void onFailure(Call<ActivityBoundary> call, Throwable t) {
-
                     }
                 });
     }
-
 
     @Override
     protected void onStart() {

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dorin.smartravel.Activities.ViewDialogRating;
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Objects.Trip;
@@ -18,18 +19,13 @@ import com.dorin.smartravel.Adapters.TripAdapter;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Helpers.Util;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
 
 public class HistoryFragment extends Fragment {
 
     private AppCompatActivity activity;
-
-
     private RecyclerView History_RecyclerView_Trips;
     private TripAdapter tripAdapter;
     private DataManger dataManger;
@@ -38,12 +34,10 @@ public class HistoryFragment extends Fragment {
         @Override
         public void itemClick() {
             getParentFragmentManager().beginTransaction().replace(R.id.main_fragment,DaysPathTripFragment.class,null).commit();
-
         }
 
         @Override
         public void itemDelete(int position) {
-
         }
     };
 
@@ -68,6 +62,7 @@ public class HistoryFragment extends Fragment {
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_history, container, false);
         dataManger=DataManger.getInstance();
         findViews(view);
+        checkTripForRate();
         return view;
     }
 
@@ -80,11 +75,27 @@ public class HistoryFragment extends Fragment {
         History_RecyclerView_Trips.setItemAnimator(new DefaultItemAnimator());
         History_RecyclerView_Trips.setAdapter(tripAdapter);
         tripAdapter.notifyDataSetChanged();
-
-
     }
 
+    private void checkTripForRate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
+        Date date = new Date();
+        if(!dataManger.getHistoryTripList().isEmpty()){
+            for (Trip trip:dataManger.getHistoryTripList()) {
+                if(!trip.getIsRate()){
+                    ViewDialogRating dialogRating=new ViewDialogRating();
+                    dialogRating.showDialog(activity,trip,trip.getRates(),callback_viewDialog);
+                }
+            }
+        }
+    }
 
+    ViewDialogRating.Callback_ViewDialog callback_viewDialog = new ViewDialogRating.Callback_ViewDialog() {
+        @Override
+        public void timeToRate(Trip trip) {
+
+        }
+    };
 
 
 }

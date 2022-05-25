@@ -38,11 +38,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton navigation_header_container_FAB_profile_pic;
     private MaterialTextView header_TXT_username;
 
-    public static final int UPCOMING = 0,HISTORY = 1, MY_PLACES = 2, DAYS_PATH_TRIP = 3, DAY_TRIP = 4,SETTINGS = 5, PROFILE=6;
+    public static final int UPCOMING = 0,HISTORY = 1, MY_PLACES = 2, DAYS_PATH_TRIP = 3, DAY_TRIP = 4, PROFILE=5;
     private final int SIZE=7;
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
@@ -76,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         dataManger = DataManger.getInstance();
         findViews();
         setSupportActionBar(main_bottomAppBar);
@@ -85,16 +79,9 @@ public class MainActivity extends AppCompatActivity {
         setFragments();
         initButtons();
         replaceFragments(main_fragments[UPCOMING]);
-
-
     }
 
-
-
-
-
     private void findViews() {
-
         main_drawerLayout=findViewById(R.id.main_drawerlayout);
         main_Toolbar_Top=findViewById(R.id.main_Toolbar_Top);
         main_fragment=findViewById(R.id.main_fragment);
@@ -109,9 +96,6 @@ public class MainActivity extends AppCompatActivity {
         header_BAR_progress=header.findViewById(R.id.header_BAR_progress);
         navigation_header_container_FAB_profile_pic=header.findViewById(R.id.navigation_header_container_FAB_profile_pic);
         header_TXT_username=header.findViewById(R.id.header_TXT_username);
-
-
-
     }
 
     private void loadUserDetails() {
@@ -123,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initButtons() {
-
         main_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,8 +137,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         main_bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -182,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         main_TopNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -204,10 +184,6 @@ public class MainActivity extends AppCompatActivity {
                         main_Toolbar_Top.setTitle(R.string.Profile);
                         replaceFragments(main_fragments[PROFILE]);
                         break;
-                    case R.id.menu_settings:
-                        main_Toolbar_Top.setTitle(R.string.Settings);
-                        replaceFragments(main_fragments[SETTINGS]);
-                        break;
                     case R.id.menu_logout:
                         DataManger.getInstance().getmGoogleSignInClient().signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -221,9 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
-
 
     private void choseCover() {
         ImagePicker.with(MainActivity.this)
@@ -247,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
         dataManger.getCurrentUser().setAvatar(dataManger.getResultUri().toString());
         header_IMG_user.setImageURI(dataManger.getResultUri());
         updateUserBoundaryDetails();
-        // TODO: 5/21/2022  add callback
     }
 
 
@@ -262,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-
                     }
                 });
 
@@ -276,19 +248,15 @@ public class MainActivity extends AppCompatActivity {
                 .enqueue(new Callback<ActivityBoundary>() {
                     @Override
                     public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
-
                     }
 
                     @Override
                     public void onFailure(Call<ActivityBoundary> call, Throwable t) {
-
                     }
                 });
     }
 
     private void initColorMenu() {
-
-
         int navDefaultTextColor = Color.parseColor("#FFFFFFFF");
         int navDefaultIconColor = Color.parseColor("#FFFFFFFF");
 
@@ -330,11 +298,7 @@ public class MainActivity extends AppCompatActivity {
 
         main_TopNavigationView.setItemTextColor(navMenuTextList);
         main_TopNavigationView.setItemIconTintList(navMenuIconList);
-
     }
-
-
-
 
     private void setFragments() {
         main_fragments = new Fragment[SIZE];
@@ -343,17 +307,13 @@ public class MainActivity extends AppCompatActivity {
         main_fragments[MY_PLACES] = new MyPlacesFragment().setActivity(this);
         main_fragments[DAYS_PATH_TRIP] = new DaysPathTripFragment().setActivity(this);
         main_fragments[DAY_TRIP] = new DayTripFragment().setActivity(this);
-        main_fragments[SETTINGS] = new SettingsFragment().setActivity(this);
         main_fragments[PROFILE] = new ProfileFragment().setActivity(this);
-
     }
 
     private void replaceFragments(Fragment fragment){
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_fragment, fragment, null).commit();
     }
-
-
 
     private void replaceActivity(Class activity) {
         Intent intent = new Intent(this, activity);

@@ -33,6 +33,7 @@
     <string name="question">Question</string>
     <string name="UpdateRate">Rate</string>
     <string name="UserName">User Name</string>
+    <string name="SkipRate">Skip</string>
 
 
 </resources>

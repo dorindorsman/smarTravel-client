@@ -38,7 +38,6 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
         }
     }
 
-
     public PlacesAdapter(Context mContext, List<Place> placesList, CallBackListPlaces callBackListPlaces) {
         this.mContext = mContext;
         this.placesList = placesList;

@@ -23,67 +23,71 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <LinearLayout
-                android:id="@+id/dialog_Layout_Rate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/mainGreen"
-                android:orientation="horizontal">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/dialog_List_BTN_back"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/rounded_alpha"
-                    app:icon="@drawable/ic_arrow_back"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="26dp"
-                    app:iconTint="@color/white" />
-
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/dialog_List_LBL_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:gravity="center"
                     android:text="@string/RatingTrip"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
                     android:textColor="@color/white"
+                    android:background="@color/mainGreen"
                     android:textSize="24sp" />
 
 
-            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dialog_LST_Questions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/dialog_BTN_Rate"
-                android:layout_below="@+id/dialog_Layout_Rate"
+                android:layout_above="@+id/dialog_Layout_Rate"
+                android:layout_below="@+id/dialog_List_LBL_title"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/dialog_BTN_Rate"
+            <LinearLayout
+                android:id="@+id/dialog_Layout_Rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="@color/mainGreen"
-                android:fontFamily="@font/roboto_bold"
-                android:scaleType="fitCenter"
-                android:singleLine="true"
-                android:text="@string/UpdateRate"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:ignore="OnClick" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/dialog_BTN_Rate"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="@color/mainGreen"
+                    android:fontFamily="@font/roboto_bold"
+                    android:scaleType="fitCenter"
+                    android:singleLine="true"
+                    android:text="@string/UpdateRate"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:ignore="OnClick" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/dialog_BTN_Skip"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="@color/mainGreen"
+                    android:fontFamily="@font/roboto_bold"
+                    android:scaleType="fitCenter"
+                    android:singleLine="true"
+                    android:text="@string/SkipRate"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:ignore="OnClick" />
+
+            </LinearLayout>
+
+
 
         </RelativeLayout>
 

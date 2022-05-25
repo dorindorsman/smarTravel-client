@@ -27,19 +27,16 @@ import java.util.List;
 public class MyPlacesFragment extends Fragment {
 
     private AppCompatActivity activity;
-    private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private CallBackListPlaces callBackListPlaces= new CallBackListPlaces() {
         @Override
         public void rowSelected(double longitude, double latitude) {
-
         }
     };
-  //  private MaterialToolbar MyPlaces_toolBar;
+
     private RecyclerView myPlaces_RecyclerView;
     private PlacesAdapter placesAdapter;
     private List<Place> placesList;
     private DataManger dataManger;
-
 
     public Fragment setActivity(AppCompatActivity activity){
         this.activity=activity;
@@ -47,15 +44,12 @@ public class MyPlacesFragment extends Fragment {
     }
 
     public MyPlacesFragment(){
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         dataManger = DataManger.getInstance();
-
     }
 
     @Override
@@ -64,10 +58,6 @@ public class MyPlacesFragment extends Fragment {
 
         View view=  inflater.inflate(R.layout.fragment_my_places, container, false);
         findViews(view);
-
-
-
-
         return view;
     }
 
@@ -82,25 +72,7 @@ public class MyPlacesFragment extends Fragment {
         }
     }
 
-
-
-    private void preparePlaces() {
-        placesAdapter.notifyDataSetChanged();
-
-    }
-
-
     private void findViews(View view) {
-//        MyPlaces_toolBar = view.findViewById(R.id.MyPlaces_toolBar);
-//        MyPlaces_toolBar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//            }
-//        });
-
-
         myPlaces_RecyclerView = view.findViewById(R.id.MyPlaces_RecyclerView_Places);
         placesList = new ArrayList<>();
         initPlaces();
@@ -113,7 +85,6 @@ public class MyPlacesFragment extends Fragment {
         myPlaces_RecyclerView.setAdapter(placesAdapter);
     }
 
-
     public void setCallBackListPlaces (CallBackListPlaces callBackListPlaces){
         this.callBackListPlaces=callBackListPlaces;
     }
@@ -121,13 +92,4 @@ public class MyPlacesFragment extends Fragment {
     public CallBackListPlaces getCallBackListPlaces() {
         return callBackListPlaces;
     }
-
-    public List<Place> getPlacesList() {
-        return placesList;
-    }
-
-
-
-
-
 }

@@ -14,11 +14,6 @@ public class Question {
         return questionRate;
     }
 
-    public Question setQuestionRate(String questionRate) {
-        this.questionRate = questionRate;
-        return this;
-    }
-
     public int getAnswerRate() {
         return answerRate;
     }
@@ -30,10 +25,5 @@ public class Question {
 
     public int getQuestionNumber() {
         return questionNumber;
-    }
-
-    public Question setQuestionNumber(int questionNumber) {
-        this.questionNumber = questionNumber;
-        return this;
     }
 }

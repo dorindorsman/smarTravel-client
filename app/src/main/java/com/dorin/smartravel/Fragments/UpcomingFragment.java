@@ -15,15 +15,9 @@ import com.dorin.smartravel.Adapters.TripAdapter;
 import com.dorin.smartravel.CallBacks.CallBackCreateTrip;
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
 import com.dorin.smartravel.Helpers.DataManger;
-import com.dorin.smartravel.Objects.Trip;
+
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Helpers.Util;
-import com.dorin.smartravel.Activities.ViewDialogRating;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class UpcomingFragment extends Fragment {
 
@@ -31,7 +25,6 @@ public class UpcomingFragment extends Fragment {
     private RecyclerView Upcoming_RecyclerView_Trips;
     private TripAdapter tripAdapter;
     private DataManger dataManger;
-
 
     CallBackCreateTrip callBackCreateTrip = new CallBackCreateTrip() {
         @Override
@@ -48,7 +41,6 @@ public class UpcomingFragment extends Fragment {
 
         @Override
         public void itemDelete(int position) {
-            //tripAdapter.notifyDataSetChanged();
             tripAdapter.notifyItemRemoved(position);
         }
     };
@@ -59,43 +51,23 @@ public class UpcomingFragment extends Fragment {
     }
 
     public UpcomingFragment(){
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_upcomings, container, false);
         dataManger = DataManger.getInstance();
         dataManger.setCallBackCreateTrip(callBackCreateTrip);
         findViews(view);
-        checkTripForRate();
         return view;
     }
-
-
-////////////////rate////////////////////////////////////////////////
-    private void checkTripForRate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
-        Date date = new Date();
-        if(!dataManger.getUpcomingTripList().isEmpty()){
-            for (Trip trip:dataManger.getUpcomingTripList()) {
-                if(!trip.getIsRate() && trip.getEndDate().equals(formatter.format(date))){
-                    ViewDialogRating dialogRating=new ViewDialogRating();
-                    dialogRating.showDialog(activity,trip,trip.getRates(),callback_viewDialog);
-                }
-            }
-        }
-    }
-
 
     private void findViews(View view) {
         Upcoming_RecyclerView_Trips = view.findViewById(R.id.Upcoming_RecyclerView_Trips);
@@ -106,19 +78,6 @@ public class UpcomingFragment extends Fragment {
         Upcoming_RecyclerView_Trips.setItemAnimator(new DefaultItemAnimator());
         Upcoming_RecyclerView_Trips.setAdapter(tripAdapter);
         tripAdapter.notifyDataSetChanged();
-
-
     }
-
-
-
-        ViewDialogRating.Callback_ViewDialog callback_viewDialog = new ViewDialogRating.Callback_ViewDialog() {
-
-            @Override
-            public void timeToRate(Trip trip) {
-
-            }
-        };
-
 
 }

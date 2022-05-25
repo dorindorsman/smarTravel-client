@@ -27,15 +27,12 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
     private PlacesListFragment placesListFragment;
     private GoogleMap mMap;
 
-
-
     public Fragment setActivity(AppCompatActivity activity){
         this.activity=activity;
         return this;
     }
 
     public DayTripFragment(){
-
     }
 
     @Override
@@ -47,10 +44,7 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_daytrip, container, false);
-
         findViews();
-
-
         return view;
     }
 
@@ -66,18 +60,14 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
     };
 
     private void findViews() {
-
-
         placesListFragment = new PlacesListFragment();
         placesListFragment.setActivity(this.activity);
         placesListFragment.setCallBackListPlaces(callBackListPlaces);
         getParentFragmentManager().beginTransaction().add(R.id.framePlaces, placesListFragment).commit();
 
-
         SupportMapFragment supportMapFragment = SupportMapFragment.newInstance();
         getParentFragmentManager().beginTransaction().add(R.id.frameMap,supportMapFragment).commit();
         supportMapFragment.getMapAsync(this);
-
     }
 
     @Override

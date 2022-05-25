@@ -27,8 +27,6 @@ public class Convertor{
         return userBoundary;
     }
 
-
-
     public static InstanceBoundary convertUserToInstanceBoundary(User currentUser) {
         InstanceBoundary instanceBoundary = new InstanceBoundary();
         instanceBoundary.setType("user");
@@ -43,7 +41,6 @@ public class Convertor{
         return instanceBoundary;
     }
 
-
     public static InstanceBoundary convertTripToInstanceBoundary(Trip trip) {
         InstanceBoundary instanceBoundary = new InstanceBoundary();
         instanceBoundary.setType("trip");
@@ -57,7 +54,6 @@ public class Convertor{
         return instanceBoundary;
     }
 
-
     public static ActivityBoundary convertToActivityBoundary(String instanceDomain,String instanceId,String userDomain,String userEmail,String type){
         ActivityBoundary activityBoundary = new ActivityBoundary();
         activityBoundary.setInstance(new Instance(new DomainWithId(instanceDomain,instanceId)));
@@ -65,9 +61,5 @@ public class Convertor{
         activityBoundary.setType(type);
         return activityBoundary;
     }
-
-
-
-
 
 }

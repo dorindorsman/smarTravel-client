@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trip {
-
         private int id;
         private String name;
         private int numOfDays;
@@ -112,11 +111,6 @@ public class Trip {
 
         public ArrayList<Question> getRates() {
             return rates;
-        }
-
-        public Trip setRates(ArrayList<Question> rates) {
-            this.rates = rates;
-            return this;
         }
 
         public Trip setIsRate(boolean rate) {

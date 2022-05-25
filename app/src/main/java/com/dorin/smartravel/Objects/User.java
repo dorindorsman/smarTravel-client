@@ -6,15 +6,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class User {
-
     private String avatar;
     private String email;
     private String role;
     private String firstName;
     private String lastName;
     private String domain;
-    private enum ROLE {MANAGER,PLAYER,ADMIN};
-
 
     public User(){
         this.role= "PLAYER";

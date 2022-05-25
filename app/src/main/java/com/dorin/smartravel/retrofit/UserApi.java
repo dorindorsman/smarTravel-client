@@ -13,8 +13,6 @@ import retrofit2.http.Query;
 
 public interface UserApi {
 
-
-
     @POST("iob/users")
     Call<UserBoundary> createUser(@Body UserBoundary user);
 
@@ -74,6 +72,5 @@ public interface UserApi {
             @Path("instanceId") String instanceId,
             @Query("userDomain") String userDomain,
             @Query("userEmail") String userEmail);
-
 
 }

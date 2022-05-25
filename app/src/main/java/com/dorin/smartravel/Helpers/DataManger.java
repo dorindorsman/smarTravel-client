@@ -65,7 +65,6 @@ public class DataManger {
         myInstances =  new LinkedTreeMap<>();
         upcomingTripList =new ArrayList<Trip>();
         historyTripList =new ArrayList<Trip>();
-
     }
 
     public static DataManger getInstance(){
@@ -75,15 +74,12 @@ public class DataManger {
     public static DataManger initHelper(){
         if(single_Instance_dataManger==null)
             single_Instance_dataManger= new DataManger();
-
         return single_Instance_dataManger;
     }
 
     public Trip getCurrentTrip() {
         return currentTrip;
     }
-
-
 
     public DayTrip getCurrentDayTrip() {
         return currentDayTrip;
@@ -103,17 +99,9 @@ public class DataManger {
         return this;
     }
 
-    public GoogleSignInOptions getGso() {
-        return gso;
-    }
-
     public DataManger setGso(GoogleSignInOptions gso) {
         this.gso = gso;
         return this;
-    }
-
-    public GoogleSignInAccount getAccount() {
-        return account;
     }
 
     public DataManger setAccount(GoogleSignInAccount account) {
@@ -152,11 +140,6 @@ public class DataManger {
         return upcomingTripList;
     }
 
-    public DataManger setUpcomingTripList(List<Trip> upcomingTripList) {
-        this.upcomingTripList = upcomingTripList;
-        return this;
-    }
-
     public int getInstanceTripCounter() {
         return instanceTripCounter;
     }
@@ -170,8 +153,4 @@ public class DataManger {
         return historyTripList;
     }
 
-    public DataManger setHistoryTripList(List<Trip> historyTripList) {
-        this.historyTripList = historyTripList;
-        return this;
-    }
 }

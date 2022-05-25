@@ -35,23 +35,6 @@
         app:showAsAction="always"
         />
 
-
-
-<!--    <item-->
-<!--        android:id="@+id/rates"-->
-<!--        android:title="@string/Rates"-->
-<!--        android:icon="@drawable/ic_rates"-->
-<!--        app:showAsAction="always"-->
-<!--        android:enabled="false"-->
-<!--        />-->
-
-    <item
-        android:id="@+id/menu_settings"
-        android:title="@string/Settings"
-        android:icon="@drawable/ic_settings"
-        app:showAsAction="always"
-        />
-
     <item
         android:id="@+id/menu_logout"
         android:title="@string/LogOut"

@@ -45,7 +45,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return new QuestionViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         QuestionViewHolder questionViewHolder = (QuestionViewHolder) holder;
@@ -54,7 +53,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         questionViewHolder.question_LBL_qaNumber.setText(question.getQuestionNumber()+". ");
         questionViewHolder.question_LBL_qa.setText(question.getQuestionRate());
-
 
         if (question.getAnswerRate()!= -1)
             questionViewHolder.question_discreteSliderRate.setValue(question.getAnswerRate());
@@ -67,19 +65,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return rates.size();
     }
 
-
     private Question getQuestion(int position) {
         return rates.get(position);
     }
-
 
     public class QuestionViewHolder extends RecyclerView.ViewHolder {
 
         public MaterialTextView question_LBL_qaNumber;
         public MaterialTextView question_LBL_qa;
         public Slider question_discreteSliderRate;
-
-
 
         public QuestionViewHolder(final View questionView) {
             super(questionView);
@@ -99,8 +93,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
 
         }
-
-
     }
 
 }

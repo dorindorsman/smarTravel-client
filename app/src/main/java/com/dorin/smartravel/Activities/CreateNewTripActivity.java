@@ -64,10 +64,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
         dataManger = DataManger.getInstance();
         start = new Date();
         end = new Date();
-
         findViews();
         initFields();
-
     }
 
     private void initFields() {
@@ -99,12 +97,6 @@ public class CreateNewTripActivity extends AppCompatActivity {
 
                 findTripFromDataManager();
                 finish();
-//                dataManger.getCurrentTrip().setName(createTrip_TIN_destination.getEditText().getText().toString());
-//                dataManger.getCurrentTrip().setNumOfDays((int)daysDiff);
-//                dataManger.getCurrentTrip().setThumbnail(R.drawable.ic_logo);
-//                dataManger.getCurrentTrip().setStartDate(start.toString());
-//                dataManger.getCurrentTrip().setEndDate(end.toString());
-
             }
         });
 
@@ -113,14 +105,12 @@ public class CreateNewTripActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
-                //start = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 // date picker dialog
                 startDatePickerDialog = new DatePickerDialog(CreateNewTripActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
-
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
@@ -129,8 +119,6 @@ public class CreateNewTripActivity extends AppCompatActivity {
                                         + (monthOfYear + 1) + "/" + year);
                             }
                         }, mYear, mMonth, mDay);
-                //start.setTime(c.getTimeInMillis());
-
                 startDatePickerDialog.show();
 
             }
@@ -140,7 +128,6 @@ public class CreateNewTripActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
-                //end=Calendar.getInstance();
                 int mYear = startDatePickerDialog.getDatePicker().getYear(); // current year
                 int mMonth = startDatePickerDialog.getDatePicker().getMonth(); // current month
                 int mDay = startDatePickerDialog.getDatePicker().getDayOfMonth(); // current day
@@ -148,7 +135,6 @@ public class CreateNewTripActivity extends AppCompatActivity {
                 // date picker dialog
                 endDatePickerDialog = new DatePickerDialog(CreateNewTripActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
-
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
@@ -157,11 +143,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
                                         + (monthOfYear + 1) + "/" + year);
                             }
                         }, mYear, mMonth, mDay);
-                //end.setTime(c.getTimeInMillis());
-
                 endDatePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
                 endDatePickerDialog.show();
-
             }
         });
     }
@@ -215,10 +198,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
                             Log.d("error",e.getMessage());
                         }
                     }
-
                     @Override
                     public void onFailure(Call<InstanceBoundary> call, Throwable t) {
-
                     }
                 });
     }
@@ -231,18 +212,15 @@ public class CreateNewTripActivity extends AppCompatActivity {
                 .enqueue(new Callback<ActivityBoundary>() {
                     @Override
                     public void onResponse(Call<ActivityBoundary> call, Response<ActivityBoundary> response) {
-
                     }
 
                     @Override
                     public void onFailure(Call<ActivityBoundary> call, Throwable t) {
-
                     }
                 });
     }
 
     private void findViews() {
-
         CreateTrip_toolBar = findViewById(R.id.CreateTrip_toolBar);
         createTrip_TIN_destination = findViewById(R.id.createTrip_TIN_destination);
         createTrip_AutoCompleteTextViewDestination = findViewById(R.id.createTrip_AutoCompleteTextViewDestination);

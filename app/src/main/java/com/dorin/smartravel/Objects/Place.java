@@ -3,7 +3,6 @@ package com.dorin.smartravel.Objects;
 import com.dorin.smartravel.serverObjects.Location;
 
 public class Place {
-
     private String name;
     private String category;
     private Location location;
@@ -23,22 +22,8 @@ public class Place {
         return this;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public Place setCategory(String category) {
-        this.category = category;
-        return this;
-    }
-
     public Location getLocation() {
         return location;
-    }
-
-    public Place setLocation(Location location) {
-        this.location = location;
-        return this;
     }
 
     @Override

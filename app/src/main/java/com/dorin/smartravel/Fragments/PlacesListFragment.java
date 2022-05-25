@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.dorin.smartravel.Objects.Place;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Helpers.Util;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,16 +29,13 @@ public class PlacesListFragment extends Fragment {
 
     private AppCompatActivity activity;
     private CallBackListPlaces callBackListPlaces;
-
     private RecyclerView placesList_RecyclerView;
     private PlacesAdapter placesAdapter;
     private List<Place> placesList;
     private DataManger dataManger;
 
     public PlacesListFragment() {
-
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,8 +49,6 @@ public class PlacesListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_places_list, container, false);
         dataManger = DataManger.getInstance();
         findViews(view);
-
-
         return view;
     }
 

@@ -22,7 +22,6 @@ import com.dorin.smartravel.serverObjects.ActivityBoundary;
 import com.dorin.smartravel.serverObjects.InstanceBoundary;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,7 +39,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     private CallBackItemClick callBackItemClick;
     private DataManger dataManger = DataManger.getInstance();
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count, startDate, endDate;
         public ImageView thumbnail, overflow;
@@ -55,7 +53,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             overflow = (ImageView) view.findViewById(R.id.overflow);
         }
     }
-
 
     public TripAdapter(Context mContext, List<Trip> tripList,CallBackItemClick callBackItemClick) {
         this.mContext = mContext;
@@ -121,23 +118,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
      * Click listener for popup menu items
      */
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
         Trip trip;
-
         public MyMenuItemClickListener(Trip trip) {
             this.trip = trip;
         }
-
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.action_edit_trip:
-                    Toast.makeText(mContext, "Edit", Toast.LENGTH_SHORT).show();
-                    return true;
                 case R.id.action_delete_trip:
-
                     Toast.makeText(mContext, "delete", Toast.LENGTH_SHORT).show();
-
                     new MaterialAlertDialogBuilder(mContext)
                             .setTitle("Delete Message")
                             .setMessage("Are you sure you want to delete the " + trip.getName() + " trip?")
@@ -164,16 +153,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                                 }
                             })
                             .show();
-
-
-
             return true;
             default:
         }
             return false;
     }
 }
-
 
     private void updateTripInstance(Trip trip){
         InstanceBoundary instanceBoundary = Convertor.convertTripToInstanceBoundary(trip);

@@ -53,17 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        // TODO: 4/22/2022  add check if work
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-
         dataManger = DataManger.getInstance();
-
         dataManger.setGso(gso);
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -71,16 +64,12 @@ public class LoginActivity extends AppCompatActivity {
         dataManger.setmGoogleSignInClient(mGoogleSignInClient);
         findViews();
         initButton();
-
-
     }
-
 
     private void findViews() {
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
     }
-
 
     private void initButton() {
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +81,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
-
 
     // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -132,8 +119,6 @@ public class LoginActivity extends AppCompatActivity {
         putAccountIntoUser();
         CreateUser();
         replaceActivity(MainActivity.class);
-        //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        //someActivityResultLauncher.launch();
     }
 
     private void putAccountIntoUser() {
@@ -152,7 +137,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: 5/4/2022 move to data manager
     private void CreateUser() {
         UserBoundary userboundary = Convertor.convertUserToUserBoundary(dataManger.getCurrentUser());
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
@@ -170,16 +154,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserBoundary> call, Throwable t) {
-
             }
         });
 
     }
 
-
-
     private void createInstanceUser() {
-
         InstanceBoundary instanceBoundary = Convertor.convertUserToInstanceBoundary(dataManger.getCurrentUser());
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
         userApi.createInstance(instanceBoundary)
@@ -195,11 +175,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<InstanceBoundary> call, Throwable t) {
-
             }
         });
     }
-
 
     @Override
     protected void onStart() {
@@ -213,7 +191,6 @@ public class LoginActivity extends AppCompatActivity {
             getUser();
             replaceActivity(MainActivity.class);
         }
-
     }
 
     private void getUser() {
@@ -268,11 +245,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<InstanceBoundary[]> call, Throwable t) {
-
                     }
                 });
     }
-
 
     private void initTrips() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -291,11 +266,8 @@ public class LoginActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
         }
     }
-
-
 
     private void replaceActivity(Class activity) {
         Intent intent = new Intent(this, activity);
@@ -303,6 +275,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 
 }

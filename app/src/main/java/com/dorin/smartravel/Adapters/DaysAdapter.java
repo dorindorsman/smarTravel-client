@@ -23,7 +23,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.MyViewHolder> 
     private CallBackItemClick callBackItemClick;
     private DataManger dataManger = DataManger.getInstance();
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
 
@@ -41,7 +40,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.MyViewHolder> 
             });
         }
     }
-
 
     public DaysAdapter(Context mContext, List<DayTrip> dayTripList,CallBackItemClick callBackItemClick) {
         this.mContext = mContext;
@@ -61,10 +59,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         DayTrip dayTrip = dayTripList.get(position);
         holder.title.setText(dayTrip.getTitle());
-
-
     }
-
 
     public DayTrip getItemPosition(int position){
         return dayTripList.get(position);
