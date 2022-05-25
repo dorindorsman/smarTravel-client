@@ -166,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_myPlaces:
                         main_Toolbar_Top.setTitle(R.string.MyPlaces);
                         replaceFragments(main_fragments[MY_PLACES]);
-                        //replaceActivity(MyPlacesActivity.class);
                         break;
                     case R.id.menu_profile:
                         main_Toolbar_Top.setTitle(R.string.Profile);
@@ -194,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_myPlaces:
                         main_Toolbar_Top.setTitle(R.string.MyPlaces);
                         replaceFragments(main_fragments[MY_PLACES]);
-//                        replaceActivity(MyPlacesActivity.class);
                         break;
                     case R.id.menu_profile:
                         main_Toolbar_Top.setTitle(R.string.Profile);

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.dorin.smartravel.Helpers.DataManger;
+import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.retrofit.Convertor;
 import com.dorin.smartravel.retrofit.UserApi;
@@ -25,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
 
 
 import retrofit2.Call;
@@ -149,14 +151,12 @@ public class LoginActivity extends AppCompatActivity {
     private void CreateUser() {
         UserBoundary userboundary = Convertor.convertUserToUserBoundary(dataManger.getCurrentUser());
         UserApi userApi= dataManger.getRetrofitService().getRetrofit().create(UserApi.class);
-        Log.d("roman",userboundary.toString());
         userApi.createUser(userboundary)
                 .enqueue(new Callback<UserBoundary>() {
             @Override
             public void onResponse(Call<UserBoundary> call, Response<UserBoundary> response) {
                 try {
                     dataManger.getCurrentUser().setDomain(response.body().getUserId().getDomain());
-                    Log.d("roman",dataManger.getCurrentUser().toString());
                     createInstanceUser();
                 }catch (Exception e){
                     Log.d("error",e.getMessage());
@@ -181,10 +181,8 @@ public class LoginActivity extends AppCompatActivity {
                 .enqueue(new Callback<InstanceBoundary>() {
             @Override
             public void onResponse(Call<InstanceBoundary> call, Response<InstanceBoundary> response) {
-                Log.d("roman",response.body()+"");
                 try {
                     dataManger.getMyInstances().put("user",response.body().getInstanceId().getId());
-                    Log.d("roman",dataManger.getMyInstances().get("user"));
                 }catch (Exception e){
                     Log.d("error",e.getMessage());
                 }
@@ -243,15 +241,23 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<InstanceBoundary[]> call, Response<InstanceBoundary[]> response) {
                         InstanceBoundary[] instanceBoundaries =  response.body();
-
                         for (InstanceBoundary instanceBoundary:instanceBoundaries) {
                             if(instanceBoundary.getType().equals("user")){
-                                Log.d("roman",(String)instanceBoundary.getInstanceAttributes().get("firstName")+" ddddd");
                                 dataManger.getMyInstances().put("user",instanceBoundary.getInstanceId().getId());
                                 dataManger.getCurrentUser().setFirstName((String)instanceBoundary.getInstanceAttributes().get("firstName"));
                                 dataManger.getCurrentUser().setLastName((String)instanceBoundary.getInstanceAttributes().get("lastName"));
+                            }else if(instanceBoundary.getType().equals("trip")){
+                                try {
+                                    Gson g = new Gson();
+                                    Trip trip = g.fromJson(g.toJsonTree(instanceBoundary.getInstanceAttributes().get("trip")),Trip.class);
+                                    dataManger.getMyInstances().put("trip"+trip.getId(),instanceBoundary.getInstanceId().getId());
+                                    dataManger.getUpcomingTripList().add(trip);
+                                }catch (Exception e){
+                                    Log.d("error",e.getMessage());
+                                }
                             }
                         }
+                        dataManger.getCallBackCreateTrip().createTrip();
                     }
 
                     @Override
@@ -260,6 +266,9 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
 
     private void replaceActivity(Class activity) {
         Intent intent = new Intent(this, activity);

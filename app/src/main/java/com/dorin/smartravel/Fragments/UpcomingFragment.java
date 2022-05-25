@@ -79,7 +79,7 @@ public class UpcomingFragment extends Fragment {
     }
 
 
-
+////////////////rate////////////////////////////////////////////////
     private void checkTripForRate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
         Date date = new Date();
@@ -88,7 +88,6 @@ public class UpcomingFragment extends Fragment {
                 if(!trip.getIsRate() && trip.getEndDate().equals(formatter.format(date))){
                     ViewDialogRating dialogRating=new ViewDialogRating();
                     dialogRating.showDialog(activity,trip,trip.getRates(),callback_viewDialog);
-
                 }
             }
         }

@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
     Animation topAnimation, bottomAnimation, middleAnimation;
 
     private DataManger dataManger;
-    private LocationManager locationManager ;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
         dataManger = DataManger.getInstance();
         locationManager = new LocationManager(this);
         locationManager.setCallBackLocation(callBackLocation);
+        locationManager.getLocationPermission();
         dataManger.fetchDataFromUrl.start();
     }
 
@@ -55,13 +56,12 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            }
-        }
+        locationManager.getLocation();
     }
 
 
@@ -111,7 +111,5 @@ public class SplashActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 
 }
