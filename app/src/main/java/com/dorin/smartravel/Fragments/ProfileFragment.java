@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.dorin.smartravel.Activities.ProfileEditActivity;
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;

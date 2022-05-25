@@ -4,26 +4,18 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.dorin.smartravel.DataManger;
-import com.dorin.smartravel.Objects.User;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.retrofit.Convertor;
 import com.dorin.smartravel.retrofit.UserApi;
-import com.dorin.smartravel.serverObjects.CreatedBy;
-import com.dorin.smartravel.serverObjects.DomainWithEmail;
 import com.dorin.smartravel.serverObjects.InstanceBoundary;
 import com.dorin.smartravel.serverObjects.UserBoundary;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,10 +25,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.gson.internal.LinkedTreeMap;
-
-
-import java.util.Map;
 
 
 import retrofit2.Call;

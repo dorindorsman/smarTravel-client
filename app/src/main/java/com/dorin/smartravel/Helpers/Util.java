@@ -1,4 +1,4 @@
-package com.dorin.smartravel;
+package com.dorin.smartravel.Helpers;
 
 import android.content.res.Resources;
 import android.graphics.Rect;

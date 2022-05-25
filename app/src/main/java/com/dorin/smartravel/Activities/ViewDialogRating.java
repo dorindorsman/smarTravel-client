@@ -1,4 +1,4 @@
-package com.dorin.smartravel;
+package com.dorin.smartravel.Activities;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dorin.smartravel.Adapters.QuestionAdapter;
 import com.dorin.smartravel.Objects.Question;
 import com.dorin.smartravel.Objects.Trip;
+import com.dorin.smartravel.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 

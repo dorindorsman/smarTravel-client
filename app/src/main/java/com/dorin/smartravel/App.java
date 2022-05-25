@@ -2,12 +2,7 @@ package com.dorin.smartravel;
 
 import android.app.Application;
 
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.net.PlacesClient;
-
-import java.io.FileInputStream;
-import java.util.Locale;
-import java.util.Properties;
+import com.dorin.smartravel.Helpers.DataManger;
 
 
 public class App extends Application {

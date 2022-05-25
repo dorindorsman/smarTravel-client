@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.R;
-import com.dorin.smartravel.Validator;
+import com.dorin.smartravel.Helpers.Validator;
 import com.dorin.smartravel.retrofit.Convertor;
 import com.dorin.smartravel.retrofit.UserApi;
 import com.dorin.smartravel.serverObjects.ActivityBoundary;

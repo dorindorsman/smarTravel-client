@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dorin.smartravel.CallBacks.CallBackListPlaces;
-import com.dorin.smartravel.DataManger;
-import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Place;
 import com.dorin.smartravel.R;
 import com.google.android.gms.maps.CameraUpdateFactory;

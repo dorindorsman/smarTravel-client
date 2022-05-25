@@ -1,7 +1,7 @@
 package com.dorin.smartravel.Activities;
 
 import com.bumptech.glide.Glide;
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Fragments.*;
 
 import androidx.annotation.NonNull;
@@ -14,16 +14,13 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.dorin.smartravel.LocationManager;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.retrofit.Convertor;
 import com.dorin.smartravel.retrofit.UserApi;

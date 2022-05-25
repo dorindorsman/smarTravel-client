@@ -12,7 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;

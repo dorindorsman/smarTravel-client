@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.retrofit.Convertor;

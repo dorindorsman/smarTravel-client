@@ -13,15 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.Adapters.DaysAdapter;
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
-import com.dorin.smartravel.DataManger;
-import com.dorin.smartravel.Objects.DayTrip;
-import com.dorin.smartravel.Objects.Trip;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.R;
-import com.dorin.smartravel.Util;
+import com.dorin.smartravel.Helpers.Util;
 import com.google.android.material.appbar.MaterialToolbar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DaysPathTripFragment extends Fragment {
 

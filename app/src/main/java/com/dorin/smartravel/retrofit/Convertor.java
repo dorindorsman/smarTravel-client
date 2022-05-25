@@ -1,8 +1,6 @@
 package com.dorin.smartravel.retrofit;
 
-import android.util.Log;
-
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.Objects.User;
 import com.dorin.smartravel.serverObjects.ActivityBoundary;
@@ -12,7 +10,6 @@ import com.dorin.smartravel.serverObjects.DomainWithId;
 import com.dorin.smartravel.serverObjects.Instance;
 import com.dorin.smartravel.serverObjects.InstanceBoundary;
 import com.dorin.smartravel.serverObjects.InvokedBy;
-import com.dorin.smartravel.serverObjects.Location;
 import com.dorin.smartravel.serverObjects.UserBoundary;
 import com.google.gson.internal.LinkedTreeMap;
 

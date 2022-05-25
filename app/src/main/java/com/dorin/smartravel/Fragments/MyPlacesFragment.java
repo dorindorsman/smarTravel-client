@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -15,21 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.Adapters.PlacesAdapter;
 import com.dorin.smartravel.CallBacks.CallBackListPlaces;
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Objects.DayTrip;
 import com.dorin.smartravel.Objects.Place;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
-import com.dorin.smartravel.Util;
-import com.google.android.gms.common.api.Status;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.android.material.appbar.MaterialToolbar;
+import com.dorin.smartravel.Helpers.Util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MyPlacesFragment extends Fragment {

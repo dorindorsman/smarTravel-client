@@ -7,22 +7,16 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.AnticipateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.dorin.smartravel.DataManger;
-import com.dorin.smartravel.LocationManager;
+import com.dorin.smartravel.Helpers.DataManger;
+import com.dorin.smartravel.Helpers.LocationManager;
 import com.dorin.smartravel.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 public class SplashActivity extends AppCompatActivity {
 

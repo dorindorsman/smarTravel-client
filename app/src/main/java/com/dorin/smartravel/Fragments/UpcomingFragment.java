@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dorin.smartravel.Adapters.TripAdapter;
 import com.dorin.smartravel.CallBacks.CallBackCreateTrip;
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
-import com.dorin.smartravel.Util;
-import com.dorin.smartravel.ViewDialogRating;
+import com.dorin.smartravel.Helpers.Util;
+import com.dorin.smartravel.Activities.ViewDialogRating;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,9 +75,10 @@ public class UpcomingFragment extends Fragment {
         dataManger = DataManger.getInstance();
         dataManger.setCallBackCreateTrip(callBackCreateTrip);
         findViews(view);
-        checkTripForRate();
         return view;
     }
+
+
 
     private void checkTripForRate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");

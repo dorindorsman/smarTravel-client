@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.CallBacks.CallBackItemClick;
-import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Helpers.DataManger;
 import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.Adapters.TripAdapter;
 import com.dorin.smartravel.R;
-import com.dorin.smartravel.Util;
-import com.dorin.smartravel.ViewDialogRating;
+import com.dorin.smartravel.Helpers.Util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
