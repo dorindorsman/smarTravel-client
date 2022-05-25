@@ -40,7 +40,8 @@ public class DataManger {
     private DayTrip currentDayTrip;
     private RetrofitService retrofitService;
 
-    private List<Trip> tripList;
+    private List<Trip> upcomingTripList;
+    private List<Trip> historyTripList;
 
     public CallBackCreateTrip getCallBackCreateTrip() {
         return callBackCreateTrip;
@@ -62,7 +63,7 @@ public class DataManger {
         currentUser = new User();
         currentTrip = new Trip();
         myInstances =  new LinkedTreeMap<>();
-        tripList=new ArrayList<Trip>();
+        upcomingTripList =new ArrayList<Trip>();
 
     }
 
@@ -146,12 +147,12 @@ public class DataManger {
         return this;
     }
 
-    public List<Trip> getTripList() {
-        return tripList;
+    public List<Trip> getUpcomingTripList() {
+        return upcomingTripList;
     }
 
-    public DataManger setTripList(List<Trip> tripList) {
-        this.tripList = tripList;
+    public DataManger setUpcomingTripList(List<Trip> upcomingTripList) {
+        this.upcomingTripList = upcomingTripList;
         return this;
     }
 
@@ -161,6 +162,15 @@ public class DataManger {
 
     public DataManger setInstanceTripCounter(int instanceTripCounter) {
         this.instanceTripCounter = instanceTripCounter;
+        return this;
+    }
+
+    public List<Trip> getHistoryTripList() {
+        return historyTripList;
+    }
+
+    public DataManger setHistoryTripList(List<Trip> historyTripList) {
+        this.historyTripList = historyTripList;
         return this;
     }
 }

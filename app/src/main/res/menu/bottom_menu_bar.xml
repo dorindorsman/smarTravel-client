@@ -28,7 +28,8 @@
         android:id="@+id/menu_myPlaces"
         android:icon="@drawable/ic_favorite"
         android:title="@string/MyPlaces"
-        app:showAsAction="always" />
+        app:showAsAction="never"
+        />
 
     <item
         android:id="@+id/menu_profile"

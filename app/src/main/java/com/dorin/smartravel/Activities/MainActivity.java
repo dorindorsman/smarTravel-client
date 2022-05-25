@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment[] main_fragments;
     private FragmentManager fragmentManager;
 
+    private int currentState;
     private DataManger dataManger;
 
 
@@ -152,10 +153,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         main_bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
                 switch (item.getItemId()){
                     case R.id.menu_upcoming:
                         main_Toolbar_Top.setTitle(R.string.Upcoming);
@@ -167,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_myPlaces:
                         main_Toolbar_Top.setTitle(R.string.MyPlaces);
-                        //replaceFragments(main_fragments[MY_PLACES]);
-                        replaceActivity(MyPlacesActivity.class);
+                        replaceFragments(main_fragments[MY_PLACES]);
+                        //replaceActivity(MyPlacesActivity.class);
                         break;
                     case R.id.menu_profile:
                         main_Toolbar_Top.setTitle(R.string.Profile);
@@ -195,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_myPlaces:
                         main_Toolbar_Top.setTitle(R.string.MyPlaces);
-                        //replaceFragments(main_fragments[MY_PLACES]);
-                        replaceActivity(MyPlacesActivity.class);
+                        replaceFragments(main_fragments[MY_PLACES]);
+//                        replaceActivity(MyPlacesActivity.class);
                         break;
                     case R.id.menu_profile:
                         main_Toolbar_Top.setTitle(R.string.Profile);

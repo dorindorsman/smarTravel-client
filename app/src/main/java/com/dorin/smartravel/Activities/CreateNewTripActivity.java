@@ -1,7 +1,6 @@
 package com.dorin.smartravel.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -27,11 +26,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +46,7 @@ public class CreateNewTripActivity extends AppCompatActivity {
     private DatePickerDialog endDatePickerDialog;
     private Date start;
     private Date end;
-    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     private DataManger dataManger;
 
@@ -95,8 +91,8 @@ public class CreateNewTripActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    start=format.parse(createTrip_TIN_StartDate.getEditText().getText().toString());
-                    end=format.parse(createTrip_TIN_EndDate.getEditText().getText().toString());
+                    start= formatter.parse(createTrip_TIN_StartDate.getEditText().getText().toString());
+                    end= formatter.parse(createTrip_TIN_EndDate.getEditText().getText().toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -187,17 +183,15 @@ public class CreateNewTripActivity extends AppCompatActivity {
                     trip.getDayTripList().remove(trip.getDayTripList().size()-1);
                 }
                 for (DayTrip day:trip.getDayTripList()) {
-                    // DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
-                   // String formattedDate = formatter.format(start);
-                    // FIXME: 5/24/2022 fix date 
-                    day.setDate(start.toString());
+                    // FIXME: 5/24/2022 fix date
+                    day.setDate(formatter.format(start));
                     day.setTitle();
                     Calendar c = Calendar.getInstance();
                     c.setTime(start);
                     c.add(Calendar.DATE, 1);
                     start = c.getTime();
                 }
-                dataManger.getTripList().add(trip);
+                dataManger.getUpcomingTripList().add(trip);
                 dataManger.getCallBackCreateTrip().createTrip();
                 Toast.makeText(CreateNewTripActivity.this,"Trip Added Successfully",Toast.LENGTH_LONG).show();
                 createInstanceTrip(trip);

@@ -151,12 +151,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                    for (Trip t:dataManger.getTripList()) {
+                                    for (Trip t:dataManger.getUpcomingTripList()) {
                                         if (trip.getId()==t.getId()){
-                                            Log.d("roman","delete trip "+t.getName()+dataManger.getTripList().indexOf(t));
+                                            Log.d("roman","delete trip "+t.getName()+dataManger.getUpcomingTripList().indexOf(t));
                                             createActivityBoundary(t);
-                                            callBackItemClick.itemDelete(dataManger.getTripList().indexOf(t));
-                                            dataManger.getTripList().remove(t);
+                                            callBackItemClick.itemDelete(dataManger.getUpcomingTripList().indexOf(t));
+                                            dataManger.getUpcomingTripList().remove(t);
                                             break;
                                         }
                                     }

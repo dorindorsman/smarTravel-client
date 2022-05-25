@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.CallBacks.CallBackListPlaces;
+import com.dorin.smartravel.Objects.Place;
 import com.dorin.smartravel.R;
-import com.google.android.libraries.places.api.model.Place;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.MyViewHold
                 @Override
                 public void onClick(View view) {
                     Place place = getItemPosition(getAdapterPosition());
-                    callBackListPlaces.rowSelected(place.getLatLng().longitude,place.getLatLng().latitude);
+                    callBackListPlaces.rowSelected(place.getLocation().getLng(),place.getLocation().getLat());
                 }
             });
         }

@@ -15,14 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dorin.smartravel.Adapters.PlacesAdapter;
 import com.dorin.smartravel.CallBacks.CallBackListPlaces;
+import com.dorin.smartravel.DataManger;
+import com.dorin.smartravel.Objects.DayTrip;
+import com.dorin.smartravel.Objects.Place;
+import com.dorin.smartravel.Objects.Trip;
 import com.dorin.smartravel.R;
 import com.dorin.smartravel.Util;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,13 +35,18 @@ import java.util.List;
 public class MyPlacesFragment extends Fragment {
 
     private AppCompatActivity activity;
-    private CallBackListPlaces callBackListPlaces;
+    private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
+    private CallBackListPlaces callBackListPlaces= new CallBackListPlaces() {
+        @Override
+        public void rowSelected(double longitude, double latitude) {
 
-
-    private AutocompleteSupportFragment autocompleteFragment;
-    private RecyclerView Favorites_RecyclerView_favPlaces;
+        }
+    };
+  //  private MaterialToolbar MyPlaces_toolBar;
+    private RecyclerView myPlaces_RecyclerView;
     private PlacesAdapter placesAdapter;
     private List<Place> placesList;
+    private DataManger dataManger;
 
 
     public Fragment setActivity(AppCompatActivity activity){
@@ -53,12 +62,8 @@ public class MyPlacesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize the SDK
-        Places.initialize(getActivity(), "AIzaSyC1ceioN4zpyYHA2Tp1DshESpJob8ife84");
+        dataManger = DataManger.getInstance();
 
-
-        // Create a new PlacesClient instance
-        PlacesClient placesClient = Places.createClient(getActivity());
     }
 
     @Override
@@ -67,41 +72,25 @@ public class MyPlacesFragment extends Fragment {
 
         View view=  inflater.inflate(R.layout.fragment_my_places, container, false);
         findViews(view);
-        initPlaceFragment();
-        preparePlaces();
+
 
 
 
         return view;
     }
 
-    private void initPlaceFragment() {
-
-       autocompleteFragment = (AutocompleteSupportFragment)
-                getParentFragmentManager().findFragmentById(R.id.MyPlaces_autocomplete_fragment);
-
-
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(@NonNull Place place) {
-                // TODO: Get info about the selected place.
-                Log.d("TAG", "Place: " + place.getName() + ", " + place.getId());
+    private void initPlaces() {
+        for (Trip t:dataManger.fetchDataFromUrl.trips) {
+            for (DayTrip day:t.getDayTripList()) {
+                for(Place p : day.getPlacesList()){
+                    placesList.add(p);
+                    Log.d("roman",p.toString()+"");
+                }
             }
-
-
-            @Override
-            public void onError(@NonNull Status status) {
-                // TODO: Handle the error.
-                Log.i("TAG", "An error occurred: " + status);
-            }
-        });
-
-
+        }
     }
+
+
 
     private void preparePlaces() {
         placesAdapter.notifyDataSetChanged();
@@ -110,15 +99,26 @@ public class MyPlacesFragment extends Fragment {
 
 
     private void findViews(View view) {
-        Favorites_RecyclerView_favPlaces = view.findViewById(R.id.MyPlaces_RecyclerView_Places);
+//        MyPlaces_toolBar = view.findViewById(R.id.MyPlaces_toolBar);
+//        MyPlaces_toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//            }
+//        });
+
+
+        myPlaces_RecyclerView = view.findViewById(R.id.MyPlaces_RecyclerView_Places);
         placesList = new ArrayList<>();
+        initPlaces();
         placesAdapter = new PlacesAdapter(this.activity, placesList,callBackListPlaces);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.activity, 1);
-        Favorites_RecyclerView_favPlaces.setLayoutManager(mLayoutManager);
-        Favorites_RecyclerView_favPlaces.addItemDecoration(new Util(1, Util.dpToPx(10,getResources()), true));
-        Favorites_RecyclerView_favPlaces.setItemAnimator(new DefaultItemAnimator());
-        Favorites_RecyclerView_favPlaces.setAdapter(placesAdapter);
+        myPlaces_RecyclerView.setLayoutManager(mLayoutManager);
+        myPlaces_RecyclerView.addItemDecoration(new Util(1, Util.dpToPx(10,getResources()), true));
+        myPlaces_RecyclerView.setItemAnimator(new DefaultItemAnimator());
+        myPlaces_RecyclerView.setAdapter(placesAdapter);
     }
 
 
@@ -137,22 +137,5 @@ public class MyPlacesFragment extends Fragment {
 
 
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
-//            if (resultCode == RESULT_OK) {
-//                Place place = Autocomplete.getPlaceFromIntent(data);
-//                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-//            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-//                // TODO: Handle the error.
-//                Status status = Autocomplete.getStatusFromIntent(data);
-//                Log.i(TAG, status.getStatusMessage());
-//            } else if (resultCode == RESULT_CANCELED) {
-//                // The user canceled the operation.
-//            }
-//            return;
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
 
 }

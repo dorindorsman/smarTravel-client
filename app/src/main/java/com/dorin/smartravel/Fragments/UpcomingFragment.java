@@ -82,8 +82,8 @@ public class UpcomingFragment extends Fragment {
     private void checkTripForRate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
         Date date = new Date();
-        if(!dataManger.getTripList().isEmpty()){
-            for (Trip trip:dataManger.getTripList()) {
+        if(!dataManger.getUpcomingTripList().isEmpty()){
+            for (Trip trip:dataManger.getUpcomingTripList()) {
                 if(!trip.getIsRate() && trip.getEndDate().equals(formatter.format(date))){
                     ViewDialogRating dialogRating=new ViewDialogRating();
                     dialogRating.showDialog(activity,trip,trip.getRates(),callback_viewDialog);
@@ -95,7 +95,7 @@ public class UpcomingFragment extends Fragment {
 
     private void findViews(View view) {
         Upcoming_RecyclerView_Trips = view.findViewById(R.id.Upcoming_RecyclerView_Trips);
-        tripAdapter = new TripAdapter(this.activity, dataManger.getTripList(),callBackItemClick);
+        tripAdapter = new TripAdapter(this.activity, dataManger.getUpcomingTripList(),callBackItemClick);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.activity, 2);
         Upcoming_RecyclerView_Trips.setLayoutManager(mLayoutManager);

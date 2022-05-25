@@ -17,18 +17,12 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/ic_logo" />
 
-        <fragment android:id="@+id/MyPlaces_autocomplete_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/MyPlaces_IMG_Icon"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/MyPlaces_RecyclerView_Places"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/MyPlaces_autocomplete_fragment"
+                android:layout_below="@+id/MyPlaces_IMG_Icon"
                 android:layout_marginBottom="0dp"
                 android:clipToPadding="false"
                 android:paddingBottom="75dp"

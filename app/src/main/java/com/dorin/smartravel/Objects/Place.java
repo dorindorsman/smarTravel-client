@@ -40,4 +40,13 @@ public class Place {
         this.location = location;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", location=" + location +
+                '}';
+    }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.dorin.smartravel.CallBacks.CallBackListPlaces;
 import com.dorin.smartravel.DataManger;
 import com.dorin.smartravel.Objects.DayTrip;
+import com.dorin.smartravel.Objects.Place;
 import com.dorin.smartravel.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,7 +20,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.libraries.places.api.model.Place;
 
 import java.util.List;
 
@@ -28,7 +28,6 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
     private AppCompatActivity activity;
     private PlacesListFragment placesListFragment;
     private GoogleMap mMap;
-    private DayTrip currentDayTrip;
 
 
 
@@ -44,9 +43,6 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentDayTrip = DataManger.getInstance().getCurrentDayTrip();
-
-        findViews();
     }
 
     @Override
@@ -66,8 +62,8 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
             LatLng point = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions()
                     .position(point)
-                    .title("* Crash Site * | Pilot Name: " ));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 13.0f));
+                    .title(" " ));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17.0f));
         }
     };
 
@@ -92,9 +88,9 @@ public class DayTripFragment extends Fragment implements OnMapReadyCallback {
         List<Place> placeList=placesListFragment.getPlacesList();
         for (Place place:placeList) {
             mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude))
+                    .position(new LatLng(place.getLocation().getLat(), place.getLocation().getLng()))
                     .title(place.getName()));
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(placeList.get(0).getLatLng(),14.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(placeList.get(0).getLocation().getLat(), placeList.get(0).getLocation().getLng()),14.0f));
     }
 }

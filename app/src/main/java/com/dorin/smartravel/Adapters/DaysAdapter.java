@@ -21,6 +21,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.MyViewHolder> 
     private Context mContext;
     private List<DayTrip> dayTripList;
     private CallBackItemClick callBackItemClick;
+    private DataManger dataManger = DataManger.getInstance();
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -34,7 +35,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.MyViewHolder> 
                 @Override
                 public void onClick(View view) {
                     DayTrip dayTrip = getItemPosition(getAdapterPosition());
-                    DataManger.getInstance().setCurrentDayTrip(dayTrip);
+                    dataManger.setCurrentDayTrip(dayTrip);
                     callBackItemClick.itemClick();
                 }
             });
